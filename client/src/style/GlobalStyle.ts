@@ -42,8 +42,15 @@ const GlobalStyle = createGlobalStyle`
     text-decoration:none;
   }
   body{
-    background-color: ${colors.background};
+    background-color: ${colors.secondary};
     color: ${colors.titleActive};
+  }
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
   }
 `;
 
