@@ -1,13 +1,37 @@
 import React from 'react';
+import styled from 'styled-components';
+import colors from './constants/colors';
+import MainPage from './pages/MainPage';
 import GlobalStyle from './style/GlobalStyle';
+import mixin from './style/mixin';
 
-function App() {
+export default function App() {
   return (
     <>
       <GlobalStyle />
-      <div className="App">가보자구</div>;
+      <KioskMachine>
+        <Display>
+          <MainPage />
+        </Display>
+      </KioskMachine>
     </>
   );
 }
 
-export default App;
+const KioskMachine = styled.div`
+  background: black;
+  padding: 4rem;
+  width: 960px;
+  height: 1440px;
+  margin: 5rem auto;
+  border-radius: 3rem;
+`;
+
+const Display = styled.div`
+  ${mixin.flexMixin({ direction: 'column', align: 'space-around' })}
+  position: relative;
+  height: 100%;
+  background: ${colors.background};
+  padding: 1rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+`;
