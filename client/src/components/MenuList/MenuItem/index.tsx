@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../../../constants/colors';
-import { IMenu } from '../../../types';
-import mixin from '../../../style/mixin';
+import colors from 'constants/colors';
+import { IMenu } from 'types';
+import mixin from 'style/mixin';
 
 export default function MenuItem({
   id,

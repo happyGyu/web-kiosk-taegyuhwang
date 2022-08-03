@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import colors from '../../constants/colors';
+import colors from 'constants/colors';
+import { IMenuCategory } from 'types';
+import mixin from 'style/mixin';
 import MenuCategoryItem from './MenuCategoryItem';
-import { IMenuCategory } from '../../types';
-import mixin from '../../style/mixin';
 
 const dummyMenuCategories = [
   { categoryId: 1, categoryName: '에스프레소' },

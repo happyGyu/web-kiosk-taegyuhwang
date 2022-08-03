@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from './constants/colors';
-import MainPage from './pages/MainPage';
-import GlobalStyle from './style/GlobalStyle';
-import mixin from './style/mixin';
+import GlobalStyle from 'style/GlobalStyle';
+import colors from 'constants/colors';
+import MainPage from 'pages/MainPage';
+import mixin from 'style/mixin';
 
 export default function App() {
   return (

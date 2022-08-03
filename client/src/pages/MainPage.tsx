@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MenuCategoryNav from '../components/MenuCategoryNav';
-import MenuList from '../components/MenuList';
+import MenuCategoryNav from 'components/MenuCategoryNav';
+import MenuList from 'components/MenuList';
 
 export default function MainPage() {
   return (
