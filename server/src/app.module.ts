@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from './typeorm.config';
-import KioskModule from './kiosk/kiosk.module';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeORMConfig), KioskModule],
+  imports: [TypeOrmModule.forRoot(typeORMConfig), MenuModule],
 })
 export class AppModule {}
