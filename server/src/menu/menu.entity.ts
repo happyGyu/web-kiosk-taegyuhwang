@@ -1,14 +1,8 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Category } from './category.entity';
 
 @Entity()
-export class Menu extends BaseEntity {
+export class Menu {
   @PrimaryGeneratedColumn()
   id: number;
 
