@@ -25,11 +25,6 @@ export class MenuOptionController {
     return this.menuOptionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.menuOptionService.findOne(+id);
-  }
-
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -41,5 +36,10 @@ export class MenuOptionController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.menuOptionService.remove(+id);
+  }
+
+  @Get(':id')
+  getMenuOptionsByMenuId(@Param('id') menuId: string) {
+    return this.menuOptionService.getMenuOptionsByMenuId(parseInt(menuId));
   }
 }

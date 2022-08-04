@@ -12,6 +12,6 @@ export class MenuOptionCategory {
   @Column()
   isOptional: boolean;
 
-  @OneToMany(() => MenuOption, (menuOption) => menuOption.id)
+  @OneToMany(() => MenuOption, (menuOption) => menuOption.category)
   menuOptions: MenuOption[];
 }
