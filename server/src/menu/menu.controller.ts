@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { MenuCategory } from './entities/menuCategory.entity';
+import { Controller, Get } from '@nestjs/common';
+import { MenuType } from './entities/menuType';
 import { MenuService } from './menu.service';
 
 @Controller('menus')
@@ -7,17 +7,7 @@ export class MenuController {
   constructor(private menuService: MenuService) {}
 
   @Get()
-  getAllMenusByCategory(): Promise<MenuCategory[]> {
+  getAllMenusByCategory(): Promise<MenuType[]> {
     return this.menuService.getAllMenusByCategory();
-  }
-
-  @Get('categories')
-  getAllCategories(): Promise<MenuCategory[]> {
-    return this.menuService.getAllCategories();
-  }
-
-  @Get('/:id')
-  getMenuOptionsByMenuId(@Param('id') menuId: string) {
-    return this.menuService.getMenuOptions(parseInt(menuId));
   }
 }

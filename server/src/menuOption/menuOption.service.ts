@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Menu } from 'src/menu/entities/menu.entity';
+import { MenuToMenuOption } from 'src/menu/entities/menuToMenuOption.entity';
 import { Repository } from 'typeorm';
 import { CreateMenuOptionDto } from './dto/createMenuOption.dto';
 import { UpdateMenuOptionDto } from './dto/updateMenuOption.dto';
@@ -50,3 +52,32 @@ export class MenuOptionService {
     });
   }
 }
+
+// const builder =
+//   this.menuOptionCategoryRepository.manager.createQueryBuilder(
+//     MenuOptionCategory,
+//     'category',
+//   );
+
+// const res = await builder
+//   .leftJoinAndSelect(
+//     MenuOption,
+//     'menuOptions',
+//     'menuOptions.category = category.id',
+//   )
+//   // .leftJoinAndSelect(
+//   //   MenuToMenuOption,
+//   //   'menuToMenuOption',
+//   //   'menuToMenuOption.menuOption = menuOptions.id',
+//   // )
+//   // .leftJoinAndSelect(
+//   //   Menu,
+//   //   'menu',
+//   //   'menuToMenuOption.menu = menu.menuOptions',
+//   // )
+//   .execute();
+// console.log(res);
+
+// return res;
+
+// return builder.where('category.id = :id', { id: 1 });

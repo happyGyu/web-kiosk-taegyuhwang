@@ -5,7 +5,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { MenuCategory } from './menuCategory.entity';
+import { MenuType } from './menuType';
 import { MenuToMenuOption } from './menuToMenuOption.entity';
 
 @Entity()
@@ -25,8 +25,8 @@ export class Menu {
   @Column()
   isSoldOut: boolean;
 
-  @ManyToOne(() => MenuCategory, (category) => category.menus)
-  category: MenuCategory;
+  @ManyToOne(() => MenuType, (category) => category.menus)
+  type: MenuType;
 
   @OneToMany(
     () => MenuToMenuOption,
