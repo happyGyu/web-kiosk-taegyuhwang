@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Category } from './category.entity';
+import { MenuCategory } from './menuCategory.entity';
 
 @Entity()
 export class Menu {
@@ -18,6 +18,6 @@ export class Menu {
   @Column()
   isSoldOut: boolean;
 
-  @ManyToOne(() => Category, (category) => category.menus)
-  category: Category;
+  @ManyToOne(() => MenuCategory, (category) => category.menus)
+  category: MenuCategory;
 }
