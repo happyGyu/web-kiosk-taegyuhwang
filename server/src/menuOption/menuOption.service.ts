@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOptionDto } from './dto/create-option.dto';
-import { UpdateOptionDto } from './dto/update-option.dto';
+import { CreateMenuOptionDto } from './dto/createMenuOption.dto';
+import { UpdateMenuOptionDto } from './dto/updateMenuOption.dto';
 
 @Injectable()
-export class OptionService {
-  create(createOptionDto: CreateOptionDto) {
+export class MenuOptionService {
+  create(createMenuOptionDto: CreateMenuOptionDto) {
     return 'This action adds a new option';
   }
 
@@ -16,7 +16,7 @@ export class OptionService {
     return `This action returns a #${id} option`;
   }
 
-  update(id: number, updateOptionDto: UpdateOptionDto) {
+  update(id: number, updateMenuOptionDto: UpdateMenuOptionDto) {
     return `This action updates a #${id} option`;
   }
 

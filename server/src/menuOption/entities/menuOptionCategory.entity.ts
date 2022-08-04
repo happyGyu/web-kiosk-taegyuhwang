@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Option } from './option.entity';
+import { MenuOption } from './menuOption.entity';
 
 @Entity()
-export class OptionCategory {
+export class MenuOptionCategory {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,6 +12,6 @@ export class OptionCategory {
   @Column()
   isOptional: boolean;
 
-  @OneToMany(() => Option, (option) => option.id)
-  options: Option[];
+  @OneToMany(() => MenuOption, (menuOption) => menuOption.id)
+  menuOptions: MenuOption[];
 }
