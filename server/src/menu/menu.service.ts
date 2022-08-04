@@ -13,9 +13,12 @@ export class MenuService {
     private menuCategoryRepository: Repository<MenuCategory>,
   ) {}
 
-  async getAllMenus(): Promise<Menu[]> {
-    this.menuRepository.createQueryBuilder('menu');
-    return await this.menuRepository.find();
+  async getAllMenusByCategory(): Promise<MenuCategory[]> {
+    return await this.menuCategoryRepository.find({
+      relations: {
+        menus: true,
+      },
+    });
   }
 
   async getAllCategories(): Promise<MenuCategory[]> {
