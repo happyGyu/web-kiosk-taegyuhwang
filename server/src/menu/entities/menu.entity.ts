@@ -5,8 +5,8 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { MenuType } from './menuType';
-import { MenuToMenuOption } from './menuToMenuOption.entity';
+import { MenuType } from './menuType.entity';
+import { MenuHasChoice } from './menuHasChoice.entity';
 
 @Entity()
 export class Menu {
@@ -28,9 +28,6 @@ export class Menu {
   @ManyToOne(() => MenuType, (category) => category.menus)
   type: MenuType;
 
-  @OneToMany(
-    () => MenuToMenuOption,
-    (menuToMenuOption) => menuToMenuOption.menu,
-  )
-  menuOptions: MenuToMenuOption[];
+  @OneToMany(() => MenuHasChoice, (menuHasChoice) => menuHasChoice.menuToChoice)
+  choices: MenuHasChoice[];
 }
