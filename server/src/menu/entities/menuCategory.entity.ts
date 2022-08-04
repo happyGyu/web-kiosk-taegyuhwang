@@ -6,7 +6,7 @@ export class MenuCategory {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @OneToMany(() => Menu, (menu) => menu.category)
