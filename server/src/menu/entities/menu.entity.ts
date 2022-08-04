@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { MenuType } from './menuType.entity';
 import { MenuHasChoice } from './menuHasChoice.entity';
+import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 
 @Entity()
 export class Menu {
@@ -30,4 +31,7 @@ export class Menu {
 
   @OneToMany(() => MenuHasChoice, (menuHasChoice) => menuHasChoice.menuToChoice)
   choices: MenuHasChoice[];
+
+  @OneToMany(() => SoldMenu, (soldMenu) => soldMenu.menu)
+  soldMenus: SoldMenu[];
 }
