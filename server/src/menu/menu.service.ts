@@ -10,7 +10,7 @@ export class MenuService {
     @InjectRepository(Menu)
     private menuRepository: Repository<Menu>,
     @InjectRepository(MenuCategory)
-    private categoryRepository: Repository<MenuCategory>,
+    private menuCategoryRepository: Repository<MenuCategory>,
   ) {}
 
   async getAllMenus(): Promise<Menu[]> {
@@ -19,6 +19,6 @@ export class MenuService {
   }
 
   async getAllCategories(): Promise<MenuCategory[]> {
-    return await this.categoryRepository.find();
+    return await this.menuCategoryRepository.find();
   }
 }
