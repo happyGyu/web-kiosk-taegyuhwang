@@ -7,7 +7,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 export default function CartUtils() {
   return (
-    <Container flexInfo={{ direction: 'column' }} gap={0.125}>
+    <Container flexInfo={{ direction: 'column' }} gap={0.125} width="100%">
       <Container flexInfo={{ align: 'center' }} gap={0.125} width="100%">
         <CustomButton width="25%" backgroundColor={colors.tertiary}>
           <DeleteOutlinedIcon />

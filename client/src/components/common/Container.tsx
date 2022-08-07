@@ -34,6 +34,7 @@ const Container = styled.div<{
   right?: string;
   top?: string;
   bottom?: string;
+  flexGrow?: number;
 }>`
   ${({
     width,
@@ -50,6 +51,7 @@ const Container = styled.div<{
     right,
     top,
     bottom,
+    flexGrow,
   }) => css`
     ${width && `width: ${width};`}
     ${height && `height: ${height};`}
@@ -65,6 +67,7 @@ const Container = styled.div<{
     ${right && `right : ${right};`}
     ${top && `top : ${top};`}
     ${bottom && `bottom : ${bottom};`}
+    ${flexGrow && `flex-grow : ${flexGrow};`}
   `}
 
   ${({ flexInfo }) => flexInfo && mixin.flexMixin(flexInfo)}
