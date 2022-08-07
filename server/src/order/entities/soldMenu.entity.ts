@@ -13,6 +13,9 @@ export class SoldMenu {
   @Column('decimal')
   sales: number;
 
+  @Column()
+  choiceSummary: string;
+
   @ManyToOne(() => Order, (order) => order.soldMenus)
   order: Order;
 

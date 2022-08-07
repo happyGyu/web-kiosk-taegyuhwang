@@ -9,7 +9,7 @@ export class ChoiceController {
   @Get()
   async getMenuOptionsByMenuId(
     @Res() res: Response,
-    @Query('menu_id') menuId: string,
+    @Query('menu-id') menuId: string,
   ) {
     const options = await this.choiceService.getChoicesByMenuId(
       parseInt(menuId),

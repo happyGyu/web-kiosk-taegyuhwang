@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 config();
 
@@ -12,4 +13,8 @@ export const typeORMConfig: TypeOrmModuleOptions = {
   database: process.env.DB_NAME,
   entities: [__dirname + '/**/entities/*.entity.{js,ts}'],
   synchronize: process.env.NODE_ENV === 'development',
+  namingStrategy: new SnakeNamingStrategy(),
+  extra: {
+    decimalNumbers: true,
+  },
 };
