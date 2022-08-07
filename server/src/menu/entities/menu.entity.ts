@@ -9,11 +9,7 @@ import { MenuCategory } from './menuCategory.entity';
 import { MenuHasChoice } from './menuHasChoice.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 
-@Entity({
-  orderBy: {
-    id: 'DESC',
-  },
-})
+@Entity()
 export class Menu {
   @PrimaryGeneratedColumn()
   id: number;
