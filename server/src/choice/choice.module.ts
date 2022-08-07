@@ -9,5 +9,6 @@ import { ChoiceService } from './choice.service';
   imports: [TypeOrmModule.forFeature([Choice, ChoiceGroup])],
   controllers: [ChoiceController],
   providers: [ChoiceService],
+  exports: [ChoiceService],
 })
 export class ChoiceModule {}
