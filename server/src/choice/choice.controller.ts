@@ -1,6 +1,7 @@
 import { Controller, Get, Query, Res, HttpStatus } from '@nestjs/common';
-import { ChoiceService } from './choice.service';
 import { Response } from 'express';
+
+import { ChoiceService } from './choice.service';
 
 @Controller('choices')
 export class ChoiceController {

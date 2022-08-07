@@ -1,5 +1,6 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { Choice } from './entities/choice.entity';
 import { ChoiceGroup } from './entities/choiceGroup.entity';
 import { ChoiceController } from './choice.controller';

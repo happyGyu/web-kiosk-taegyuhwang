@@ -1,9 +1,10 @@
-import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Menu } from './entities/menu.entity';
 import { MenuCategory } from './entities/menuCategory.entity';
+import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 
 @Injectable()
 export class MenuService {

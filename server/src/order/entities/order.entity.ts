@@ -1,4 +1,3 @@
-import { PaymentMethod } from 'src/paymentMethod/entities/paymentMethod.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,7 +5,9 @@ import {
   OneToMany,
   CreateDateColumn,
 } from 'typeorm';
+
 import { SoldMenu } from './soldMenu.entity';
+import { PaymentMethod } from 'src/paymentMethod/entities/paymentMethod.entity';
 
 @Entity()
 export class Order {

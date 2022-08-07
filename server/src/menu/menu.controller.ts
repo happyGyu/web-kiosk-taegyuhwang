@@ -1,6 +1,7 @@
-import { Controller, Get, HttpStatus, Param, Query, Res } from '@nestjs/common';
-import { MenuService } from './menu.service';
 import { Response } from 'express';
+import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
+
+import { MenuService } from './menu.service';
 
 @Controller('menus')
 export class MenuController {
