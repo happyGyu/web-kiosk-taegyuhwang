@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Query, Res } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { Response } from 'express';
 
@@ -16,5 +16,16 @@ export class MenuController {
   async getAllCategories(@Res() res: Response) {
     const categories = await this.menuService.getAllCategories();
     return res.status(HttpStatus.OK).json({ categories });
+  }
+
+  @Get('ranking')
+  async getSalesRanking(
+    @Res() res: Response,
+    @Query('category-id') categoryId: string,
+  ) {
+    const salesRanking = await this.menuService.getSalesRanking(
+      parseInt(categoryId),
+    );
+    return res.status(HttpStatus.OK).json({ salesRanking });
   }
 }
