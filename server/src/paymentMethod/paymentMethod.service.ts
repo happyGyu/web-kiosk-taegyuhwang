@@ -13,4 +13,8 @@ export class PaymentMethodService {
   async findAll() {
     return await this.paymentMethodRepository.find();
   }
+
+  async findById(id: number) {
+    return await this.paymentMethodRepository.findOneBy({ id });
+  }
 }
