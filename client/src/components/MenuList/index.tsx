@@ -25,7 +25,6 @@ const ItemList = styled.ul`
   gap: 1rem;
   flex-wrap: wrap;
   width: 60%;
-  height: 100%;
   overflow: auto;
   margin-left: 1rem;
 `;
