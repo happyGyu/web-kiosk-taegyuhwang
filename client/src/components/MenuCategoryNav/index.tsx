@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import colors from 'constants/colors';
+import { colors, shadows } from 'style/constants';
 import { IMenuCategory } from 'types';
 import MenuCategoryItem from './MenuCategoryItem';
 
@@ -38,6 +38,7 @@ export default function MenuCategoryNav() {
 const CategoryTab = styled.nav`
   margin: 1rem;
   background: ${colors.offWhite};
+  box-shadow: ${shadows.default};
 `;
 
 const CategoryList = styled.ul`

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import colors from 'constants/colors';
+import { colors } from 'style/constants';
 import { IMenuCategory } from 'types';
 
 interface IMenuCategoryItemProps extends IMenuCategory {

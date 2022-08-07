@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from 'style/GlobalStyle';
-import colors from 'constants/colors';
+import { colors, shadows } from 'style/constants';
+
 import MainPage from 'pages/MainPage';
 
 export default function App() {
@@ -24,7 +25,7 @@ const KioskMachine = styled.div`
   height: 1440px;
   margin: 5rem auto;
   border-radius: 2rem;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: ${shadows.default};
 `;
 
 const Display = styled.div`

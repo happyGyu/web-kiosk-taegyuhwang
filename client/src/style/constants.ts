@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   background: '#edecee',
   titleActive: '#191f28',
   primary: '#0050ff',
@@ -13,4 +13,6 @@ const colors = {
   error: '#f45452',
 };
 
-export default colors;
+export const shadows = {
+  default: '0px 4px 4px rgba(0, 0, 0, 0.1)',
+};
