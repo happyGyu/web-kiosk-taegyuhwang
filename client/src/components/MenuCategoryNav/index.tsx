@@ -44,4 +44,5 @@ const CategoryList = styled.ul`
   display: flex;
   font-size: 1.5rem;
   font-weight: 700;
+  background-color: ${colors.offWhite};
 `;

@@ -28,21 +28,19 @@ const MenuItemContainer = styled.li<{ isSoldOut: IMenu['isSoldOut'] }>`
   gap: 1rem;
   width: calc((100% - 2rem) / 3);
   height: 12rem;
-  padding: 1rem 0 3rem 0;
+  padding: 1rem 0;
   background: ${colors.offWhite};
   border: ${({ isSoldOut }) => (isSoldOut ? '2px solid red' : '')};
+  border-radius: 0.5rem;
 `;
 
 const MenuImage = styled.img<{ imgUrl: IMenu['imgUrl'] }>`
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  max-width: 80%;
+  max-height: 80%;
   border-radius: 50%;
   content: url(${({ imgUrl }) => imgUrl});
 `;
 
 const MenuTitle = styled.span`
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
 `;
