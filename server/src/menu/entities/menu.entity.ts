@@ -5,11 +5,15 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { MenuType } from './menuType.entity';
+import { MenuCategory } from './menuCategory.entity';
 import { MenuHasChoice } from './menuHasChoice.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 
-@Entity()
+@Entity({
+  orderBy: {
+    id: 'DESC',
+  },
+})
 export class Menu {
   @PrimaryGeneratedColumn()
   id: number;
@@ -26,8 +30,8 @@ export class Menu {
   @Column()
   isSoldOut: boolean;
 
-  @ManyToOne(() => MenuType, (category) => category.menus)
-  type: MenuType;
+  @ManyToOne(() => MenuCategory, (category) => category.menus)
+  category: MenuCategory;
 
   @OneToMany(() => MenuHasChoice, (menuHasChoice) => menuHasChoice.menuToChoice)
   choices: MenuHasChoice[];
