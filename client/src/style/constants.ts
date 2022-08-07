@@ -7,8 +7,7 @@ export const colors = {
   placeholder: '#b0b8c1',
   line: '#f2f4f6',
 
-  body: '#626666',
-  label: '#8D9393',
+  darkGrey: '#5a656e',
   offWhite: '#fcfcfc',
   error: '#f45452',
 };
