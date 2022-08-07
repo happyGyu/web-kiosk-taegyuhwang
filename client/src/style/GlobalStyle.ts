@@ -41,10 +41,6 @@ const GlobalStyle = createGlobalStyle`
     color:inherit;
     text-decoration:none;
   }
-  body{
-    background-color: ${colors.secondary};
-    color: ${colors.titleActive};
-  }
   * {
     -ms-overflow-style: none;
     scrollbar-width: none;

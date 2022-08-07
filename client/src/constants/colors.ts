@@ -1,14 +1,15 @@
 const colors = {
-  titleActive: '#1E2222',
+  background: '#f9fafb',
+  titleActive: '#191f28',
+  primary: '#0050ff',
+  secondary: '#3182f6',
+  tertiary: '#9ac2fb',
+  placeholder: '#b0b8c1',
+  line: '#f2f4f6',
+
   body: '#626666',
   label: '#8D9393',
-  placeholder: '#c1c5c5',
-  line: '#ccd3d3',
-  background: '#e6e6e6',
   offWhite: '#fcfcfc',
-  primary: '#144087',
-  secondary: '#a0e1e0',
-  tertiary: '#219a95',
   error: '#f45452',
 };
 
