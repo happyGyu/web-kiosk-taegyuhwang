@@ -1,13 +1,35 @@
 import React from 'react';
-import GlobalStyle from './style/GlobalStyle';
+import styled from 'styled-components';
+import GlobalStyle from 'style/GlobalStyle';
+import { colors, shadows } from 'style/constants';
 
-function App() {
+import MainPage from 'pages/MainPage';
+
+export default function App() {
   return (
     <>
       <GlobalStyle />
-      <div className="App">가보자구</div>;
+      <KioskMachine>
+        <Display>
+          <MainPage />
+        </Display>
+      </KioskMachine>
     </>
   );
 }
 
-export default App;
+const KioskMachine = styled.div`
+  background: ${colors.titleActive};
+  padding: 4rem;
+  width: 960px;
+  height: 1440px;
+  margin: 5rem auto;
+  border-radius: 2rem;
+  box-shadow: ${shadows.default};
+`;
+
+const Display = styled.div`
+  position: relative;
+  height: 100%;
+  background: ${colors.background};
+`;
