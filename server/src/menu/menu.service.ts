@@ -1,24 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MenuType } from './entities/menuType.entity';
+import { MenuCategory } from './entities/menuCategory.entity';
 
 @Injectable()
 export class MenuService {
   constructor(
-    @InjectRepository(MenuType)
-    private menuTypeRepository: Repository<MenuType>,
+    @InjectRepository(MenuCategory)
+    private menuCategoryRepository: Repository<MenuCategory>,
   ) {}
 
-  async getAllMenusByCategory(): Promise<MenuType[]> {
-    return await this.menuTypeRepository.find({
+  async getAllMenusByCategory(): Promise<MenuCategory[]> {
+    return await this.menuCategoryRepository.find({
       relations: {
         menus: true,
+      },
+      order: {
+        menus: {
+          id: 'ASC',
+        },
       },
     });
   }
 
-  async getAllCategories(): Promise<MenuType[]> {
-    return await this.menuTypeRepository.find();
+  async getAllCategories(): Promise<MenuCategory[]> {
+    return await this.menuCategoryRepository.find();
   }
 }
