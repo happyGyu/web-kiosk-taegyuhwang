@@ -6,7 +6,9 @@ export class CreateOrderDto {
   soldMenus: CreateOrderSoldMenuDto[];
 }
 
-class CreateOrderSoldMenuDto extends PickType(SoldMenu, ['quantity'] as const) {
+export class CreateOrderSoldMenuDto extends PickType(SoldMenu, [
+  'quantity',
+] as const) {
   menuId: number;
   choiceIds: number[];
 }
