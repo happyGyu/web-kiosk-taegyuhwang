@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import colors from '../constants/colors';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -41,9 +40,19 @@ const GlobalStyle = createGlobalStyle`
     color:inherit;
     text-decoration:none;
   }
-  body{
-    background-color: ${colors.background};
-    color: ${colors.titleActive};
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+
+  body {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
   }
 `;
 
