@@ -7,7 +7,6 @@ import {
 } from 'typeorm';
 import { ChoiceGroup } from './choiceGroup.entity';
 import { MenuHasChoice } from 'src/menu/entities/menuHasChoice.entity';
-import { SoldMenuHasChoice } from 'src/order/entities/soldMenuHasChoice.entity';
 
 @Entity()
 export class Choice {
@@ -25,10 +24,4 @@ export class Choice {
 
   @OneToMany(() => MenuHasChoice, (menuHasChoice) => menuHasChoice.choiceToMenu)
   menus: MenuHasChoice[];
-
-  @OneToMany(
-    () => SoldMenuHasChoice,
-    (soldMenuHasChoice) => soldMenuHasChoice.choiceToSoldMenu,
-  )
-  soldMenus: SoldMenuHasChoice;
 }

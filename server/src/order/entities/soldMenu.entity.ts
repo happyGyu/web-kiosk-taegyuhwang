@@ -1,13 +1,6 @@
 import { Menu } from 'src/menu/entities/menu.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  Column,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
 import { Order } from './order.entity';
-import { SoldMenuHasChoice } from './soldMenuHasChoice.entity';
 
 @Entity()
 export class SoldMenu {
@@ -25,10 +18,4 @@ export class SoldMenu {
 
   @ManyToOne(() => Menu, (menu) => menu.soldMenus)
   menu: Menu;
-
-  @OneToMany(
-    () => SoldMenuHasChoice,
-    (soldMenuHasChoice) => soldMenuHasChoice.soldMenuToChoice,
-  )
-  choices: SoldMenuHasChoice[];
 }
