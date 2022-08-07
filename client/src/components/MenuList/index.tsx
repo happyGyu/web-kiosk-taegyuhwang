@@ -45,4 +45,5 @@ const ItemList = styled.ul`
   width: 60%;
   height: 100%;
   overflow: auto;
+  margin-left: 1rem;
 `;

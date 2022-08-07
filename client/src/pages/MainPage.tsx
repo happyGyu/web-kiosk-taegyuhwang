@@ -37,7 +37,7 @@ const Banner = styled.img`
 const Main = styled.div`
   width: 100%;
   display: flex;
-  flex-grow: 1;
   gap: 1rem;
-  background-color: red;
+  flex-grow: 1;
+  margin-bottom: 1rem;
 `;

@@ -26,7 +26,7 @@ export default function MenuCategoryItem({
 
 const CategoryListItem = styled.li<{ selected: boolean }>`
   padding: 1.5rem 0;
-  width: 20%;
+  width: 10rem;
   text-align: center;
   ${({ selected }) =>
     selected &&

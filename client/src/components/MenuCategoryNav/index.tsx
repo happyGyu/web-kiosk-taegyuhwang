@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import colors from 'constants/colors';
 import { IMenuCategory } from 'types';
-import mixin from 'style/mixin';
 import MenuCategoryItem from './MenuCategoryItem';
 
 const dummyMenuCategories = [
@@ -37,12 +36,12 @@ export default function MenuCategoryNav() {
 }
 
 const CategoryTab = styled.nav`
-  margin-top: 50%;
+  margin: 1rem;
   background: ${colors.offWhite};
 `;
 
 const CategoryList = styled.ul`
-  ${mixin.flexMixin({})}
+  display: flex;
   font-size: 1.5rem;
   font-weight: 700;
 `;
