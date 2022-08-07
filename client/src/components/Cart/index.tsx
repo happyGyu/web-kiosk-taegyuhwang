@@ -3,7 +3,7 @@ import { colors, shadows } from 'style/constants';
 import mixin from 'style/mixin';
 import styled from 'styled-components';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import CartMain from './CartMain';
+import CartMenuList from './CartMenuList';
 import CartInfo from './CartInfo';
 import CartUtils from './CartUtils';
 
@@ -14,7 +14,7 @@ export default function Cart() {
         <ShoppingCartOutlinedIcon color="primary" fontSize="medium" />
         <h2>주문내역</h2>
       </CartTitle>
-      <CartMain />
+      <CartMenuList />
       <CartInfo />
       <CartUtils />
     </CartWrapper>
