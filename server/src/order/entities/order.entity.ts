@@ -1,4 +1,4 @@
-import { PaymentMethod } from 'src/payment-method/entities/payment-method.entity';
+import { PaymentMethod } from 'src/paymentMethod/entities/paymentMethod.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
