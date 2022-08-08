@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import PageProvider from 'store/page/pageProvider';
 import App from './App';
 
 if (process.env.NODE_ENV === 'development') {
@@ -12,6 +13,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <PageProvider>
+      <App />
+    </PageProvider>
   </React.StrictMode>
 );

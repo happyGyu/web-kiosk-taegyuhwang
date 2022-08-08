@@ -10,3 +10,5 @@ export interface IMenu {
   imgUrl: string;
   isSoldOut: boolean;
 }
+
+export type PageType = 'ENTRANCE' | 'MAIN';
