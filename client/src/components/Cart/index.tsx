@@ -1,4 +1,3 @@
-import React from 'react';
 import { colors, shadows } from 'style/constants';
 import mixin from 'style/mixin';
 import styled from 'styled-components';

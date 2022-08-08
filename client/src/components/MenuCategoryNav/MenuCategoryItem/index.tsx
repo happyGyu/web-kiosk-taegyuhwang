@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from 'style/constants';
 import { IMenuCategory } from 'types';
@@ -10,8 +9,8 @@ interface IMenuCategoryItemProps extends IMenuCategory {
 
 export default function MenuCategoryItem({
   isCurrentCategory,
-  categoryId,
-  categoryName,
+  id: categoryId,
+  name: categoryName,
   categoryItemClickHandler,
 }: IMenuCategoryItemProps) {
   return (
