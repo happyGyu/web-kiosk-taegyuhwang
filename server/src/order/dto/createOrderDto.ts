@@ -1,5 +1,6 @@
-import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 import { PickType } from '@nestjs/mapped-types';
+
+import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 
 export class CreateOrderDto {
   paymentMethodId: number;

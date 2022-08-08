@@ -1,4 +1,5 @@
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Menu } from './menu.entity';
 import { Choice } from 'src/choice/entities/choice.entity';
 

@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+
 import { MenuCategory } from './menuCategory.entity';
 import { MenuHasChoice } from './menuHasChoice.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
