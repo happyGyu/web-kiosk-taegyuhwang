@@ -17,7 +17,7 @@ export default function EntrancePage() {
 
   const { data: categories, isLoading: isCategoriesLoading } =
     useAxios<GetMenuCategoriesApiResponseDto>('/menus/categories');
-  const { data: menus, isLoading: isMenusLoading } =
+  const { data: menusGroupByCategory, isLoading: isMenusLoading } =
     useAxios<GetMenusApiResponseDto>('/menus');
   const { data: paymentMethods, isLoading: isPaymentMethodsLodaing } =
     useAxios<GetPaymentMethodsApiResponseDto>('/payment-methods');
@@ -26,8 +26,8 @@ export default function EntrancePage() {
     const isAnyLoading =
       isCategoriesLoading || isMenusLoading || isPaymentMethodsLodaing;
     setIsInitializing(isAnyLoading);
-    if (!isAnyLoading && categories && menus && paymentMethods) {
-      kioskStore.init({ categories, menus, paymentMethods });
+    if (!isAnyLoading && categories && menusGroupByCategory && paymentMethods) {
+      kioskStore.init({ categories, menusGroupByCategory, paymentMethods });
     }
   }, [isCategoriesLoading, isMenusLoading, isPaymentMethodsLodaing]);
 

@@ -9,8 +9,9 @@ interface IMenuListProps {
 
 export default function MenuList({ currentCategoryId }: IMenuListProps) {
   const getCurrentCategoryMenus = () => {
-    const { menus } = kioskStore.data;
-    return menus.find((data) => data.id === currentCategoryId)?.menus;
+    const { menusGroupByCategory } = kioskStore.data;
+    return menusGroupByCategory.find((data) => data.id === currentCategoryId)
+      ?.menus;
   };
 
   return (

@@ -6,20 +6,24 @@ import {
 
 interface IInitProps {
   categories: GetMenuCategoriesApiResponseDto;
-  menus: GetMenusApiResponseDto;
+  menusGroupByCategory: GetMenusApiResponseDto;
   paymentMethods: GetPaymentMethodsApiResponseDto;
 }
 
 const kioskStore = (() => {
   const data: IInitProps = {
     categories: [],
-    menus: [],
+    menusGroupByCategory: [],
     paymentMethods: [],
   };
 
-  function init({ categories, menus, paymentMethods }: IInitProps) {
+  function init({
+    categories,
+    menusGroupByCategory,
+    paymentMethods,
+  }: IInitProps) {
     data.categories = categories;
-    data.menus = menus;
+    data.menusGroupByCategory = menusGroupByCategory;
     data.paymentMethods = paymentMethods;
   }
 

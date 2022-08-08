@@ -19,10 +19,10 @@ export interface IPaymentMethod {
 
 export type PageType = 'ENTRANCE' | 'MAIN';
 
-export interface IMenuWithCategory extends ICategory {
+export interface IMenusGroupByCategory extends ICategory {
   menus: IMenu[];
 }
 
 export type GetMenuCategoriesApiResponseDto = ICategory[];
-export type GetMenusApiResponseDto = IMenuWithCategory[];
+export type GetMenusApiResponseDto = IMenusGroupByCategory[];
 export type GetPaymentMethodsApiResponseDto = IPaymentMethod[];
