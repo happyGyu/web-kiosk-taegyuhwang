@@ -3,12 +3,20 @@ import MenuCategoryNav from 'components/MenuCategoryNav';
 import MenuList from 'components/MenuList';
 import Cart from 'components/Cart';
 import mixin from 'style/mixin';
+import { useState } from 'react';
+import { IMenuCategory } from 'types';
 
 export default function MainPage() {
+  const [currentCategoryId, setCurrentCategoryId] =
+    useState<IMenuCategory['id']>(0);
+
   return (
     <PageWrapper>
       <Banner />
-      <MenuCategoryNav />
+      <MenuCategoryNav
+        currentCategoryId={currentCategoryId}
+        setCurrentCategoryId={setCurrentCategoryId}
+      />
       <Main>
         <MenuList />
         <Cart />

@@ -1,30 +1,33 @@
-import { useState } from 'react';
+import { Dispatch } from 'react';
 import styled from 'styled-components';
 import { colors, shadows } from 'style/constants';
+import kioskStore from 'store/kiosk';
 import { IMenuCategory } from 'types';
 import MenuCategoryItem from './MenuCategoryItem';
 
-const dummyMenuCategories = [
-  { id: 1, name: '에스프레소' },
-  { id: 2, name: '티' },
-  { id: 3, name: '주스' },
-  { id: 4, name: '아이스크림' },
-  { id: 5, name: '디카페인' },
-];
+type CategoryIdType = IMenuCategory['id'];
+interface IMenuCategoryNavProps {
+  currentCategoryId: CategoryIdType;
+  setCurrentCategoryId: Dispatch<CategoryIdType>;
+}
 
-export default function MenuCategoryNav() {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(1);
-  const handleCategoryItemClick = (categoryId: IMenuCategory['id']) => {
-    setSelectedCategoryId(categoryId);
+export default function MenuCategoryNav({
+  currentCategoryId,
+  setCurrentCategoryId,
+}: IMenuCategoryNavProps) {
+  const categories = kioskStore.get('categories');
+
+  const handleCategoryItemClick = (categoryId: CategoryIdType) => {
+    setCurrentCategoryId(categoryId);
   };
 
   return (
     <CategoryTab>
       <CategoryList>
-        {dummyMenuCategories.map(({ id: categoryId, name: categoryName }) => (
+        {categories?.map(({ id: categoryId, name: categoryName }) => (
           <MenuCategoryItem
             key={categoryId}
-            isCurrentCategory={categoryId === selectedCategoryId}
+            isCurrentCategory={categoryId === currentCategoryId}
             id={categoryId}
             name={categoryName}
             categoryItemClickHandler={handleCategoryItemClick}
