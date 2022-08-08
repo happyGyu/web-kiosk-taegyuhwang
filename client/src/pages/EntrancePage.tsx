@@ -26,7 +26,7 @@ export default function EntrancePage() {
     const isAnyLoading =
       isCategoriesLoading || isMenusLoading || isPaymentMethodsLodaing;
     setIsInitializing(isAnyLoading);
-    if (!isAnyLoading) {
+    if (!isAnyLoading && categories && menus && paymentMethods) {
       kioskStore.init({ categories, menus, paymentMethods });
     }
   }, [isCategoriesLoading, isMenusLoading, isPaymentMethodsLodaing]);

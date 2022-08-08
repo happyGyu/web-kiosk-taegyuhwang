@@ -4,11 +4,14 @@ import MenuList from 'components/MenuList';
 import Cart from 'components/Cart';
 import mixin from 'style/mixin';
 import { useState } from 'react';
-import { IMenuCategory } from 'types';
+import { CategoryIdType } from 'types';
+import kioskStore from 'store/kiosk';
 
 export default function MainPage() {
-  const [currentCategoryId, setCurrentCategoryId] =
-    useState<IMenuCategory['id']>(0);
+  const { categories } = kioskStore.data;
+  const [currentCategoryId, setCurrentCategoryId] = useState<CategoryIdType>(
+    categories[0].id
+  );
 
   return (
     <PageWrapper>
@@ -18,7 +21,7 @@ export default function MainPage() {
         setCurrentCategoryId={setCurrentCategoryId}
       />
       <Main>
-        <MenuList />
+        <MenuList currentCategoryId={currentCategoryId} />
         <Cart />
       </Main>
     </PageWrapper>

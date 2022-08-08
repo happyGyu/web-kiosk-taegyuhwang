@@ -5,16 +5,16 @@ import {
 } from '../../types/index';
 
 interface IInitProps {
-  categories?: GetMenuCategoriesApiResponseDto;
-  menus?: GetMenusApiResponseDto;
-  paymentMethods?: GetPaymentMethodsApiResponseDto;
+  categories: GetMenuCategoriesApiResponseDto;
+  menus: GetMenusApiResponseDto;
+  paymentMethods: GetPaymentMethodsApiResponseDto;
 }
 
 const kioskStore = (() => {
   const data: IInitProps = {
-    categories: undefined,
-    menus: undefined,
-    paymentMethods: undefined,
+    categories: [],
+    menus: [],
+    paymentMethods: [],
   };
 
   function init({ categories, menus, paymentMethods }: IInitProps) {
@@ -23,11 +23,7 @@ const kioskStore = (() => {
     data.paymentMethods = paymentMethods;
   }
 
-  function get(target: keyof IInitProps) {
-    return data[target];
-  }
-
-  return { init, get };
+  return { init, data };
 })();
 
 export default kioskStore;

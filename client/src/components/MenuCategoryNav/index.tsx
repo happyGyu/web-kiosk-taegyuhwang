@@ -2,11 +2,10 @@ import { Dispatch } from 'react';
 import styled from 'styled-components';
 import { colors, shadows } from 'style/constants';
 import kioskStore from 'store/kiosk';
-import { IMenuCategory } from 'types';
+import { CategoryIdType } from 'types';
 import MenuCategoryItem from './MenuCategoryItem';
 
-type CategoryIdType = IMenuCategory['id'];
-interface IMenuCategoryNavProps {
+interface ICategoryNavProps {
   currentCategoryId: CategoryIdType;
   setCurrentCategoryId: Dispatch<CategoryIdType>;
 }
@@ -14,8 +13,8 @@ interface IMenuCategoryNavProps {
 export default function MenuCategoryNav({
   currentCategoryId,
   setCurrentCategoryId,
-}: IMenuCategoryNavProps) {
-  const categories = kioskStore.get('categories');
+}: ICategoryNavProps) {
+  const { categories } = kioskStore.data;
 
   const handleCategoryItemClick = (categoryId: CategoryIdType) => {
     setCurrentCategoryId(categoryId);

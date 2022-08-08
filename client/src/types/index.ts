@@ -1,5 +1,6 @@
-export interface IMenuCategory {
-  id: number;
+export type CategoryIdType = number;
+export interface ICategory {
+  id: CategoryIdType;
   name: string;
 }
 
@@ -18,10 +19,10 @@ export interface IPaymentMethod {
 
 export type PageType = 'ENTRANCE' | 'MAIN';
 
-export interface IMenuWithCategory extends IMenuCategory {
+export interface IMenuWithCategory extends ICategory {
   menus: IMenu[];
 }
 
-export type GetMenuCategoriesApiResponseDto = IMenuCategory[];
+export type GetMenuCategoriesApiResponseDto = ICategory[];
 export type GetMenusApiResponseDto = IMenuWithCategory[];
 export type GetPaymentMethodsApiResponseDto = IPaymentMethod[];
