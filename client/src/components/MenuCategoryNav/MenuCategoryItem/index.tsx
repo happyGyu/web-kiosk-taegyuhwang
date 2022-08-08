@@ -9,8 +9,8 @@ interface IMenuCategoryItemProps extends IMenuCategory {
 
 export default function MenuCategoryItem({
   isCurrentCategory,
-  categoryId,
-  categoryName,
+  id: categoryId,
+  name: categoryName,
   categoryItemClickHandler,
 }: IMenuCategoryItemProps) {
   return (

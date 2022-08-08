@@ -5,28 +5,28 @@ import { IMenuCategory } from 'types';
 import MenuCategoryItem from './MenuCategoryItem';
 
 const dummyMenuCategories = [
-  { categoryId: 1, categoryName: '에스프레소' },
-  { categoryId: 2, categoryName: '티' },
-  { categoryId: 3, categoryName: '주스' },
-  { categoryId: 4, categoryName: '아이스크림' },
-  { categoryId: 5, categoryName: '디카페인' },
+  { id: 1, name: '에스프레소' },
+  { id: 2, name: '티' },
+  { id: 3, name: '주스' },
+  { id: 4, name: '아이스크림' },
+  { id: 5, name: '디카페인' },
 ];
 
 export default function MenuCategoryNav() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
-  const handleCategoryItemClick = (categoryId: IMenuCategory['categoryId']) => {
+  const handleCategoryItemClick = (categoryId: IMenuCategory['id']) => {
     setSelectedCategoryId(categoryId);
   };
 
   return (
     <CategoryTab>
       <CategoryList>
-        {dummyMenuCategories.map(({ categoryId, categoryName }) => (
+        {dummyMenuCategories.map(({ id: categoryId, name: categoryName }) => (
           <MenuCategoryItem
             key={categoryId}
             isCurrentCategory={categoryId === selectedCategoryId}
-            categoryId={categoryId}
-            categoryName={categoryName}
+            id={categoryId}
+            name={categoryName}
             categoryItemClickHandler={handleCategoryItemClick}
           />
         ))}
