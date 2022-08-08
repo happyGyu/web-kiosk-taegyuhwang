@@ -4,8 +4,9 @@ export interface ICategory {
   name: string;
 }
 
+export type MenuIdType = number;
 export interface IMenu {
-  id: number;
+  id: MenuIdType;
   name: string;
   basePrice: number;
   imgUrl: string;

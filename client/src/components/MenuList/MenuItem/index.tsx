@@ -1,11 +1,27 @@
 import styled from 'styled-components';
 import { colors, shadows } from 'style/constants';
-import { IMenu } from 'types';
+import { IMenu, MenuIdType } from 'types';
 import mixin from 'style/mixin';
+import { Dispatch } from 'react';
 
-export default function MenuItem({ id, name, imgUrl, isSoldOut }: IMenu) {
+interface IMenuItemProps extends IMenu {
+  setSelectedMenuId: Dispatch<MenuIdType | null>;
+}
+
+export default function MenuItem({
+  id,
+  name,
+  imgUrl,
+  isSoldOut,
+  setSelectedMenuId,
+}: IMenuItemProps) {
+  const selectMenu = () => {
+    if (isSoldOut) return;
+    setSelectedMenuId(id);
+  };
+
   return (
-    <MenuItemContainer isSoldOut={isSoldOut}>
+    <MenuItemContainer onClick={selectMenu}>
       {isSoldOut && (
         <SoldOutSkin>
           <SoldOutMessage>SOLD OUT</SoldOutMessage>
@@ -17,7 +33,7 @@ export default function MenuItem({ id, name, imgUrl, isSoldOut }: IMenu) {
   );
 }
 
-const MenuItemContainer = styled.li<{ isSoldOut: IMenu['isSoldOut'] }>`
+const MenuItemContainer = styled.li`
   position: relative;
   ${mixin.flexMixin({
     direction: 'column',
