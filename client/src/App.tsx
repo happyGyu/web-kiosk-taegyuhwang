@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from 'style/GlobalStyle';
 import { colors, shadows } from 'style/constants';

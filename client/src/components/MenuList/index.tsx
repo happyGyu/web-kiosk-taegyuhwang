@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import dummyMenuListData from 'dummy/dummyMenu';
 import MenuItem from './MenuItem';
