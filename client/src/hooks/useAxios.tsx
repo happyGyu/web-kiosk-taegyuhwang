@@ -18,7 +18,7 @@ export default function useAxios<T>(
   url: string,
   options?: AxiosRequestConfig,
   method: MethodType = 'get'
-): { state: ResponseState<T> } {
+): ResponseState<T> {
   const initState: ResponseState<T> = {
     data: undefined,
     error: undefined,
@@ -67,5 +67,5 @@ export default function useAxios<T>(
     fetchData();
   }, [options, url, method]);
 
-  return { state };
+  return state;
 }

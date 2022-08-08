@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import GlobalStyle from 'style/GlobalStyle';
 import { colors, shadows } from 'style/constants';
-
 import MainPage from 'pages/MainPage';
 
 export default function App() {
