@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import QuantityController from 'components/QuantityController';
 import CustomButton from 'components/common/CustomButton';
 import { useCartDispatchContext } from 'store/cart/cartContext';
-import { policy } from 'policy';
+import policy from 'policy';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {

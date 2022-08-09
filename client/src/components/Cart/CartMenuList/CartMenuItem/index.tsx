@@ -8,7 +8,7 @@ import { formatMoneyString } from 'utils';
 import QuantityController from 'components/QuantityController';
 import { useCartDispatchContext } from 'store/cart/cartContext';
 import Container from 'components/common/Container';
-import { policy } from 'policy';
+import policy from 'policy';
 
 export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
   const { id, name, imgUrl, totalPricePerEach, quantity } = cartItem;
