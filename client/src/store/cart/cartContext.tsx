@@ -1,20 +1,19 @@
 import { useContext, createContext, Dispatch } from 'react';
 import { ICartItem } from 'types';
 
-type CartStateType = ICartItem[];
-type CartActionType =
-  | { type: 'INCREASE_QUANTITY'; menuId: number }
-  | { type: 'DECREASE_QUANTITY'; menuId: number }
+export type CartStateType = ICartItem[];
+export type CartActionType =
+  | { type: 'CHANGE_QUANTITY'; menuId: number; quantity: number }
   | { type: 'DELETE'; menuId: number }
   | { type: 'UPDATE'; itemData: ICartItem }
   | { type: 'ADD'; itemData: ICartItem };
 
-export const CartContext = createContext<CartStateType | null>(null);
+export const CartStateContext = createContext<CartStateType | null>(null);
 export const CartDispatchContext =
   createContext<Dispatch<CartActionType> | null>(null);
 
-export const useCartContext = () => {
-  const pageContext = useContext(CartContext);
+export const useCartStateContext = () => {
+  const pageContext = useContext(CartStateContext);
   if (!pageContext) throw new Error('Cannot use Cart provider');
   return pageContext;
 };
