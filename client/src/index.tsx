@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import CartProvider from 'store/cart/cartProvider';
 import PageProvider from 'store/page/pageProvider';
 import App from './App';
 
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <PageProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </PageProvider>
   </React.StrictMode>
 );

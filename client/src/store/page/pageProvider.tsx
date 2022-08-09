@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PageType } from 'types';
 import { PageContext, PageDispatchContext } from './pageContext';
 
-export function PageProvider({ children }: { children: React.ReactNode }) {
+function PageProvider({ children }: { children: React.ReactNode }) {
   const [currPageType, setCurrPageType] = useState<PageType>('ENTRANCE');
   return (
     <PageContext.Provider value={currPageType}>
