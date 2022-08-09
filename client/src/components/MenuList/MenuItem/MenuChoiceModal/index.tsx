@@ -9,6 +9,7 @@ import useAxios from 'hooks/useAxios';
 import { useEffect, useState } from 'react';
 import QuantityController from 'components/QuantityController';
 import CustomButton from 'components/common/CustomButton';
+import { useCartDispatchContext } from 'store/cart/cartContext';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -36,6 +37,23 @@ export default function MenuChoiceModal({
 
   const [userChoices, setUserChoices] = useState<IUserChoices | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const dispatchCart = useCartDispatchContext();
+
+  const addToCart = () => {
+    let choices;
+    if (!userChoices) {
+      choices = [];
+    } else {
+      const selectedChoices = Object.values(userChoices);
+      choices = selectedChoices.map(
+        (selectedChoice) => selectedChoice.selectedChoice
+      );
+    }
+    dispatchCart({
+      type: 'ADD',
+      itemData: { menuId: id, quantity, choices },
+    });
+  };
 
   const selectChoice = (groupId: number, choice: IChoice) => {
     setUserChoices((prev) => {
@@ -119,7 +137,7 @@ export default function MenuChoiceModal({
           <CustomButton
             style={ConfirmButtonStyle}
             text="담기"
-            onClick={() => alert('담았따')}
+            onClick={addToCart}
           />
         </ChoiceModalButtons>
       </Container>
