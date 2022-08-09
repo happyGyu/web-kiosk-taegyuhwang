@@ -9,24 +9,27 @@ import {
   GetMenusApiResponseDto,
   GetPaymentMethodsApiResponseDto,
 } from 'types';
+import kioskStore from 'store/kiosk';
 
 export default function EntrancePage() {
   const dispatchPage = usePageDispatchContext();
   const [isInitializing, setIsInitializing] = useState(false);
 
-  const categoriesState =
+  const { data: categories, isLoading: isCategoriesLoading } =
     useAxios<GetMenuCategoriesApiResponseDto>('/menus/categories');
-  const menusState = useAxios<GetMenusApiResponseDto>('/menus');
-  const paymentMethodsState =
+  const { data: menusGroupByCategory, isLoading: isMenusLoading } =
+    useAxios<GetMenusApiResponseDto>('/menus');
+  const { data: paymentMethods, isLoading: isPaymentMethodsLodaing } =
     useAxios<GetPaymentMethodsApiResponseDto>('/payment-methods');
 
   useEffect(() => {
     const isAnyLoading =
-      categoriesState.isLoading ||
-      menusState.isLoading ||
-      paymentMethodsState.isLoading;
+      isCategoriesLoading || isMenusLoading || isPaymentMethodsLodaing;
     setIsInitializing(isAnyLoading);
-  }, [categoriesState, menusState, paymentMethodsState]);
+    if (!isAnyLoading && categories && menusGroupByCategory && paymentMethods) {
+      kioskStore.init({ categories, menusGroupByCategory, paymentMethods });
+    }
+  }, [isCategoriesLoading, isMenusLoading, isPaymentMethodsLodaing]);
 
   const changePageToMain = () => {
     dispatchPage('MAIN');

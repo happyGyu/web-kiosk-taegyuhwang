@@ -16,7 +16,7 @@ export class MenuController {
   @Get('categories')
   async getAllCategories(@Res() res: Response) {
     const categories = await this.menuService.getAllCategories();
-    return res.status(HttpStatus.OK).json({ categories });
+    return res.status(HttpStatus.OK).json(categories);
   }
 
   @Get('ranking')
@@ -27,6 +27,6 @@ export class MenuController {
     const salesRanking = await this.menuService.getSalesRanking(
       parseInt(categoryId),
     );
-    return res.status(HttpStatus.OK).json({ salesRanking });
+    return res.status(HttpStatus.OK).json(salesRanking);
   }
 }

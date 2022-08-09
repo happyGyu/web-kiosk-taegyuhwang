@@ -3,14 +3,25 @@ import MenuCategoryNav from 'components/MenuCategoryNav';
 import MenuList from 'components/MenuList';
 import Cart from 'components/Cart';
 import mixin from 'style/mixin';
+import { useState } from 'react';
+import { CategoryIdType } from 'types';
+import kioskStore from 'store/kiosk';
 
 export default function MainPage() {
+  const { categories } = kioskStore.data;
+  const [currentCategoryId, setCurrentCategoryId] = useState<CategoryIdType>(
+    categories[0].id
+  );
+
   return (
     <PageWrapper>
       <Banner />
-      <MenuCategoryNav />
+      <MenuCategoryNav
+        currentCategoryId={currentCategoryId}
+        setCurrentCategoryId={setCurrentCategoryId}
+      />
       <Main>
-        <MenuList />
+        <MenuList currentCategoryId={currentCategoryId} />
         <Cart />
       </Main>
     </PageWrapper>

@@ -1,20 +1,33 @@
+import kioskStore from 'store/kiosk';
 import styled from 'styled-components';
-import dummyMenuListData from 'dummy/dummyMenu';
+import { CategoryIdType } from 'types';
 import MenuItem from './MenuItem';
 
-export default function MenuList() {
+interface IMenuListProps {
+  currentCategoryId: CategoryIdType;
+}
+
+export default function MenuList({ currentCategoryId }: IMenuListProps) {
+  const getCurrentCategoryMenus = () => {
+    const { menusGroupByCategory } = kioskStore.data;
+    return menusGroupByCategory.find((data) => data.id === currentCategoryId)
+      ?.menus;
+  };
+
   return (
     <ItemList>
-      {dummyMenuListData.map(({ id, name, basePrice, imgUrl, isSoldOut }) => (
-        <MenuItem
-          key={id}
-          id={id}
-          name={name}
-          basePrice={basePrice}
-          imgUrl={imgUrl}
-          isSoldOut={isSoldOut}
-        />
-      ))}
+      {getCurrentCategoryMenus()?.map(
+        ({ id, name, basePrice, imgUrl, isSoldOut }) => (
+          <MenuItem
+            key={id}
+            id={id}
+            name={name}
+            basePrice={basePrice}
+            imgUrl={imgUrl}
+            isSoldOut={isSoldOut}
+          />
+        )
+      )}
     </ItemList>
   );
 }

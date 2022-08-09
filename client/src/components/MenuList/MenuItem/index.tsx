@@ -2,22 +2,50 @@ import styled from 'styled-components';
 import { colors, shadows } from 'style/constants';
 import { IMenu } from 'types';
 import mixin from 'style/mixin';
+import { useState } from 'react';
+import MenuThumbnail from 'components/common/MenuThumbnail';
+import MenuChoiceModal from './MenuChoiceModal';
 
-export default function MenuItem({ id, name, imgUrl, isSoldOut }: IMenu) {
+export default function MenuItem({
+  id,
+  name,
+  basePrice,
+  imgUrl,
+  isSoldOut,
+}: IMenu) {
+  const [isChoiceModalOpened, setIsChoiceModalOpened] = useState(false);
+
+  const selectMenu = () => {
+    if (isSoldOut) return;
+    setIsChoiceModalOpened(true);
+  };
+
   return (
-    <MenuItemContainer isSoldOut={isSoldOut}>
-      {isSoldOut && (
-        <SoldOutSkin>
-          <SoldOutMessage>SOLD OUT</SoldOutMessage>
-        </SoldOutSkin>
+    <>
+      <MenuItemContainer onClick={selectMenu}>
+        {isSoldOut && (
+          <SoldOutSkin>
+            <SoldOutMessage>SOLD OUT</SoldOutMessage>
+          </SoldOutSkin>
+        )}
+        <MenuThumbnail size="M" imgUrl={imgUrl} />
+        <MenuTitle>{name}</MenuTitle>
+      </MenuItemContainer>
+      {isChoiceModalOpened && (
+        <MenuChoiceModal
+          id={id}
+          name={name}
+          basePrice={basePrice}
+          imgUrl={imgUrl}
+          isSoldOut={isSoldOut}
+          closeModal={() => setIsChoiceModalOpened(false)}
+        />
       )}
-      <MenuImage imgUrl={imgUrl} />
-      <MenuTitle>{name}</MenuTitle>
-    </MenuItemContainer>
+    </>
   );
 }
 
-const MenuItemContainer = styled.li<{ isSoldOut: IMenu['isSoldOut'] }>`
+const MenuItemContainer = styled.li`
   position: relative;
   ${mixin.flexMixin({
     direction: 'column',
@@ -49,13 +77,6 @@ const SoldOutMessage = styled.span`
   color: ${colors.secondary};
   font-weight: 700;
   font-size: 1.5rem;
-`;
-
-const MenuImage = styled.img<{ imgUrl: IMenu['imgUrl'] }>`
-  max-width: 75%;
-  max-height: 75%;
-  border-radius: 50%;
-  content: url(${({ imgUrl }) => imgUrl});
 `;
 
 const MenuTitle = styled.span`

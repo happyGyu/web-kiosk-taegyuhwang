@@ -1,10 +1,12 @@
-export interface IMenuCategory {
-  id: number;
+export type CategoryIdType = number;
+export interface ICategory {
+  id: CategoryIdType;
   name: string;
 }
 
+export type MenuIdType = number;
 export interface IMenu {
-  id: number;
+  id: MenuIdType;
   name: string;
   basePrice: number;
   imgUrl: string;
@@ -16,12 +18,27 @@ export interface IPaymentMethod {
   name: string;
 }
 
+export type ChoiceIdType = number;
+export interface IChoice {
+  id: ChoiceIdType;
+  name: string;
+  extraCharge: number;
+}
+
+export interface IChoiceGroup {
+  id: number;
+  name: string;
+  isOptional: boolean;
+  choices: IChoice[];
+}
+
 export type PageType = 'ENTRANCE' | 'MAIN';
 
-export interface IMenuWithCategory extends IMenuCategory {
+export interface IMenusGroupByCategory extends ICategory {
   menus: IMenu[];
 }
 
-export type GetMenuCategoriesApiResponseDto = IMenuCategory[];
-export type GetMenusApiResponseDto = IMenuWithCategory[];
+export type GetMenuCategoriesApiResponseDto = ICategory[];
+export type GetMenusApiResponseDto = IMenusGroupByCategory[];
 export type GetPaymentMethodsApiResponseDto = IPaymentMethod[];
+export type GetChoicesApiResponseDto = IChoiceGroup[];

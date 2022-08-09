@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import { colors } from 'style/constants';
-import { IMenuCategory } from 'types';
+import { ICategory } from 'types';
 
-interface IMenuCategoryItemProps extends IMenuCategory {
+interface ICategoryItemProps extends ICategory {
   isCurrentCategory: boolean;
   categoryItemClickHandler: (id: number) => void;
 }
@@ -12,7 +12,7 @@ export default function MenuCategoryItem({
   id: categoryId,
   name: categoryName,
   categoryItemClickHandler,
-}: IMenuCategoryItemProps) {
+}: ICategoryItemProps) {
   return (
     <CategoryListItem
       onClick={() => categoryItemClickHandler(categoryId)}
