@@ -32,9 +32,9 @@ export interface IChoiceGroup {
   choices: IChoice[];
 }
 
-export interface ICartItem {
-  menuId: number;
+export interface ICartItem extends Omit<IMenu, 'isSoldOut' | 'basePrice'> {
   quantity: number;
+  totalPricePerEach: number;
   choices: IChoice[];
 }
 

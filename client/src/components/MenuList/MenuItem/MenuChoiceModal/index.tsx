@@ -49,9 +49,10 @@ export default function MenuChoiceModal({
         (selectedChoice) => selectedChoice.selectedChoice
       );
     }
+    const totalPricePerEach = caculateTotalPricePerEach();
     dispatchCart({
       type: 'ADD',
-      itemData: { menuId: id, quantity, choices },
+      itemData: { id, name, totalPricePerEach, imgUrl, quantity, choices },
     });
   };
 
@@ -63,8 +64,8 @@ export default function MenuChoiceModal({
     });
   };
 
-  const caculateTotalPrice = () => {
-    if (!userChoices) return basePrice * quantity;
+  const caculateTotalPricePerEach = () => {
+    if (!userChoices) return basePrice;
     const userChoiceResults = Object.values(userChoices);
     const totalExtraCharge = userChoiceResults.reduce(
       (extraCharge, userChoice) => {
@@ -73,8 +74,10 @@ export default function MenuChoiceModal({
       },
       0
     );
-    return (basePrice + totalExtraCharge) * quantity;
+    return basePrice + totalExtraCharge;
   };
+
+  const caculateTotalPrice = () => caculateTotalPricePerEach() * quantity;
 
   useEffect(() => {
     if (isLoading || !choiceGroups) return;
