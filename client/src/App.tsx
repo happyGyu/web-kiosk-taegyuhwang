@@ -4,15 +4,23 @@ import { colors, shadows } from 'style/constants';
 import MainPage from 'pages/MainPage';
 import EntrancePage from 'pages/EntrancePage';
 import { usePageContext } from 'store/page/pageContext';
+import { useEffect, useRef } from 'react';
+import portalStore from 'store/portal';
 
 export default function App() {
   const currentPageType = usePageContext();
+  const displayRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!displayRef.current) return;
+    portalStore.setPortalRoot(displayRef.current);
+  }, []);
 
   return (
     <>
       <GlobalStyle />
       <KioskMachine>
-        <Display>
+        <Display ref={displayRef}>
           {currentPageType === 'ENTRANCE' && <EntrancePage />}
           {currentPageType === 'MAIN' && <MainPage />}
         </Display>

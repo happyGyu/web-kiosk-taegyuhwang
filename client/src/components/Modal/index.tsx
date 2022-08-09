@@ -1,4 +1,5 @@
 import Container from 'components/common/Container';
+import portalStore from 'store/portal';
 import { colors } from 'style/constants';
 import styled, { css, CSSProp } from 'styled-components';
 
@@ -15,18 +16,21 @@ export default function CustomModal({
   contentStyle,
   backdropStyle,
 }: IModalProps) {
+  const Portal = portalStore.makePortal();
   return (
-    <Container
-      position="absolute"
-      top="0"
-      left="0"
-      width="100%"
-      height="100%"
-      flexInfo={{ justify: 'center', align: 'center' }}
-    >
-      <ModalBackdrop onClick={closeModal} backdropStyle={backdropStyle} />
-      <ModalContent contentStyle={contentStyle}>{children}</ModalContent>
-    </Container>
+    <Portal>
+      <Container
+        position="absolute"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        flexInfo={{ justify: 'center', align: 'center' }}
+      >
+        <ModalBackdrop onClick={closeModal} backdropStyle={backdropStyle} />
+        <ModalContent contentStyle={contentStyle}>{children}</ModalContent>
+      </Container>
+    </Portal>
   );
 }
 
@@ -34,8 +38,8 @@ const ModalBackdrop = styled.div<{ backdropStyle?: CSSProp }>`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   z-index: 10;
   ${({ backdropStyle }) => backdropStyle}
 `;
