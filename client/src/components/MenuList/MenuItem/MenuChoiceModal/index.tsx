@@ -7,6 +7,7 @@ import { ChoiceIdType, GetChoicesApiResponseDto, IChoice, IMenu } from 'types';
 import MenuThumbnail from 'components/common/MenuThumbnail';
 import useAxios from 'hooks/useAxios';
 import { useEffect, useState } from 'react';
+import QuantityController from 'components/QuantityController';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -33,6 +34,7 @@ export default function MenuChoiceModal({
   );
 
   const [userChoices, setUserChoices] = useState<IUserChoices | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const selectChoice = (groupId: number, choice: IChoice) => {
     setUserChoices((prev) => {
@@ -43,7 +45,7 @@ export default function MenuChoiceModal({
   };
 
   const caculateTotalPrice = () => {
-    if (!userChoices) return basePrice;
+    if (!userChoices) return basePrice * quantity;
     const userChoiceResults = Object.values(userChoices);
     const totalExtraCharge = userChoiceResults.reduce(
       (extraCharge, userChoice) => {
@@ -52,7 +54,7 @@ export default function MenuChoiceModal({
       },
       0
     );
-    return basePrice + totalExtraCharge;
+    return (basePrice + totalExtraCharge) * quantity;
   };
 
   useEffect(() => {
@@ -89,7 +91,13 @@ export default function MenuChoiceModal({
             <MenuThumbnail size="L" imgUrl={imgUrl} />
             <MenuName>{name}</MenuName>
             <TotalPrice>{caculateTotalPrice().toLocaleString()}원</TotalPrice>
-            {/* <QuantityCounter /> */}
+            <QuantityController
+              quantity={quantity}
+              setQuantity={setQuantity}
+              min={1}
+              max={9}
+              size="L"
+            />
           </Container>
           <Container width="50%" flexInfo={{ direction: 'column' }} gap={2}>
             {userChoices &&
@@ -125,14 +133,6 @@ const ContentBody = styled.div`
   ${mixin.flexMixin({ wrap: 'wrap' })}
 `;
 
-const Area = styled.div`
-  width: 50%;
-  ${mixin.flexMixin({
-    direction: 'column',
-    align: 'center',
-  })}
-`;
-
 const MenuName = styled.span`
   display: block;
   font-size: 2rem;
@@ -144,5 +144,5 @@ const TotalPrice = styled.span`
   display: block;
   font-size: 2.25rem;
   font-weight: 700;
-  margin-top: 3rem;
+  margin: 3rem 0 1.5rem 0;
 `;
