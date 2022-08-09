@@ -32,6 +32,12 @@ export interface IChoiceGroup {
   choices: IChoice[];
 }
 
+export interface ICartItem {
+  menuId: number;
+  quantity: number;
+  choices: IChoice[];
+}
+
 export type PageType = 'ENTRANCE' | 'MAIN';
 
 export interface IMenusGroupByCategory extends ICategory {
