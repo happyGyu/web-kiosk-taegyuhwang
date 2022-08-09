@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import QuantityController from 'components/QuantityController';
 import CustomButton from 'components/common/CustomButton';
 import { useCartDispatchContext } from 'store/cart/cartContext';
-import { MIN_ORDER_QUANTITY, MAX_ORDER_QUANTITY } from 'constants';
+import { policy } from 'policy';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -119,8 +119,8 @@ export default function MenuChoiceModal({
             <QuantityController
               quantity={quantity}
               setQuantity={setQuantity}
-              min={MIN_ORDER_QUANTITY}
-              max={MAX_ORDER_QUANTITY}
+              min={policy.MIN_ORDER_QUANTITY}
+              max={policy.MAX_ORDER_QUANTITY}
               size="L"
             />
           </Container>
