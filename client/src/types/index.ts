@@ -18,6 +18,20 @@ export interface IPaymentMethod {
   name: string;
 }
 
+export type ChoiceIdType = number;
+export interface IChoice {
+  id: ChoiceIdType;
+  name: string;
+  extraCharge: number;
+}
+
+export interface IChoiceGroup {
+  id: number;
+  name: string;
+  isOptional: boolean;
+  choices: IChoice[];
+}
+
 export type PageType = 'ENTRANCE' | 'MAIN';
 
 export interface IMenusGroupByCategory extends ICategory {
@@ -27,3 +41,4 @@ export interface IMenusGroupByCategory extends ICategory {
 export type GetMenuCategoriesApiResponseDto = ICategory[];
 export type GetMenusApiResponseDto = IMenusGroupByCategory[];
 export type GetPaymentMethodsApiResponseDto = IPaymentMethod[];
+export type GetChoicesApiResponseDto = IChoiceGroup[];
