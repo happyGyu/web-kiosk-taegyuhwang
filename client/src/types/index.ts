@@ -13,6 +13,12 @@ export interface IMenu {
   isSoldOut: boolean;
 }
 
+export interface IMenuSales {
+  id: MenuIdType;
+  name: string;
+  totalSoldQuantity: number;
+}
+
 export interface IPaymentMethod {
   id: number;
   name: string;
@@ -48,3 +54,4 @@ export type GetMenuCategoriesApiResponseDto = ICategory[];
 export type GetMenusApiResponseDto = IMenusGroupByCategory[];
 export type GetPaymentMethodsApiResponseDto = IPaymentMethod[];
 export type GetChoicesApiResponseDto = IChoiceGroup[];
+export type GetSalesStatApiResponseDto = IMenuSales[];

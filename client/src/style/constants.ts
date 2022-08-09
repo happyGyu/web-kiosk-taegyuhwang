@@ -7,6 +7,10 @@ export const colors = {
   placeholder: '#b0b8c1',
   line: '#f2f4f6',
 
+  gold: '#fae102',
+  silver: '#C0C0C0',
+  bronze: '#b08d57',
+
   darkGrey: '#5a656e',
   offWhite: '#fcfcfc',
   error: '#f45452',
