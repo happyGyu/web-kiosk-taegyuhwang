@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import cssUtils from 'util/css.util';
+import cssUtils from 'utils/css.util';
 
 interface ISquircleProps {
   width?: number | string;

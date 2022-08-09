@@ -56,6 +56,11 @@ export default function MenuChoiceModal({
     });
   };
 
+  const handleAddButtonClick = () => {
+    addToCart();
+    closeModal();
+  };
+
   const selectChoice = (groupId: number, choice: IChoice) => {
     setUserChoices((prev) => {
       const newUserChoices = { ...prev };
@@ -140,7 +145,7 @@ export default function MenuChoiceModal({
           <CustomButton
             style={ConfirmButtonStyle}
             text="담기"
-            onClick={addToCart}
+            onClick={handleAddButtonClick}
           />
         </ChoiceModalButtons>
       </Container>

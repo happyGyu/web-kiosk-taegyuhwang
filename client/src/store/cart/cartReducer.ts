@@ -1,9 +1,7 @@
 import { CartActionType, CartStateType } from './cartContext';
 
 function findTargetItemIdx(targetMenuId: number, cartState: CartStateType) {
-  const targetMenu = cartState.find(
-    (cartItem) => cartItem.menuId === targetMenuId
-  );
+  const targetMenu = cartState.find((cartItem) => cartItem.id === targetMenuId);
   if (!targetMenu) throw new Error('Something wrong: Invalid menu id');
   return cartState.indexOf(targetMenu);
 }
@@ -25,7 +23,7 @@ export default function cartReducer(
       return newState;
     }
     case 'UPDATE': {
-      const targetItemIdx = findTargetItemIdx(action.itemData.menuId, state);
+      const targetItemIdx = findTargetItemIdx(action.itemData.id, state);
       const newState = [...state];
       newState[targetItemIdx] = action.itemData;
       return newState;

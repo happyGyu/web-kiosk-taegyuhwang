@@ -1,18 +1,20 @@
 import styled from 'styled-components';
-import { IMenu } from 'types';
+import { ICartItem, IMenu } from 'types';
 import mixin from 'style/mixin';
 import { colors } from 'style/constants';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import Squircle from 'components/common/Squircle';
+import { formatMoneyString } from 'utils';
 
-export default function CartMenuItem() {
+export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
+  const { name, imgUrl, totalPricePerEach, quantity } = cartItem;
   return (
     <MenuItemWrapper>
-      <MenuImage imgUrl="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[30]_20210415144252244.jpg" />
+      <MenuImage imgUrl={imgUrl} />
       <MenuItemInfoArea>
-        <MenuTitle>레몬셔벗에이드</MenuTitle>
+        <MenuTitle>{name}</MenuTitle>
         <DeleteButton>
           <ClearSharpIcon fontSize="small" />
         </DeleteButton>
@@ -33,7 +35,7 @@ export default function CartMenuItem() {
             <AddSharpIcon />
           </CircleButton>
         </QuantityUtils>
-        <Price>6,500원</Price>
+        <Price>{formatMoneyString(quantity * totalPricePerEach)}</Price>
       </MenuItemInfoArea>
     </MenuItemWrapper>
   );
