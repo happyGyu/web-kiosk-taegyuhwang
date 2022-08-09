@@ -8,6 +8,7 @@ import MenuThumbnail from 'components/common/MenuThumbnail';
 import useAxios from 'hooks/useAxios';
 import { useEffect, useState } from 'react';
 import QuantityController from 'components/QuantityController';
+import CustomButton from 'components/common/CustomButton';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -84,10 +85,7 @@ export default function MenuChoiceModal({
           <h2>옵션 선택</h2>
         </ContentTitle>
         <ContentBody>
-          <Container
-            width="50%"
-            flexInfo={{ direction: 'column', align: 'center' }}
-          >
+          <Container flexInfo={{ direction: 'column', align: 'center' }}>
             <MenuThumbnail size="L" imgUrl={imgUrl} />
             <MenuName>{name}</MenuName>
             <TotalPrice>{caculateTotalPrice().toLocaleString()}원</TotalPrice>
@@ -99,7 +97,7 @@ export default function MenuChoiceModal({
               size="L"
             />
           </Container>
-          <Container width="50%" flexInfo={{ direction: 'column' }} gap={2}>
+          <Container flexInfo={{ direction: 'column' }} gap={2}>
             {userChoices &&
               choiceGroups?.map((choiceGroup, idx) => (
                 <ChoiceGroup
@@ -112,6 +110,18 @@ export default function MenuChoiceModal({
               ))}
           </Container>
         </ContentBody>
+        <ChoiceModalButtons>
+          <CustomButton
+            style={CancleButtonStyle}
+            text="이전"
+            onClick={closeModal}
+          />
+          <CustomButton
+            style={ConfirmButtonStyle}
+            text="담기"
+            onClick={() => alert('담았따')}
+          />
+        </ChoiceModalButtons>
       </Container>
     </CustomModal>
   );
@@ -128,9 +138,9 @@ const ContentTitle = styled.div`
 `;
 
 const ContentBody = styled.div`
-  padding: 2rem 3rem;
+  padding: 5rem 4rem;
   background-color: ${colors.offWhite};
-  ${mixin.flexMixin({ wrap: 'wrap' })}
+  ${mixin.flexMixin({ justify: 'space-between' })}
 `;
 
 const MenuName = styled.span`
@@ -145,4 +155,28 @@ const TotalPrice = styled.span`
   font-size: 2.25rem;
   font-weight: 700;
   margin: 3rem 0 1.5rem 0;
+`;
+
+const ChoiceModalButtons = styled.div`
+  padding: 0rem 5rem 2rem 5rem;
+  background-color: ${colors.offWhite};
+  ${mixin.flexMixin({ align: 'center', justify: 'space-between' })}
+`;
+
+const CommonButtonStyle = css`
+  width: 13rem;
+  padding: 1.5rem 0;
+  color: ${colors.offWhite};
+  font-size: 1.5rem;
+  font-weight: 700;
+`;
+
+const CancleButtonStyle = css`
+  ${CommonButtonStyle};
+  background-color: ${colors.darkGrey};
+`;
+
+const ConfirmButtonStyle = css`
+  ${CommonButtonStyle}
+  background-color: ${colors.primary};
 `;
