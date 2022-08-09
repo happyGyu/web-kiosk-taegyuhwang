@@ -42,6 +42,19 @@ export default function MenuChoiceModal({
     });
   };
 
+  const caculateTotalPrice = () => {
+    if (!userChoices) return basePrice;
+    const userChoiceResults = Object.values(userChoices);
+    const totalExtraCharge = userChoiceResults.reduce(
+      (extraCharge, userChoice) => {
+        const currentChoiceCharge = userChoice.selectedChoice?.extraCharge || 0;
+        return extraCharge + currentChoiceCharge;
+      },
+      0
+    );
+    return basePrice + totalExtraCharge;
+  };
+
   useEffect(() => {
     if (isLoading || !choiceGroups) return;
     const initialUserChoices = choiceGroups.reduce(
@@ -49,7 +62,7 @@ export default function MenuChoiceModal({
         ...obj,
         [choiceGroup.id]: {
           isOptional: choiceGroup.isOptional,
-          selectChoice: null,
+          selectedChoice: null,
         },
       }),
       {}
@@ -75,7 +88,7 @@ export default function MenuChoiceModal({
           >
             <MenuThumbnail size="L" imgUrl={imgUrl} />
             <MenuName>{name}</MenuName>
-            <TotalPrice>{basePrice.toLocaleString()}원</TotalPrice>
+            <TotalPrice>{caculateTotalPrice().toLocaleString()}원</TotalPrice>
             {/* <QuantityCounter /> */}
           </Container>
           <Container width="50%" flexInfo={{ direction: 'column' }} gap={2}>
