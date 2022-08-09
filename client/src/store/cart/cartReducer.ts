@@ -13,7 +13,8 @@ export default function cartReducer(
   switch (action.type) {
     case 'DELETE': {
       const targetItemIdx = findTargetItemIdx(action.menuId, state);
-      const newState = [...state].splice(targetItemIdx, 1);
+      const newState = [...state];
+      newState.splice(targetItemIdx, 1);
       return newState;
     }
     case 'CHANGE_QUANTITY': {

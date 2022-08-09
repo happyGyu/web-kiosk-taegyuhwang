@@ -20,12 +20,19 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
     });
   };
 
+  const deleteMenu = () => {
+    dispatchContext({
+      type: 'DELETE',
+      menuId: id,
+    });
+  };
+
   return (
     <MenuItemWrapper>
       <MenuImage imgUrl={imgUrl} />
       <MenuItemInfoArea>
         <MenuTitle>{name}</MenuTitle>
-        <DeleteButton>
+        <DeleteButton onClick={deleteMenu}>
           <ClearSharpIcon fontSize="small" />
         </DeleteButton>
         <Container position="absolute" bottom="0" left="0">
