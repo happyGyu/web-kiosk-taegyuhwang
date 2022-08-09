@@ -3,13 +3,23 @@ import { ICartItem, IMenu } from 'types';
 import mixin from 'style/mixin';
 import { colors } from 'style/constants';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
-import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
-import AddSharpIcon from '@mui/icons-material/AddSharp';
 import Squircle from 'components/common/Squircle';
 import { formatMoneyString } from 'utils';
+import QuantityController from 'components/QuantityController';
+import { useCartDispatchContext } from 'store/cart/cartContext';
+import Container from 'components/common/Container';
 
 export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
-  const { name, imgUrl, totalPricePerEach, quantity } = cartItem;
+  const { id, name, imgUrl, totalPricePerEach, quantity } = cartItem;
+  const dispatchContext = useCartDispatchContext();
+  const setQuantity = (newQuantity: number) => {
+    dispatchContext({
+      type: 'CHANGE_QUANTITY',
+      menuId: id,
+      quantity: newQuantity,
+    });
+  };
+
   return (
     <MenuItemWrapper>
       <MenuImage imgUrl={imgUrl} />
@@ -18,23 +28,15 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
         <DeleteButton>
           <ClearSharpIcon fontSize="small" />
         </DeleteButton>
-        <QuantityUtils>
-          <CircleButton
-            color={colors.placeholder}
-            width="1.75rem"
-            height="1.75rem"
-          >
-            <RemoveSharpIcon />
-          </CircleButton>
-          <span>1</span>
-          <CircleButton
-            color={colors.placeholder}
-            width="1.75rem"
-            height="1.75rem"
-          >
-            <AddSharpIcon />
-          </CircleButton>
-        </QuantityUtils>
+        <Container position="absolute" bottom="0" left="0">
+          <QuantityController
+            quantity={quantity}
+            setQuantity={setQuantity}
+            min={1}
+            max={9}
+            size="S"
+          />
+        </Container>
         <Price>{formatMoneyString(quantity * totalPricePerEach)}</Price>
       </MenuItemInfoArea>
     </MenuItemWrapper>
@@ -80,20 +82,6 @@ const DeleteButton = styled.button`
   top: 0;
   right: 0;
   color: ${colors.darkGrey};
-`;
-
-const QuantityUtils = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  ${mixin.flexMixin({ align: 'center' })}
-
-  & span {
-    width: 2rem;
-    text-align: center;
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
 `;
 
 const Price = styled.span`

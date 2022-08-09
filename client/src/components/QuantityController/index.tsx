@@ -65,6 +65,6 @@ const CircleButton = styled.button<{ size: TControllerSize }>`
 `;
 
 const QuantityNumber = styled.span<{ size: TControllerSize }>`
-  font-size: ${({ size }) => (size === 'S' ? '1.5rem' : '2rem')};
+  font-size: ${({ size }) => (size === 'S' ? '1.25rem' : '2rem')};
   font-weight: 600;
 `;
