@@ -6,7 +6,8 @@ export type CartActionType =
   | { type: 'CHANGE_QUANTITY'; menuId: number; quantity: number }
   | { type: 'DELETE'; menuId: number }
   | { type: 'UPDATE'; itemData: ICartItem }
-  | { type: 'ADD'; itemData: ICartItem };
+  | { type: 'ADD'; itemData: ICartItem }
+  | { type: 'DELETE_ALL' };
 
 export const CartStateContext = createContext<CartStateType | null>(null);
 export const CartDispatchContext =

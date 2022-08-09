@@ -3,17 +3,38 @@ import styled, { css } from 'styled-components';
 import { colors } from 'style/constants';
 import Container from 'components/common/Container';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { useCartDispatchContext } from 'store/cart/cartContext';
+import { usePageDispatchContext } from 'store/page/pageContext';
 
 export default function CartUtils() {
+  const dispatchPage = usePageDispatchContext();
+  const dispatchCart = useCartDispatchContext();
+  const cleanCart = () => {
+    dispatchCart({ type: 'DELETE_ALL' });
+  };
+  const moveToEntrancePage = () => {
+    cleanCart();
+    dispatchPage('ENTRANCE');
+  };
+
   return (
     <Container flexInfo={{ direction: 'column' }} gap={0.125} width="100%">
       <Container flexInfo={{ align: 'center' }} gap={0.125} width="100%">
-        <CustomButton width="25%" backgroundColor={colors.tertiary}>
+        <CustomButton
+          width="25%"
+          backgroundColor={colors.tertiary}
+          onClick={cleanCart}
+        >
           <DeleteOutlinedIcon />
         </CustomButton>
         <CustomButton backgroundColor={colors.primary}>주문하기</CustomButton>
       </Container>
-      <CustomButton backgroundColor={colors.darkGrey}>처음으로</CustomButton>
+      <CustomButton
+        backgroundColor={colors.darkGrey}
+        onClick={moveToEntrancePage}
+      >
+        처음으로
+      </CustomButton>
     </Container>
   );
 }

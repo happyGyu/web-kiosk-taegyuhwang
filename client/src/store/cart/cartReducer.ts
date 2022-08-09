@@ -31,6 +31,8 @@ export default function cartReducer(
     }
     case 'ADD':
       return [...state, action.itemData];
+    case 'DELETE_ALL':
+      return [];
     default:
       throw new Error('Invalid action');
   }
