@@ -8,7 +8,7 @@ import { formatMoneyString } from 'utils';
 import QuantityController from 'components/QuantityController';
 import { useCartDispatchContext } from 'store/cart/cartContext';
 import Container from 'components/common/Container';
-import { MIN_ORDER_QUANTITY, MAX_ORDER_QUANTITY } from 'constants';
+import policy from 'policy';
 
 export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
   const { id, name, imgUrl, totalPricePerEach, quantity } = cartItem;
@@ -40,8 +40,8 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
           <QuantityController
             quantity={quantity}
             setQuantity={setQuantity}
-            min={MIN_ORDER_QUANTITY}
-            max={MAX_ORDER_QUANTITY}
+            min={policy.MIN_ORDER_QUANTITY}
+            max={policy.MAX_ORDER_QUANTITY}
             size="S"
           />
         </Container>

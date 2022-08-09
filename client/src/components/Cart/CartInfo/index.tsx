@@ -1,17 +1,33 @@
 import styled from 'styled-components';
 import { colors } from 'style/constants';
 import mixin from 'style/mixin';
+import { useCartStateContext } from 'store/cart/cartContext';
+import { formatMoneyString } from 'utils';
 
 export default function CartInfo() {
+  const cartState = useCartStateContext();
+
+  const calTotalAmounts = (): { totalQuantity: number; totalPrice: number } =>
+    cartState.reduce(
+      (amounts, cartItem) => {
+        const newAmounts = { ...amounts };
+        newAmounts.totalQuantity += cartItem.quantity;
+        newAmounts.totalPrice += cartItem.totalPricePerEach * cartItem.quantity;
+        return newAmounts;
+      },
+      { totalQuantity: 0, totalPrice: 0 }
+    );
+
+  const { totalQuantity, totalPrice } = calTotalAmounts();
   return (
     <CartInfoWrapper>
       <CartInfoItem>
         <InfoTitle>총 수량 : </InfoTitle>
-        <InfoContent>0 개</InfoContent>
+        <InfoContent>{totalQuantity} 개</InfoContent>
       </CartInfoItem>
       <CartInfoItem>
         <InfoTitle>총 금액 : </InfoTitle>
-        <InfoContent>0 원</InfoContent>
+        <InfoContent>{formatMoneyString(totalPrice)}</InfoContent>
       </CartInfoItem>
     </CartInfoWrapper>
   );
