@@ -1,35 +1,45 @@
 import styled from 'styled-components';
 import { colors, shadows } from 'style/constants';
-import { IMenu, MenuIdType } from 'types';
+import { IMenu } from 'types';
 import mixin from 'style/mixin';
-import { Dispatch } from 'react';
-
-interface IMenuItemProps extends IMenu {
-  setSelectedMenuId: Dispatch<MenuIdType | null>;
-}
+import { useState } from 'react';
+import MenuThumbnail from 'components/common/MenuThumbnail';
+import MenuChoiceModal from './MenuChoiceModal';
 
 export default function MenuItem({
   id,
   name,
+  basePrice,
   imgUrl,
   isSoldOut,
-  setSelectedMenuId,
-}: IMenuItemProps) {
+}: IMenu) {
+  const [isChoiceModalOpened, setIsChoiceModalOpened] = useState(false);
+
   const selectMenu = () => {
     if (isSoldOut) return;
-    setSelectedMenuId(id);
+    setIsChoiceModalOpened(true);
   };
 
   return (
-    <MenuItemContainer onClick={selectMenu}>
-      {isSoldOut && (
-        <SoldOutSkin>
-          <SoldOutMessage>SOLD OUT</SoldOutMessage>
-        </SoldOutSkin>
-      )}
-      <MenuImage imgUrl={imgUrl} />
-      <MenuTitle>{name}</MenuTitle>
-    </MenuItemContainer>
+    <>
+      <MenuItemContainer onClick={selectMenu}>
+        {isSoldOut && (
+          <SoldOutSkin>
+            <SoldOutMessage>SOLD OUT</SoldOutMessage>
+          </SoldOutSkin>
+        )}
+        <MenuThumbnail size="M" imgUrl={imgUrl} />
+        <MenuTitle>{name}</MenuTitle>
+      </MenuItemContainer>
+      {/* <MenuChoiceModal
+        id={id}
+        name={name}
+        basePrice={basePrice}
+        imgUrl={imgUrl}
+        isSoldOut={isSoldOut}
+        closeModal={() => setIsChoiceModalOpened(false)}
+      /> */}
+    </>
   );
 }
 
@@ -65,13 +75,6 @@ const SoldOutMessage = styled.span`
   color: ${colors.secondary};
   font-weight: 700;
   font-size: 1.5rem;
-`;
-
-const MenuImage = styled.img<{ imgUrl: IMenu['imgUrl'] }>`
-  max-width: 75%;
-  max-height: 75%;
-  border-radius: 50%;
-  content: url(${({ imgUrl }) => imgUrl});
 `;
 
 const MenuTitle = styled.span`
