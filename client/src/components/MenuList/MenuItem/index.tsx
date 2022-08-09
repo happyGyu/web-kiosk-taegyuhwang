@@ -5,6 +5,11 @@ import mixin from 'style/mixin';
 import { useState } from 'react';
 import MenuThumbnail from 'components/common/MenuThumbnail';
 import MenuChoiceModal from './MenuChoiceModal';
+import RankingMarker from './RankingMarker';
+
+interface IMenuItemProps extends IMenu {
+  ranking: number;
+}
 
 export default function MenuItem({
   id,
@@ -12,7 +17,8 @@ export default function MenuItem({
   basePrice,
   imgUrl,
   isSoldOut,
-}: IMenu) {
+  ranking,
+}: IMenuItemProps) {
   const [isChoiceModalOpened, setIsChoiceModalOpened] = useState(false);
 
   const selectMenu = () => {
@@ -30,6 +36,7 @@ export default function MenuItem({
         )}
         <MenuThumbnail size="M" imgUrl={imgUrl} />
         <MenuTitle>{name}</MenuTitle>
+        <RankingMarker ranking={ranking} />
       </MenuItemContainer>
       {isChoiceModalOpened && (
         <MenuChoiceModal
