@@ -46,7 +46,7 @@ const ModalContent = styled.div<{ contentStyle?: CSSProp }>`
 `;
 
 const defaultBackdropStyle = css`
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 const defaultContentStyle = css`

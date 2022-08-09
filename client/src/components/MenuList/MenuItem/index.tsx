@@ -31,14 +31,14 @@ export default function MenuItem({
         <MenuThumbnail size="M" imgUrl={imgUrl} />
         <MenuTitle>{name}</MenuTitle>
       </MenuItemContainer>
-      {/* <MenuChoiceModal
+      <MenuChoiceModal
         id={id}
         name={name}
         basePrice={basePrice}
         imgUrl={imgUrl}
         isSoldOut={isSoldOut}
         closeModal={() => setIsChoiceModalOpened(false)}
-      /> */}
+      />
     </>
   );
 }

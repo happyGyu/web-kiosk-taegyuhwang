@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import kioskStore from 'store/kiosk';
 import styled from 'styled-components';
-import { CategoryIdType, MenuIdType } from 'types';
-import MenuChoiceModal from './MenuChoiceModal';
+import { CategoryIdType } from 'types';
 import MenuItem from './MenuItem';
 
 interface IMenuListProps {
@@ -10,12 +8,6 @@ interface IMenuListProps {
 }
 
 export default function MenuList({ currentCategoryId }: IMenuListProps) {
-  const [selectedMenuId, setSelectedMenuId] = useState<MenuIdType | null>(null);
-
-  const cancelMenuSelection = () => {
-    setSelectedMenuId(null);
-  };
-
   const getCurrentCategoryMenus = () => {
     const { menusGroupByCategory } = kioskStore.data;
     return menusGroupByCategory.find((data) => data.id === currentCategoryId)
@@ -23,29 +15,20 @@ export default function MenuList({ currentCategoryId }: IMenuListProps) {
   };
 
   return (
-    <>
-      <ItemList>
-        {getCurrentCategoryMenus()?.map(
-          ({ id, name, basePrice, imgUrl, isSoldOut }) => (
-            <MenuItem
-              key={id}
-              id={id}
-              name={name}
-              basePrice={basePrice}
-              imgUrl={imgUrl}
-              isSoldOut={isSoldOut}
-              setSelectedMenuId={setSelectedMenuId}
-            />
-          )
-        )}
-      </ItemList>
-      {selectedMenuId && (
-        <MenuChoiceModal
-          selectedMenuId={selectedMenuId}
-          cancelMenuSelection={cancelMenuSelection}
-        />
+    <ItemList>
+      {getCurrentCategoryMenus()?.map(
+        ({ id, name, basePrice, imgUrl, isSoldOut }) => (
+          <MenuItem
+            key={id}
+            id={id}
+            name={name}
+            basePrice={basePrice}
+            imgUrl={imgUrl}
+            isSoldOut={isSoldOut}
+          />
+        )
       )}
-    </>
+    </ItemList>
   );
 }
 
