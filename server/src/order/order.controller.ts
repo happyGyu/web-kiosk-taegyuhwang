@@ -16,7 +16,24 @@ export class OrderController {
     );
     if (!isValidPayment)
       return res.status(HttpStatus.I_AM_A_TEAPOT).json({ status: 'failed' });
-    await this.orderService.create(createOrderDto);
-    return res.status(HttpStatus.CREATED).json({ status: 'ok' });
+    const { todayOrderNum, savedSoldMenus } = await this.orderService.create(
+      createOrderDto,
+    );
+    const soldmenus = savedSoldMenus.map((soldMenu) => {
+      const { menu, quantity, sales, choiceSummary } = soldMenu;
+      return {
+        menuName: menu.name,
+        quantity,
+        sales,
+        choiceSummary,
+      };
+    });
+    return res.status(HttpStatus.CREATED).json({
+      status: 'ok',
+      data: {
+        todayOrderNum,
+        soldmenus,
+      },
+    });
   }
 }

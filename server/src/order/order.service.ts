@@ -14,7 +14,7 @@ import { Order } from './entities/order.entity';
 import { Menu } from 'src/menu/entities/menu.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 import { Choice } from 'src/choice/entities/choice.entity';
-import { getRandom, getRandomResult } from 'src/util';
+import { getRandom, getRandomResult, getYesterday } from 'src/util';
 
 @Injectable()
 export class OrderService {
@@ -32,14 +32,18 @@ export class OrderService {
   async create(createOrderDto: CreateOrderDto) {
     const { paymentMethodId, soldMenus } = createOrderDto;
     const newOrder = await this.createOrder(paymentMethodId);
+    const todayOrderNum = await this.calTodayOrderNum(newOrder.id);
+    const savedSoldMenus = await Promise.all(
+      soldMenus.map(async (soldMenu) => {
+        const createSoldMenuDto = await this.makeCreateSoldMenuDto(
+          soldMenu,
+          newOrder,
+        );
+        return this.createSoldMenu(createSoldMenuDto);
+      }),
+    );
 
-    soldMenus.forEach(async (soldMenu) => {
-      const createSoldMenuDto = await this.makeCreateSoldMenuDto(
-        soldMenu,
-        newOrder,
-      );
-      this.createSoldMenu(createSoldMenuDto);
-    });
+    return { todayOrderNum, savedSoldMenus };
   }
 
   async createOrder(paymentMethodId: number) {
@@ -52,7 +56,7 @@ export class OrderService {
 
   async createSoldMenu(createSoldMenuDto: CreateSoldMenuDto) {
     const newSoldMenu = this.soldMenuRepository.create(createSoldMenuDto);
-    await this.soldMenuRepository.save(newSoldMenu);
+    return await this.soldMenuRepository.save(newSoldMenu);
   }
 
   calculateSales(menu: Menu, choices: Choice[]) {
@@ -89,6 +93,20 @@ export class OrderService {
       sales,
       order,
     };
+  }
+
+  findYesterdayLastOrder() {
+    const yesterDay = getYesterday(new Date());
+    return this.orderRepository.findOne({
+      where: { createdAt: yesterDay },
+      order: { createdAt: 'DESC' },
+    });
+  }
+
+  async calTodayOrderNum(currentOrderId) {
+    const yesterdayLastOrder = await this.findYesterdayLastOrder();
+    const yesterdayLastOrderId = yesterdayLastOrder?.id || 0;
+    return currentOrderId - yesterdayLastOrderId;
   }
 
   //기획대로 일정 시간 후 결제를 실패하는 경우를 만들기 위한 함수
