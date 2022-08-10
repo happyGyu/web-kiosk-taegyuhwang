@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import CustomModal from 'components/Modal';
 import Container from 'components/common/Container';
 import { colors } from 'style/constants';
@@ -8,9 +8,10 @@ import MenuThumbnail from 'components/common/MenuThumbnail';
 import useAxios from 'hooks/useAxios';
 import { useEffect, useState } from 'react';
 import QuantityController from 'components/QuantityController';
-import CustomButton from 'components/common/CustomButton';
 import { useCartDispatchContext } from 'store/cart/cartContext';
 import policy from 'policy';
+import CommonModalHeader from 'components/Modal/CommonModalHeader';
+import CommonModalButtons from 'components/Modal/CommonModalButtons';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -101,16 +102,11 @@ export default function MenuChoiceModal({
   }, [isLoading]);
 
   return (
-    <CustomModal
-      contentStyle={css`
-        width: 75%;
-      `}
-      closeModal={closeModal}
-    >
+    <CustomModal closeModal={closeModal}>
       <Container width="100%">
-        <ContentTitle>
+        <CommonModalHeader>
           <h2>옵션 선택</h2>
-        </ContentTitle>
+        </CommonModalHeader>
         <ContentBody>
           <Container flexInfo={{ direction: 'column', align: 'center' }}>
             <MenuThumbnail size="L" imgUrl={imgUrl} />
@@ -137,32 +133,20 @@ export default function MenuChoiceModal({
               ))}
           </Container>
         </ContentBody>
-        <ChoiceModalButtons>
-          <CustomButton
-            style={CancleButtonStyle}
-            text="이전"
-            onClick={closeModal}
-          />
-          <CustomButton
-            style={ConfirmButtonStyle}
-            text="담기"
-            onClick={handleAddButtonClick}
-          />
-        </ChoiceModalButtons>
+        <CommonModalButtons
+          buttonInfos={[
+            { text: '이전', buttonColor: colors.darkGrey, onClick: closeModal },
+            {
+              text: '담기',
+              buttonColor: colors.primary,
+              onClick: handleAddButtonClick,
+            },
+          ]}
+        />
       </Container>
     </CustomModal>
   );
 }
-
-const ContentTitle = styled.div`
-  width: 100%;
-  padding: 2rem;
-  background-color: ${colors.primary};
-  color: ${colors.offWhite};
-  font-size: 2rem;
-  font-weight: 700;
-  ${mixin.flexMixin({ justify: 'center', align: 'center' })}
-`;
 
 const ContentBody = styled.div`
   padding: 5rem 4rem;
@@ -182,28 +166,4 @@ const TotalPrice = styled.span`
   font-size: 2.25rem;
   font-weight: 700;
   margin: 3rem 0 1.5rem 0;
-`;
-
-const ChoiceModalButtons = styled.div`
-  padding: 0rem 5rem 2rem 5rem;
-  background-color: ${colors.offWhite};
-  ${mixin.flexMixin({ align: 'center', justify: 'space-between' })}
-`;
-
-const CommonButtonStyle = css`
-  width: 13rem;
-  padding: 1.5rem 0;
-  color: ${colors.offWhite};
-  font-size: 1.5rem;
-  font-weight: 700;
-`;
-
-const CancleButtonStyle = css`
-  ${CommonButtonStyle};
-  background-color: ${colors.darkGrey};
-`;
-
-const ConfirmButtonStyle = css`
-  ${CommonButtonStyle}
-  background-color: ${colors.primary};
 `;

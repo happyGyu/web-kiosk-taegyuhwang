@@ -2,8 +2,6 @@ import useAxios from 'hooks/useAxios';
 import policy from 'policy';
 import { useEffect, useState } from 'react';
 import kioskStore from 'store/kiosk';
-import { colors } from 'style/constants';
-import mixin from 'style/mixin';
 import styled from 'styled-components';
 import { CategoryIdType, GetSalesStatApiResponseDto, MenuIdType } from 'types';
 import MenuItem from './MenuItem';

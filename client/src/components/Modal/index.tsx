@@ -1,7 +1,7 @@
-import Container from 'components/common/Container';
+import styled, { CSSProp } from 'styled-components';
 import portalStore from 'store/portal';
 import { colors } from 'style/constants';
-import styled, { css, CSSProp } from 'styled-components';
+import Container from 'components/common/Container';
 
 interface IModalProps {
   children: React.ReactNode;
@@ -41,23 +41,13 @@ const ModalBackdrop = styled.div<{ backdropStyle?: CSSProp }>`
   right: 0;
   bottom: 0;
   z-index: 10;
+  background-color: rgba(0, 0, 0, 0.4);
   ${({ backdropStyle }) => backdropStyle}
 `;
 
 const ModalContent = styled.div<{ contentStyle?: CSSProp }>`
   z-index: 11;
+  width: 75%;
+  background-color: ${colors.offWhite};
   ${({ contentStyle }) => contentStyle}
 `;
-
-const defaultBackdropStyle = css`
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
-const defaultContentStyle = css`
-  background-color: ${colors.offWhite};
-`;
-
-CustomModal.defaultProps = {
-  contentStyle: defaultContentStyle,
-  backdropStyle: defaultBackdropStyle,
-};
