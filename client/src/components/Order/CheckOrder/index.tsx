@@ -43,4 +43,8 @@ export default function CheckOrder({ closeModal }: IOrderStageModalProps) {
   );
 }
 
-const CheckOrderWrapper = styled.div``;
+const CheckOrderWrapper = styled.div`
+  max-height: 40rem;
+  overflow: auto;
+  margin-bottom: 3rem;
+`;

@@ -5,5 +5,10 @@ export function formatMoneyString(money: number) {
 }
 
 export function makeChoiceSummary(choices: IChoice[]) {
-  return choices.map((choice) => choice.name).join(' / ');
+  return choices
+    .reduce(
+      (summary, choice) => (choice ? `${summary} / ${choice?.name}` : summary),
+      ''
+    )
+    .slice(2);
 }
