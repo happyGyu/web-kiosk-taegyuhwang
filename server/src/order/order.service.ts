@@ -13,6 +13,7 @@ import { Order } from './entities/order.entity';
 import { Menu } from 'src/menu/entities/menu.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 import { Choice } from 'src/choice/entities/choice.entity';
+import { getRandom, getRandomResult } from 'src/util';
 
 @Injectable()
 export class OrderService {
@@ -87,5 +88,14 @@ export class OrderService {
       sales,
       order,
     };
+  }
+
+  //기획대로 일정 시간 후 결제를 실패하는 경우를 만들기 위한 함수
+  checkPaymentValidity(): Promise<boolean> {
+    const randomDelay = getRandom(3000, 7000);
+    const randomResult = getRandomResult(0.7);
+    return new Promise((resolve) =>
+      setTimeout(() => resolve(randomResult), randomDelay),
+    );
   }
 }
