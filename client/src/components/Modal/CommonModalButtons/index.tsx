@@ -17,30 +17,30 @@ export default function CommonModalButtons({
   buttonInfos,
 }: ICommonModalButtonsProps) {
   return (
-    <FooterWrapper>
+    <ModalButtonsWrapper>
       {buttonInfos.map((buttonInfo) => {
         const { text, buttonColor, onClick } = buttonInfo;
         return (
           <CustomButton
             key={`${text}_button`}
-            style={CommonButtonStyle}
+            style={CommonModalButtonStyle}
             buttonColor={buttonColor}
             text={text}
             onClick={onClick}
           />
         );
       })}
-    </FooterWrapper>
+    </ModalButtonsWrapper>
   );
 }
 
-const FooterWrapper = styled.div`
+const ModalButtonsWrapper = styled.div`
   padding: 0rem 5rem 2rem 5rem;
   background-color: ${colors.offWhite};
   ${mixin.flexMixin({ align: 'center', justify: 'space-between' })}
 `;
 
-const CommonButtonStyle = css`
+const CommonModalButtonStyle = css`
   width: 13rem;
   padding: 1.5rem 0;
   color: ${colors.offWhite};
