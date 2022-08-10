@@ -4,6 +4,10 @@ const RANKING_RANGE = 3;
 const PRIMARY_RANK_RANGE = 1;
 const SECONDARY_RANK_RANGE = 2;
 const TERTIARY_RANK_RANKGE = 3;
+const PAYMENT_METHOD_NAMES = {
+  CARD: '카드',
+  CASH: '현금',
+};
 const policy = {
   MIN_ORDER_QUANTITY,
   MAX_ORDER_QUANTITY,
@@ -11,6 +15,7 @@ const policy = {
   PRIMARY_RANK_RANGE,
   SECONDARY_RANK_RANGE,
   TERTIARY_RANK_RANKGE,
+  PAYMENT_METHOD_NAMES,
 };
 
 export default policy;

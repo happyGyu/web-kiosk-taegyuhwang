@@ -9,3 +9,5 @@ export interface IOrderModalProps {
   closeModal: () => void;
   moveStage: (stage: TOrderStage) => void;
 }
+
+export type TPaymentMethod = 'CARD' | 'CASH';
