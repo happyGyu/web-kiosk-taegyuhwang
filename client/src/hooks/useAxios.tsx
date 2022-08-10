@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosStatic, Method } from 'axios';
 import { useEffect, useReducer } from 'react';
 
 export interface ResponseState<T> {
@@ -16,8 +16,9 @@ type MethodType = 'get' | 'post' | 'patch';
 
 export default function useAxios<T>(
   url: string,
-  options?: AxiosRequestConfig,
-  method: MethodType = 'get'
+  method?: MethodType,
+  data?: any,
+  options?: AxiosRequestConfig
 ): ResponseState<T> {
   const initState: ResponseState<T> = {
     data: undefined,
@@ -57,7 +58,7 @@ export default function useAxios<T>(
     const fetchData = async () => {
       dispatch({ type: 'LOADING' });
       try {
-        const response = await axios[method](url, options);
+        const response = await axios[method || 'get'](url, data, options);
         dispatch({ type: 'FETCHED', payload: response.data });
       } catch (error) {
         dispatch({ type: 'ERROR', payload: error as Error });
