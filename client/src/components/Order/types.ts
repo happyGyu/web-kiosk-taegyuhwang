@@ -1,6 +1,7 @@
 export type TOrderStage =
   | 'CHECK_ORDER'
   | 'CHOOSE_PAYMENT_METHOD'
+  | 'INPUT_CASH'
   | 'PAY_BY_CARD'
   | 'PAY_BY_CASH'
   | 'SHOW_BILL';

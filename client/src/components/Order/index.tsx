@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { PostOrderApiResponseDto } from 'types';
 import CheckOrderStage from './CheckOrderStage';
 import ChoosePaymentMethodStage from './ChoosePaymentMethodStage';
+import InputCashStage from './InputCashStage';
 import PayMoneyStage from './PayMoneyStage';
 import ShowBillStage from './ShowBillStage';
 import { TOrderStage } from './types';
@@ -38,6 +39,13 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
         />
       ),
     },
+    INPUT_CASH: {
+      title: '현금을 투입해주세요.',
+      contents: (
+        <InputCashStage closeModal={closeModal} moveStage={moveStage} />
+      ),
+    },
+
     PAY_BY_CARD: {
       title: '결제를 진행 중 입니다.',
       contents: (
