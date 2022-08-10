@@ -11,6 +11,7 @@ import QuantityController from 'components/QuantityController';
 import CustomButton from 'components/common/CustomButton';
 import { useCartDispatchContext } from 'store/cart/cartContext';
 import policy from 'policy';
+import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -101,16 +102,11 @@ export default function MenuChoiceModal({
   }, [isLoading]);
 
   return (
-    <CustomModal
-      contentStyle={css`
-        width: 75%;
-      `}
-      closeModal={closeModal}
-    >
+    <CustomModal closeModal={closeModal}>
       <Container width="100%">
-        <ContentTitle>
+        <CommonModalHeader>
           <h2>옵션 선택</h2>
-        </ContentTitle>
+        </CommonModalHeader>
         <ContentBody>
           <Container flexInfo={{ direction: 'column', align: 'center' }}>
             <MenuThumbnail size="L" imgUrl={imgUrl} />
@@ -153,16 +149,6 @@ export default function MenuChoiceModal({
     </CustomModal>
   );
 }
-
-const ContentTitle = styled.div`
-  width: 100%;
-  padding: 2rem;
-  background-color: ${colors.primary};
-  color: ${colors.offWhite};
-  font-size: 2rem;
-  font-weight: 700;
-  ${mixin.flexMixin({ justify: 'center', align: 'center' })}
-`;
 
 const ContentBody = styled.div`
   padding: 5rem 4rem;
