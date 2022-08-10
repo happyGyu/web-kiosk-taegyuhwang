@@ -13,6 +13,11 @@ export interface IOrderStageModalProps {
 
 export default function OrderModal({ closeModal }: IOrderStageModalProps) {
   const [orderStage, setOrderState] = useState<TOrderStage>('CHECK_ORDER');
+
+  const moveStage = (stageName: TOrderStage) => {
+    setOrderState(stageName);
+  };
+
   const modalElements = {
     CHECK_ORDER: <CheckOrder closeModal={closeModal} />,
   };
