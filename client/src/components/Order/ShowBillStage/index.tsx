@@ -58,7 +58,9 @@ export default function ShowBillStage({
           );
         })}
       </SoldMenuWrapper>
-      <AlertMessage>{displayTime}</AlertMessage>
+      <AlertMessage>
+        이 창은 <span>{displayTime}</span> 후에 자동으로 닫힙니다.
+      </AlertMessage>
     </>
   );
 }
@@ -114,5 +116,10 @@ const MenuPrice = styled.span`
 `;
 
 const AlertMessage = styled.span`
-  ${colors.error}
+  margin: 0 auto;
+  font-size: 1.25rem;
+
+  & span {
+    color: ${colors.error};
+  }
 `;
