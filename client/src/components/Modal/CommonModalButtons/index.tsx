@@ -7,6 +7,7 @@ interface ICommonModalButton {
   text: string;
   buttonColor: string;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 interface ICommonModalButtonsProps {
@@ -19,7 +20,7 @@ export default function CommonModalButtons({
   return (
     <ModalButtonsWrapper>
       {buttonInfos.map((buttonInfo) => {
-        const { text, buttonColor, onClick } = buttonInfo;
+        const { text, buttonColor, onClick, disabled } = buttonInfo;
         return (
           <CustomButton
             key={`${text}_button`}
@@ -27,6 +28,7 @@ export default function CommonModalButtons({
             buttonColor={buttonColor}
             text={text}
             onClick={onClick}
+            disabled={disabled}
           />
         );
       })}

@@ -62,6 +62,7 @@ export default function InputCashStage({
             text: '결제하기',
             buttonColor: colors.primary,
             onClick: () => moveStage('PAY_BY_CASH'),
+            disabled: !checkIsEnough(),
           },
         ]}
       />
