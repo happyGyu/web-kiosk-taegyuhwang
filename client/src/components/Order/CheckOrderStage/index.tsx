@@ -7,17 +7,13 @@ import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import styled from 'styled-components';
 import { calculateTotalAmountOfCart, formatMoneyString } from 'utils';
+import { IOrderModalProps } from '../types';
 import CheckOrderItem from './CheckOrderItem';
-
-export interface IOrderStageModalProps {
-  closeModal: () => void;
-  moveNext: () => void;
-}
 
 export default function CheckOrderStage({
   closeModal,
-  moveNext,
-}: IOrderStageModalProps) {
+  moveStage,
+}: IOrderModalProps) {
   const cartState = useCartStateContext();
   const { totalQuantity, totalPrice } = calculateTotalAmountOfCart(cartState);
   return (
@@ -49,7 +45,7 @@ export default function CheckOrderStage({
             {
               text: '결제하기',
               buttonColor: colors.primary,
-              onClick: moveNext,
+              onClick: () => moveStage('CHOOSE_PAYMENT_METHOD'),
             },
           ]}
         />
