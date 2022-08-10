@@ -1,25 +1,29 @@
 import Container from 'components/common/Container';
 import LoadingIndicator from 'components/common/LoadingIndicator';
-import CustomModal from 'components/Modal';
 import CommonModalButtons from 'components/Modal/CommonModalButtons';
-import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import useAxios from 'hooks/useAxios';
 import policy from 'policy';
 import { useEffect } from 'react';
 import { useCartStateContext } from 'store/cart/cartContext';
 import kioskStore from 'store/kiosk';
 import { colors } from 'style/constants';
+import styled from 'styled-components';
 import { IOrderModalProps, TPaymentMethod } from '../types';
 
-export default function PayByCardStage({
+interface IPayMoneyStageProps extends IOrderModalProps {
+  paymentMethodName: TPaymentMethod;
+}
+
+export default function PayMoneyStage({
   closeModal,
   moveStage,
-}: IOrderModalProps) {
+  paymentMethodName,
+}: IPayMoneyStageProps) {
   const cartState = useCartStateContext();
 
-  const getPaymentMethodId = (paymentMethodName: TPaymentMethod) =>
+  const getPaymentMethodId = (pmName: TPaymentMethod) =>
     kioskStore.data.paymentMethods.find(
-      (pm) => pm.name === policy.PAYMENT_METHOD_NAMES[paymentMethodName]
+      (pm) => pm.name === policy.PAYMENT_METHOD_NAMES[pmName]
     )?.id;
 
   const getSoldMenus = () =>
@@ -30,7 +34,7 @@ export default function PayByCardStage({
     }));
 
   const makeOrderRequestBody = () => {
-    const paymentMethodId = getPaymentMethodId('CARD');
+    const paymentMethodId = getPaymentMethodId(paymentMethodName);
     const soldMenus = getSoldMenus();
     return {
       paymentMethodId,
@@ -50,17 +54,18 @@ export default function PayByCardStage({
   }, [isLoading]);
 
   return (
-    <CustomModal>
-      <Container width="100%">
-        <CommonModalHeader>
-          <h2>결제 중 입니다.</h2>
-        </CommonModalHeader>
-        {isLoading && (
-          <Container margin="0 auto" width="30%" height="100%">
-            <LoadingIndicator />
-          </Container>
-        )}
-        {error && (
+    <>
+      {isLoading && (
+        <Container margin="15rem auto" width="10rem" height="10rem">
+          <LoadingIndicator />
+        </Container>
+      )}
+      {error && (
+        <>
+          <FailureMessage>결제가 정상처리 되지 않았습니다.</FailureMessage>
+          <FailureDescription>
+            {`취소를 누르면 초기화면으로 돌아갑니다.\n다시 결제하시려면 재시도를 눌러주세요.`}
+          </FailureDescription>
           <CommonModalButtons
             buttonInfos={[
               {
@@ -75,8 +80,26 @@ export default function PayByCardStage({
               },
             ]}
           />
-        )}
-      </Container>
-    </CustomModal>
+        </>
+      )}
+    </>
   );
 }
+
+const FailureMessage = styled.span`
+  width: 100%;
+  margin-top: 12rem;
+  text-align: center;
+  color: ${colors.error};
+  font-size: 2rem;
+  font-weight: 600;
+`;
+
+const FailureDescription = styled.p`
+  color: ${colors.darkGrey};
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 3rem;
+  margin: 0 auto;
+  white-space: pre-wrap;
+`;

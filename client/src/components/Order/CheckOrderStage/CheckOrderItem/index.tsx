@@ -46,7 +46,6 @@ export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
 const CheckOrderItemWrapper = styled.div`
   height: 10rem;
   padding: 2rem 0;
-  margin: 0 5rem;
   display: flex;
   border-bottom: 1px solid ${colors.darkGrey};
 `;

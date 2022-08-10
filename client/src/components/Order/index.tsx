@@ -1,7 +1,11 @@
+import CustomModal from 'components/Modal';
+import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import { useState } from 'react';
+import mixin from 'style/mixin';
+import styled from 'styled-components';
 import CheckOrderStage from './CheckOrderStage';
 import ChoosePaymentMethodStage from './ChoosePaymentMethodStage';
-import PayByCardStage from './PayByCardStage';
+import PayMoneyStage from './PayMoneyStage';
 import { TOrderStage } from './types';
 
 export interface IOrderStageModalProps {
@@ -15,23 +19,63 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
     setOrderState(stageName);
   };
 
-  const modalElements = {
-    CHECK_ORDER: (
-      <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
-    ),
-    CHOOSE_PAYMENT_METHOD: (
-      <ChoosePaymentMethodStage closeModal={closeModal} moveStage={moveStage} />
-    ),
-    PAY_BY_CARD: (
-      <PayByCardStage closeModal={closeModal} moveStage={moveStage} />
-    ),
-    PAY_BY_CASH: (
-      <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
-    ),
-    SHOW_BILL: (
-      <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
-    ),
+  const modalInfos = {
+    CHECK_ORDER: {
+      title: '주문을 확인해주세요.',
+      contents: (
+        <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
+      ),
+    },
+    CHOOSE_PAYMENT_METHOD: {
+      title: '결제 수단을 선택해주세요.',
+      contents: (
+        <ChoosePaymentMethodStage
+          closeModal={closeModal}
+          moveStage={moveStage}
+        />
+      ),
+    },
+    PAY_BY_CARD: {
+      title: '결제를 진행 중 입니다.',
+      contents: (
+        <PayMoneyStage
+          closeModal={closeModal}
+          moveStage={moveStage}
+          paymentMethodName="CARD"
+        />
+      ),
+    },
+    PAY_BY_CASH: {
+      title: '현금을 투입해주세요.',
+      contents: (
+        <PayMoneyStage
+          closeModal={closeModal}
+          moveStage={moveStage}
+          paymentMethodName="CASH"
+        />
+      ),
+    },
+    SHOW_BILL: {
+      title: '주문 결과를 확인해주세요.',
+      contents: (
+        <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
+      ),
+    },
   };
 
-  return modalElements[orderStage];
+  return (
+    <CustomModal closeModal={closeModal}>
+      <CommonModalHeader>
+        <h2>{modalInfos[orderStage].title}</h2>
+      </CommonModalHeader>
+      <ContentWrapper>{modalInfos[orderStage].contents}</ContentWrapper>
+    </CustomModal>
+  );
 }
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  ${mixin.flexMixin({ direction: 'column', justify: 'space-between' })}
+  padding: 3rem 5rem;
+  height: 50rem;
+`;

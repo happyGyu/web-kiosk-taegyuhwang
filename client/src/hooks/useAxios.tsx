@@ -58,7 +58,7 @@ export default function useAxios<T>(
     const fetchData = async () => {
       dispatch({ type: 'LOADING' });
       try {
-        const response = await axios[method || 'get'](url, data, options);
+        const response = await axios.request({ url, data, method, ...options });
         dispatch({ type: 'FETCHED', payload: response.data });
       } catch (error) {
         dispatch({ type: 'ERROR', payload: error as Error });

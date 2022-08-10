@@ -35,7 +35,7 @@ export default function CommonModalButtons({
 }
 
 const ModalButtonsWrapper = styled.div`
-  padding: 2rem 5rem;
+  width: 100%;
   background-color: ${colors.offWhite};
   ${mixin.flexMixin({ align: 'center', justify: 'space-between' })}
 `;
