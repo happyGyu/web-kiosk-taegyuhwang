@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import CheckOrderStage from './CheckOrderStage';
 import ChoosePaymentMethodStage from './ChoosePaymentMethodStage';
 import PayMoneyStage from './PayMoneyStage';
+import ShowBillStage from './ShowBillStage';
 import { TOrderStage } from './types';
 
 export interface IOrderStageModalProps {
@@ -57,9 +58,7 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
     },
     SHOW_BILL: {
       title: '주문 결과를 확인해주세요.',
-      contents: (
-        <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
-      ),
+      contents: <ShowBillStage closeModal={closeModal} />,
     },
   };
 
