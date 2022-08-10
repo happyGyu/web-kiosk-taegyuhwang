@@ -1,3 +1,4 @@
+import { PaymentMethod } from './../paymentMethod/entities/paymentMethod.entity';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -91,7 +92,11 @@ export class OrderService {
   }
 
   //기획대로 일정 시간 후 결제를 실패하는 경우를 만들기 위한 함수
-  checkPaymentValidity(): Promise<boolean> {
+  async checkPaymentValidity(paymentMethodId: number): Promise<boolean> {
+    const paymentMethod = await this.paymentMethodService.findById(
+      paymentMethodId,
+    );
+    if (paymentMethod.name === '현금') return true;
     const randomDelay = getRandom(3000, 7000);
     const randomResult = getRandomResult(0.5);
     return new Promise((resolve) =>

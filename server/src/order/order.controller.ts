@@ -10,7 +10,10 @@ export class OrderController {
 
   @Post()
   async create(@Res() res: Response, @Body() createOrderDto: CreateOrderDto) {
-    const isValidPayment = await this.orderService.checkPaymentValidity();
+    const { paymentMethodId } = createOrderDto;
+    const isValidPayment = await this.orderService.checkPaymentValidity(
+      paymentMethodId,
+    );
     if (!isValidPayment)
       return res.status(HttpStatus.I_AM_A_TEAPOT).json({ status: 'failed' });
     await this.orderService.create(createOrderDto);
