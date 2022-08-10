@@ -19,7 +19,7 @@ export class OrderController {
     const { todayOrderNum, savedSoldMenus } = await this.orderService.create(
       createOrderDto,
     );
-    const soldmenus = savedSoldMenus.map((soldMenu) => {
+    const soldMenus = savedSoldMenus.map((soldMenu) => {
       const { menu, quantity, sales, choiceSummary } = soldMenu;
       return {
         menuName: menu.name,
@@ -32,7 +32,7 @@ export class OrderController {
       status: 'ok',
       data: {
         todayOrderNum,
-        soldmenus,
+        soldMenus,
       },
     });
   }

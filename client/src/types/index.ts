@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export type CategoryIdType = number;
 export interface ICategory {
   id: CategoryIdType;
@@ -52,8 +50,22 @@ export interface IMenusGroupByCategory extends ICategory {
   menus: IMenu[];
 }
 
+type TServerSavedSoldMenu = {
+  menuName: string;
+  quantity: number;
+  sales: number;
+  choiceSummary: string;
+};
+
 export type GetMenuCategoriesApiResponseDto = ICategory[];
 export type GetMenusApiResponseDto = IMenusGroupByCategory[];
 export type GetPaymentMethodsApiResponseDto = IPaymentMethod[];
 export type GetChoicesApiResponseDto = IChoiceGroup[];
 export type GetSalesStatApiResponseDto = IMenuSales[];
+export type PostOrderApiResponseDto = {
+  status: 'ok' | 'fail';
+  data: {
+    todayOrderNum: number;
+    soldMenus: TServerSavedSoldMenu[];
+  };
+};
