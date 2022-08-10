@@ -3,6 +3,7 @@ import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import { useState } from 'react';
 import mixin from 'style/mixin';
 import styled from 'styled-components';
+import { PostOrderApiResponseDto } from 'types';
 import CheckOrderStage from './CheckOrderStage';
 import ChoosePaymentMethodStage from './ChoosePaymentMethodStage';
 import PayMoneyStage from './PayMoneyStage';
@@ -15,7 +16,8 @@ export interface IOrderStageModalProps {
 
 export default function OrderModal({ closeModal }: IOrderStageModalProps) {
   const [orderStage, setOrderState] = useState<TOrderStage>('CHECK_ORDER');
-
+  const [orderResult, setOrderResult] =
+    useState<PostOrderApiResponseDto | null>(null);
   const moveStage = (stageName: TOrderStage) => {
     setOrderState(stageName);
   };
@@ -43,6 +45,7 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
           closeModal={closeModal}
           moveStage={moveStage}
           paymentMethodName="CARD"
+          setOrderResult={setOrderResult}
         />
       ),
     },
@@ -53,12 +56,15 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
           closeModal={closeModal}
           moveStage={moveStage}
           paymentMethodName="CASH"
+          setOrderResult={setOrderResult}
         />
       ),
     },
     SHOW_BILL: {
       title: '주문 결과를 확인해주세요.',
-      contents: <ShowBillStage closeModal={closeModal} />,
+      contents: (
+        <ShowBillStage closeModal={closeModal} orderResult={orderResult} />
+      ),
     },
   };
 

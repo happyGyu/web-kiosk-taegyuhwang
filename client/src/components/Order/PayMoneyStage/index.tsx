@@ -8,16 +8,19 @@ import { useCartStateContext } from 'store/cart/cartContext';
 import kioskStore from 'store/kiosk';
 import { colors } from 'style/constants';
 import styled from 'styled-components';
+import { PostOrderApiResponseDto } from 'types';
 import { IOrderModalProps, TPaymentMethod } from '../types';
 
 interface IPayMoneyStageProps extends IOrderModalProps {
   paymentMethodName: TPaymentMethod;
+  setOrderResult: React.Dispatch<PostOrderApiResponseDto | null>;
 }
 
 export default function PayMoneyStage({
   closeModal,
   moveStage,
   paymentMethodName,
+  setOrderResult,
 }: IPayMoneyStageProps) {
   const cartState = useCartStateContext();
 
@@ -47,10 +50,12 @@ export default function PayMoneyStage({
     data: paymentResult,
     error,
     isLoading,
-  } = useAxios<{ status: 'ok' | 'fail' }>('/order', 'post', orderRequestBody);
+  } = useAxios<PostOrderApiResponseDto>('/order', 'post', orderRequestBody);
 
   useEffect(() => {
-    if (paymentResult?.status === 'ok') moveStage('SHOW_BILL');
+    if (paymentResult?.status !== 'ok') return;
+    setOrderResult(paymentResult);
+    moveStage('SHOW_BILL');
   }, [isLoading]);
 
   return (
