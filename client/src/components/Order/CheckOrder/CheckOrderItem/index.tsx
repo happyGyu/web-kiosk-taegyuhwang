@@ -23,31 +23,38 @@ export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
     });
   };
   return (
-    <Container flexInfo={{ direction: 'row' }} margin="3rem 5rem 0 5rem">
+    <CheckOrderItemWrapper>
       <MenuThumbnail size="M" imgUrl={cartItem.imgUrl} />
       <OrderMenuInfo>
         <MenuName>{cartItem.name}</MenuName>
         <MenuChoices>{makeChoiceSummary(cartItem.choices)}</MenuChoices>
       </OrderMenuInfo>
-      <Container flexInfo={{ direction: 'column' }} gap={1}>
+      <Container flexInfo={{ direction: 'column', justify: 'space-around' }}>
         <QuantityController
           size="S"
           setQuantity={changeQuantity}
           quantity={cartItem.quantity}
         />
-        <TotalPrice>
+        <MenuPrice>
           {formatMoneyString(cartItem.totalPricePerEach * cartItem.quantity)}
-        </TotalPrice>
+        </MenuPrice>
       </Container>
-    </Container>
+    </CheckOrderItemWrapper>
   );
 }
+
+const CheckOrderItemWrapper = styled.div`
+  height: 10rem;
+  padding: 2rem 0;
+  margin: 0 5rem;
+  display: flex;
+  border-bottom: 1px solid ${colors.darkGrey};
+`;
 
 const OrderMenuInfo = styled.div`
   margin-left: 2rem;
   flex-grow: 1;
-  gap: 1rem;
-  ${mixin.flexMixin({ direction: 'column' })}
+  ${mixin.flexMixin({ direction: 'column', justify: 'space-around' })}
 `;
 
 const MenuName = styled.span`
@@ -61,7 +68,7 @@ const MenuChoices = styled.span`
   color: ${colors.placeholder};
 `;
 
-const TotalPrice = styled.span`
+const MenuPrice = styled.span`
   font-size: 1.5rem;
   font-weight: 600;
 `;
