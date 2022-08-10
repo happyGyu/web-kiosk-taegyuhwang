@@ -64,7 +64,7 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
   };
 
   return (
-    <CustomModal>
+    <CustomModal closeModal={closeModal}>
       <CommonModalHeader>
         <h2>{modalInfos[orderStage].title}</h2>
       </CommonModalHeader>
