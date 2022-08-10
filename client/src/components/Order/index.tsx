@@ -1,4 +1,8 @@
+import CustomModal from 'components/Modal';
+import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import { useState } from 'react';
+import mixin from 'style/mixin';
+import styled from 'styled-components';
 import CheckOrderStage from './CheckOrderStage';
 import ChoosePaymentMethodStage from './ChoosePaymentMethodStage';
 import PayByCardStage from './PayByCardStage';
@@ -15,7 +19,7 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
     setOrderState(stageName);
   };
 
-  const modalElements = {
+  const modalContents = {
     CHECK_ORDER: (
       <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
     ),
@@ -33,5 +37,19 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
     ),
   };
 
-  return modalElements[orderStage];
+  return (
+    <CustomModal>
+      <CommonModalHeader>
+        <h2>결제 수단을 선택해주세요.</h2>
+      </CommonModalHeader>
+      <ContentWrapper>{modalContents[orderStage]}</ContentWrapper>
+    </CustomModal>
+  );
 }
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  ${mixin.flexMixin({ direction: 'column', justify: 'space-between' })}
+  padding: 3rem 5rem;
+  height: 50rem;
+`;
