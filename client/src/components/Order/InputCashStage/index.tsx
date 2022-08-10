@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useCartStateContext } from 'store/cart/cartContext';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { calculateTotalAmountOfCart } from 'utils';
-import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import mixin from 'style/mixin';
-import { colors } from 'style/constants';
+import { colors, shadows } from 'style/constants';
 import CommonModalButtons from 'components/Modal/CommonModalButtons';
 import Container from 'components/common/Container';
+import policy from 'policy';
+import CustomButton from 'components/common/CustomButton';
 import { IOrderModalProps } from '../types';
 
 export default function InputCashStage({
@@ -21,6 +22,8 @@ export default function InputCashStage({
     setInputAmount((prev) => prev + amount);
   };
 
+  const leftMoney = () => Math.max(totalPrice - inputAmount, 0);
+  const checkIsEnough = () => inputAmount >= totalPrice;
   return (
     <>
       <Container
@@ -39,10 +42,19 @@ export default function InputCashStage({
         <Sign> = </Sign>
         <MoneyDisplay>
           <span>잔여 금액</span>
-          <Amount>{totalPrice - inputAmount}</Amount>
+          <Amount>{leftMoney()}</Amount>
         </MoneyDisplay>
       </Container>
-      <InputButtons />
+      <InputButtons>
+        {policy.AVAILABLE_CASH.map((cashType) => (
+          <CustomButton
+            key={cashType}
+            text={cashType.toLocaleString()}
+            onClick={() => addMoney(cashType)}
+            style={InputMoneyButtonStyle}
+          />
+        ))}
+      </InputButtons>
       <CommonModalButtons
         buttonInfos={[
           { text: '이전', buttonColor: colors.darkGrey, onClick: closeModal },
@@ -76,5 +88,20 @@ const Amount = styled.span`
 `;
 
 const InputButtons = styled.div`
+  width: 100%;
   ${mixin.flexMixin({ justify: 'space-between', wrap: 'wrap' })}
+`;
+
+const InputMoneyButtonStyle = css`
+  font-size: 2rem;
+  width: 45%;
+  height: 6rem;
+  margin-bottom: 2rem;
+  background-color: ${colors.tertiary};
+  color: ${colors.darkGrey};
+  ${shadows.default};
+  :hover {
+    background-color: ${colors.primary};
+    color: ${colors.offWhite};
+  }
 `;
