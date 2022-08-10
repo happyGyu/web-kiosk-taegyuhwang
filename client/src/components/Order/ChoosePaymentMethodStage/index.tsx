@@ -1,7 +1,4 @@
-import Container from 'components/common/Container';
-import CustomModal from 'components/Modal';
 import CommonModalButtons from 'components/Modal/CommonModalButtons';
-import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import kioskStore from 'store/kiosk';
 import { colors } from 'style/constants';
 import mixin from 'style/mixin';
@@ -24,38 +21,34 @@ export default function ChoosePaymentMethodStage({
   };
 
   return (
-    <CustomModal>
-      <Container width="100%">
-        <CommonModalHeader>
-          <h2>결제 수단을 선택해주세요.</h2>
-        </CommonModalHeader>
-        <PaymentMethodWrapper>
-          {paymentMethods.map((paymentMethod) => (
-            <PaymentMethodButton
-              key={paymentMethod.id}
-              onClick={() => moveStage(paymentMethodStages[paymentMethod.name])}
-            >
-              {paymentMethod.name}
-            </PaymentMethodButton>
-          ))}
-        </PaymentMethodWrapper>
-        <CommonModalButtons
-          buttonInfos={[
-            {
-              text: '취소',
-              buttonColor: colors.darkGrey,
-              onClick: closeModal,
-            },
-          ]}
-        />
-      </Container>
-    </CustomModal>
+    <>
+      <PaymentMethodWrapper>
+        {paymentMethods.map((paymentMethod) => (
+          <PaymentMethodButton
+            key={paymentMethod.id}
+            onClick={() => moveStage(paymentMethodStages[paymentMethod.name])}
+          >
+            {paymentMethod.name}
+          </PaymentMethodButton>
+        ))}
+      </PaymentMethodWrapper>
+      <CommonModalButtons
+        buttonInfos={[
+          {
+            text: '취소',
+            buttonColor: colors.darkGrey,
+            onClick: closeModal,
+          },
+        ]}
+      />
+    </>
   );
 }
 
 const PaymentMethodWrapper = styled.div`
+  width: 100%;
+  margin: auto 0;
   ${mixin.flexMixin({ align: 'center', justify: 'space-between' })}
-  padding: 3rem 5rem;
   gap: 2rem;
 `;
 
