@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Response } from 'express';
+import { Body, Controller, Post, Res, HttpStatus } from '@nestjs/common';
 
 import { CreateOrderDto } from './dto/createOrderDto';
 import { OrderService } from './order.service';
@@ -8,7 +9,11 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
+  async create(@Res() res: Response, @Body() createOrderDto: CreateOrderDto) {
+    const isValidPayment = await this.orderService.checkPaymentValidity();
+    if (!isValidPayment)
+      return res.status(HttpStatus.I_AM_A_TEAPOT).json({ status: 'failed' });
+    await this.orderService.create(createOrderDto);
+    return res.status(HttpStatus.CREATED).json({ status: 'ok' });
   }
 }

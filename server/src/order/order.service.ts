@@ -93,7 +93,7 @@ export class OrderService {
   //기획대로 일정 시간 후 결제를 실패하는 경우를 만들기 위한 함수
   checkPaymentValidity(): Promise<boolean> {
     const randomDelay = getRandom(3000, 7000);
-    const randomResult = getRandomResult(0.7);
+    const randomResult = getRandomResult(0.5);
     return new Promise((resolve) =>
       setTimeout(() => resolve(randomResult), randomDelay),
     );
