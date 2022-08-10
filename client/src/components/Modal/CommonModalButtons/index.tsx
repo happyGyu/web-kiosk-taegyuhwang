@@ -1,4 +1,3 @@
-import React from 'react';
 import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import styled, { css } from 'styled-components';
@@ -23,6 +22,7 @@ export default function CommonModalButtons({
         const { text, buttonColor, onClick } = buttonInfo;
         return (
           <CustomButton
+            key={`${text}_button`}
             style={CommonButtonStyle}
             buttonColor={buttonColor}
             text={text}
