@@ -1,4 +1,5 @@
 import Container from 'components/common/Container';
+import LoadingIndicator from 'components/common/LoadingIndicator';
 import CustomModal from 'components/Modal';
 import CommonModalButtons from 'components/Modal/CommonModalButtons';
 import CommonModalHeader from 'components/Modal/CommonModalHeader';
@@ -8,8 +9,6 @@ import { useEffect } from 'react';
 import { useCartStateContext } from 'store/cart/cartContext';
 import kioskStore from 'store/kiosk';
 import { colors } from 'style/constants';
-import mixin from 'style/mixin';
-import styled from 'styled-components';
 import { IOrderModalProps, TPaymentMethod } from '../types';
 
 export default function PayByCardStage({
@@ -47,7 +46,7 @@ export default function PayByCardStage({
   } = useAxios<{ status: 'ok' | 'fail' }>('/order', 'post', orderRequestBody);
 
   useEffect(() => {
-    if (paymentResult?.status === 'ok') alert('성공!');
+    if (paymentResult?.status === 'ok') moveStage('SHOW_BILL');
   }, [isLoading]);
 
   return (
@@ -56,7 +55,11 @@ export default function PayByCardStage({
         <CommonModalHeader>
           <h2>결제 중 입니다.</h2>
         </CommonModalHeader>
-        {isLoading && <div>로딩중</div>}
+        {isLoading && (
+          <Container margin="0 auto" width="30%" height="100%">
+            <LoadingIndicator />
+          </Container>
+        )}
         {error && (
           <CommonModalButtons
             buttonInfos={[
@@ -65,6 +68,11 @@ export default function PayByCardStage({
                 buttonColor: colors.darkGrey,
                 onClick: closeModal,
               },
+              {
+                text: '재시도',
+                buttonColor: colors.primary,
+                onClick: () => moveStage('CHOOSE_PAYMENT_METHOD'),
+              },
             ]}
           />
         )}
@@ -72,29 +80,3 @@ export default function PayByCardStage({
     </CustomModal>
   );
 }
-
-const PaymentMethodWrapper = styled.div`
-  ${mixin.flexMixin({ align: 'center', justify: 'space-between' })}
-  padding: 3rem 5rem;
-  gap: 2rem;
-`;
-
-const PaymentMethodButton = styled.button`
-  width: 33%;
-  height: 12rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  ${mixin.flexMixin({
-    direction: 'column',
-    align: 'center',
-    justify: 'center',
-    wrap: 'wrap',
-  })}
-  border: 3px solid ${colors.placeholder};
-  color: ${colors.placeholder};
-
-  :hover {
-    border-color: ${colors.primary};
-    color: ${colors.primary};
-  }
-`;

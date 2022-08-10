@@ -28,6 +28,9 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
     PAY_BY_CASH: (
       <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
     ),
+    SHOW_BILL: (
+      <CheckOrderStage closeModal={closeModal} moveStage={moveStage} />
+    ),
   };
 
   return modalElements[orderStage];
