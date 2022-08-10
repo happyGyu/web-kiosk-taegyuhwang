@@ -5,7 +5,7 @@ import Container from 'components/common/Container';
 
 interface IModalProps {
   children: React.ReactNode;
-  closeModal: () => void;
+  closeModal?: () => void;
   contentStyle?: CSSProp;
   backdropStyle?: CSSProp;
 }
