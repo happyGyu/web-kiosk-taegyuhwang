@@ -11,9 +11,13 @@ import CheckOrderItem from './CheckOrderItem';
 
 export interface IOrderStageModalProps {
   closeModal: () => void;
+  moveNext: () => void;
 }
 
-export default function CheckOrder({ closeModal }: IOrderStageModalProps) {
+export default function CheckOrderStage({
+  closeModal,
+  moveNext,
+}: IOrderStageModalProps) {
   const cartState = useCartStateContext();
   const { totalQuantity, totalPrice } = calculateTotalAmountOfCart(cartState);
   return (
@@ -45,7 +49,7 @@ export default function CheckOrder({ closeModal }: IOrderStageModalProps) {
             {
               text: '결제하기',
               buttonColor: colors.primary,
-              onClick: closeModal,
+              onClick: moveNext,
             },
           ]}
         />

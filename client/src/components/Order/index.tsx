@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import CheckOrder from './CheckOrder';
+import CheckOrderStage from './CheckOrderStage';
+import ChoosePaymentMethodStage from './ChoosePaymentMethodStage';
 
-type TOrderStage = 'CHECK_ORDER';
-//   | 'CHOOSE_PAYMENT_METHOD'
+type TOrderStage = 'CHECK_ORDER' | 'CHOOSE_PAYMENT_METHOD';
 //   | 'HANDLE_CARD_PAY'
 //   | 'PAY_BY_CASH'
 //   | 'SHOW_BILL';
@@ -19,7 +19,13 @@ export default function OrderModal({ closeModal }: IOrderStageModalProps) {
   };
 
   const modalElements = {
-    CHECK_ORDER: <CheckOrder closeModal={closeModal} />,
+    CHECK_ORDER: (
+      <CheckOrderStage
+        closeModal={closeModal}
+        moveNext={() => moveStage('CHOOSE_PAYMENT_METHOD')}
+      />
+    ),
+    CHOOSE_PAYMENT_METHOD: <ChoosePaymentMethodStage />,
   };
 
   return modalElements[orderStage];
