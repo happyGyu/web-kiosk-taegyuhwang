@@ -18,7 +18,7 @@ export default function QuantityController({
   quantity,
   setQuantity,
   min = 1,
-  max = 99,
+  max = 9,
   size,
 }: IQuantityController) {
   const handleDecreaseButton = () => {

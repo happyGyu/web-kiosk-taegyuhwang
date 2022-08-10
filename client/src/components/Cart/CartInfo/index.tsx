@@ -2,23 +2,12 @@ import styled from 'styled-components';
 import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import { useCartStateContext } from 'store/cart/cartContext';
-import { formatMoneyString } from 'utils';
+import { calculateTotalAmountOfCart, formatMoneyString } from 'utils';
 
 export default function CartInfo() {
   const cartState = useCartStateContext();
 
-  const calTotalAmounts = (): { totalQuantity: number; totalPrice: number } =>
-    cartState.reduce(
-      (amounts, cartItem) => {
-        const newAmounts = { ...amounts };
-        newAmounts.totalQuantity += cartItem.quantity;
-        newAmounts.totalPrice += cartItem.totalPricePerEach * cartItem.quantity;
-        return newAmounts;
-      },
-      { totalQuantity: 0, totalPrice: 0 }
-    );
-
-  const { totalQuantity, totalPrice } = calTotalAmounts();
+  const { totalQuantity, totalPrice } = calculateTotalAmountOfCart(cartState);
   return (
     <CartInfoWrapper>
       <CartInfoItem>
