@@ -82,6 +82,8 @@ const SoldMenuWrapper = styled.ul`
   width: 100%;
   margin-top: 3rem;
   flex-grow: 1;
+  overflow: auto;
+  margin-bottom: 2rem;
 `;
 
 const SoldMenu = styled.li`
