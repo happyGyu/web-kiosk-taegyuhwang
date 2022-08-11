@@ -1,5 +1,14 @@
+import { CreateMenuDto } from './dto/createMenuDto';
 import { Response } from 'express';
-import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
 
 import { MenuService } from './menu.service';
 
@@ -28,5 +37,11 @@ export class MenuController {
       parseInt(categoryId),
     );
     return res.status(HttpStatus.OK).json(salesRanking);
+  }
+
+  @Post()
+  async create(@Res() res: Response, @Body() createMenuDto: CreateMenuDto) {
+    const newMenu = await this.menuService.create(createMenuDto);
+    return res.status(HttpStatus.CREATED).json({ ok: true, data: newMenu });
   }
 }

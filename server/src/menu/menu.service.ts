@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Menu } from './entities/menu.entity';
 import { MenuCategory } from './entities/menuCategory.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
+import { CreateMenuDto } from './dto/createMenuDto';
 
 @Injectable()
 export class MenuService {
@@ -64,5 +65,18 @@ export class MenuService {
     return menusWithTotalSalesLog.sort(
       (a, b) => b.totalSoldQuantity - a.totalSoldQuantity,
     );
+  }
+
+  async create(createMenuDto: CreateMenuDto) {
+    const { name } = createMenuDto;
+    const sameNameMenu = await this.menuRepository.findOneBy({ name });
+    if (sameNameMenu) {
+      throw new HttpException(
+        { message: '동일한 이름의 메뉴가 존재합니다.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const newMenu = this.menuRepository.create(createMenuDto);
+    return await this.menuRepository.save(newMenu);
   }
 }
