@@ -4,6 +4,7 @@ interface ICustomButtonProps {
   style?: CSSProp;
   buttonColor?: string;
   text: string;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -11,16 +12,27 @@ export default function CustomButton({
   style,
   buttonColor,
   text,
+  disabled,
   onClick,
 }: ICustomButtonProps) {
   return (
-    <MyButton onClick={onClick} buttonStyle={style} buttonColor={buttonColor}>
+    <MyButton
+      disabled={disabled}
+      onClick={onClick}
+      buttonStyle={style}
+      buttonColor={buttonColor}
+    >
       {text}
     </MyButton>
   );
 }
 
-const MyButton = styled.button<{ buttonColor?: string; buttonStyle?: CSSProp }>`
+const MyButton = styled.button<{
+  diabled?: boolean;
+  buttonColor?: string;
+  buttonStyle?: CSSProp;
+}>`
   background-color: ${({ buttonColor }) => buttonColor};
   ${({ buttonStyle }) => buttonStyle}
+  opacity: ${({ disabled }) => disabled && 0.7};
 `;

@@ -17,7 +17,7 @@ export default function ChoosePaymentMethodStage({
 
   const paymentMethodStages: IPaymentMethodStages = {
     카드: 'PAY_BY_CARD',
-    현금: 'PAY_BY_CASH',
+    현금: 'INPUT_CASH',
   };
 
   return (

@@ -14,15 +14,20 @@ export function makeChoiceSummary(choices: IChoice[]) {
     .slice(2);
 }
 
-export function calculateTotalAmountOfCart(cartState: CartStateType): {
+type TAmountInfo = {
+  quantity: number;
+  price: number;
+};
+
+export function calculateTotalAmountOfCart(amountInfo: TAmountInfo[]): {
   totalQuantity: number;
   totalPrice: number;
 } {
-  return cartState.reduce(
-    (amounts, cartItem) => {
+  return amountInfo.reduce(
+    (amounts, amountPerProduct) => {
       const newAmounts = { ...amounts };
-      newAmounts.totalQuantity += cartItem.quantity;
-      newAmounts.totalPrice += cartItem.totalPricePerEach * cartItem.quantity;
+      newAmounts.totalQuantity += amountPerProduct.quantity;
+      newAmounts.totalPrice += amountPerProduct.price;
       return newAmounts;
     },
     { totalQuantity: 0, totalPrice: 0 }

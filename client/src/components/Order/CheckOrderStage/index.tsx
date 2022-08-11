@@ -1,9 +1,9 @@
 import CommonModalButtons from 'components/Modal/CommonModalButtons';
 import { useCartStateContext } from 'store/cart/cartContext';
 import { colors } from 'style/constants';
-import mixin from 'style/mixin';
 import styled from 'styled-components';
-import { calculateTotalAmountOfCart, formatMoneyString } from 'utils';
+import { calculateTotalAmountOfCart } from 'utils';
+import TotalAmount from '../common/TotalAmount';
 import { IOrderModalProps } from '../types';
 import CheckOrderItem from './CheckOrderItem';
 
@@ -23,15 +23,7 @@ export default function CheckOrderStage({
           />
         ))}
       </CheckOrderWrapper>
-      <OrderStat>
-        <Stat>
-          총 수량 : <HighlightedStat>{totalQuantity}</HighlightedStat>
-        </Stat>
-        <Stat>
-          총 금액 :{' '}
-          <HighlightedStat>{formatMoneyString(totalPrice)}</HighlightedStat>
-        </Stat>
-      </OrderStat>
+      <TotalAmount totalPrice={totalPrice} totalQuantity={totalQuantity} />
       <CommonModalButtons
         buttonInfos={[
           { text: '이전', buttonColor: colors.darkGrey, onClick: closeModal },
@@ -53,23 +45,4 @@ const CheckOrderWrapper = styled.div`
   margin-bottom: 3rem;
   flex-grow: 1;
   background-color: ${colors.offWhite};
-`;
-
-const OrderStat = styled.div`
-  width: 100%;
-  margin-bottom: 2rem;
-  ${mixin.flexMixin({ justify: 'space-between', align: 'center' })}
-`;
-
-const Stat = styled.div`
-  gap: 0.5rem;
-  font-size: 1.5rem;
-  font-weight: 500;
-  ${mixin.flexMixin({ justify: 'space-between', align: 'center' })};
-`;
-
-const HighlightedStat = styled.span`
-  font-size: 2rem;
-  font-weight: 700;
-  color: ${colors.primary};
 `;

@@ -9,6 +9,7 @@ const PAYMENT_METHOD_NAMES = {
   CASH: '현금',
 };
 const BILL_DISPLAYING_TIME = 7;
+const AVAILABLE_CASH = [50000, 10000, 5000, 1000, 500, 100];
 const policy = {
   MIN_ORDER_QUANTITY,
   MAX_ORDER_QUANTITY,
@@ -18,6 +19,7 @@ const policy = {
   TERTIARY_RANK_RANKGE,
   PAYMENT_METHOD_NAMES,
   BILL_DISPLAYING_TIME,
+  AVAILABLE_CASH,
 };
 
 export default policy;

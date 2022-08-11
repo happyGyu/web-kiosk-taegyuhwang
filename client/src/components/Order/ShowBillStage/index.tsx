@@ -4,7 +4,8 @@ import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import styled from 'styled-components';
 import { PostOrderApiResponseDto } from 'types';
-import { formatMoneyString } from 'utils';
+import { calculateTotalAmountOfCart, formatMoneyString } from 'utils';
+import TotalAmount from '../common/TotalAmount';
 
 interface IShowBillStageProps {
   closeModal: () => void;
@@ -33,15 +34,20 @@ export default function ShowBillStage({
         return leftTime;
       });
     }, 1000);
+
+    return () => {
+      clearInterval(timerId);
+    };
   }, []);
 
   const { todayOrderNum, soldMenus } = orderResult.data;
+  const { totalPrice, totalQuantity } = calculateTotalAmountOfCart(soldMenus);
   return (
     <>
       <OrderNumber>주문번호 {todayOrderNum}번</OrderNumber>
       <SoldMenuWrapper>
         {soldMenus.map((soldMenu) => {
-          const { menuName, quantity, sales, choiceSummary } = soldMenu;
+          const { menuName, quantity, price, choiceSummary } = soldMenu;
           return (
             <SoldMenu key={`${menuName}_${choiceSummary}`}>
               <MenuInfoWrapper>
@@ -52,12 +58,13 @@ export default function ShowBillStage({
               </MenuInfoWrapper>
               <SalesWrapper>
                 <SoldQuantity>{quantity}개</SoldQuantity>
-                <MenuPrice>{formatMoneyString(sales)}</MenuPrice>
+                <MenuPrice>{formatMoneyString(price)}</MenuPrice>
               </SalesWrapper>
             </SoldMenu>
           );
         })}
       </SoldMenuWrapper>
+      <TotalAmount totalPrice={totalPrice} totalQuantity={totalQuantity} />
       <AlertMessage>
         이 창은 <span>{displayTime}</span> 후에 자동으로 닫힙니다.
       </AlertMessage>

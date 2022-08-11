@@ -24,7 +24,7 @@ export class OrderController {
       return {
         menuName: menu.name,
         quantity,
-        sales,
+        price: sales,
         choiceSummary,
       };
     });
