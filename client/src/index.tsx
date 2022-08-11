@@ -5,9 +5,10 @@ import CartProvider from 'store/cart/cartProvider';
 import PageProvider from 'store/page/pageProvider';
 import App from './App';
 
-if (process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL = 'http://localhost:3000';
-}
+axios.defaults.baseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/api'
+    : 'http://3.34.193.200/api';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
