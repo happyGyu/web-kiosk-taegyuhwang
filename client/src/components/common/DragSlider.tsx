@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import policy from 'policy';
+import React, { useEffect, useState, useRef } from 'react';
 import styled, { css } from 'styled-components';
 
 type CMouseEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
@@ -10,6 +11,11 @@ interface IDragSliderProps {
   children: React.ReactNode;
 }
 
+type TLimitState = {
+  LEFT: number;
+  RIGHT: number;
+};
+
 export default function DragSlider({
   width,
   height,
@@ -19,12 +25,25 @@ export default function DragSlider({
   const [isDragging, setIsDragging] = useState(false);
   const [originalPos, setOriginalPos] = useState<number | null>(null);
   const [sliderPos, setSliderPos] = useState<number>(0);
+  const [limitState, setLimitState] = useState<TLimitState>({
+    LEFT: 0,
+    RIGHT: 0,
+  });
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sliderWidth = sliderRef.current?.getBoundingClientRect().width;
+    const childrenWidth =
+      sliderRef.current?.firstElementChild?.getBoundingClientRect().width;
+    if (!sliderWidth || !childrenWidth) return;
+    const leftLimit = policy.DRAG_LIMIT_PX;
+    const rightLimit = sliderWidth - policy.DRAG_LIMIT_PX - childrenWidth;
+    setLimitState({ LEFT: leftLimit, RIGHT: rightLimit });
+  }, [sliderRef]);
 
   useEffect(() => {
     if (isDragging) return;
-    if (isOverLimit()) {
-      setSliderPos(0);
-    }
+    setSliderPos(handlePos(sliderPos, true));
   }, [isDragging]);
 
   const startDragging = (event: CMouseEvent) => {
@@ -40,16 +59,31 @@ export default function DragSlider({
   const handleMouseMove = (event: CMouseEvent) => {
     if (!originalPos) return;
     setIsDragging(true);
-    setSliderPos(event.clientX - originalPos);
-    if (isOverLimit()) {
-      setSliderPos(30);
-    }
+    setSliderPos(handlePos(event.clientX - originalPos));
   };
 
-  const isOverLimit = () => sliderPos >= 30;
+  const handlePos = (pos: number, goBack = false) => {
+    const posState = checkPosState(pos);
+    if (posState === 'RIGHT_OVER')
+      return goBack
+        ? limitState.RIGHT + policy.DRAG_LIMIT_PX
+        : limitState.RIGHT;
+    if (posState === 'LEFT_OVER')
+      return goBack ? limitState.LEFT - policy.DRAG_LIMIT_PX : limitState.LEFT;
+    return pos;
+  };
+
+  const checkPosState = (pos: number): 'OK' | 'LEFT_OVER' | 'RIGHT_OVER' => {
+    const { LEFT, RIGHT } = limitState;
+    if (!LEFT || !RIGHT) return 'OK';
+    if (pos >= LEFT) return 'LEFT_OVER';
+    if (pos <= RIGHT) return 'RIGHT_OVER';
+    return 'OK';
+  };
 
   return (
     <SliderContainer
+      ref={sliderRef}
       onMouseDown={startDragging}
       onMouseUp={finishDragging}
       onMouseLeave={finishDragging}
