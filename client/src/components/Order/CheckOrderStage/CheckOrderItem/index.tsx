@@ -29,7 +29,13 @@ export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
         <MenuName>{cartItem.name}</MenuName>
         <MenuChoices>{makeChoiceSummary(cartItem.choices)}</MenuChoices>
       </OrderMenuInfo>
-      <Container flexInfo={{ direction: 'column', justify: 'space-around' }}>
+      <Container
+        flexInfo={{
+          direction: 'column',
+          justify: 'space-around',
+          align: 'flex-end',
+        }}
+      >
         <QuantityController
           size="S"
           setQuantity={changeQuantity}
@@ -66,6 +72,6 @@ const MenuChoices = styled.span`
 `;
 
 const MenuPrice = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-weight: 600;
 `;
