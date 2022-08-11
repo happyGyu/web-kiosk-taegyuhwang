@@ -107,9 +107,16 @@ export class MenuService {
       this.getById(menuToChoiceId),
       this.choiceService.getChoiceById(choiceToMenuId),
     ]);
-    const newRelation = this.menuHasChoiceRespository.create(
-      createMenuHasChoiceDto,
-    );
-    this.menuHasChoiceRespository.save(newRelation);
+    try {
+      const newRelation = this.menuHasChoiceRespository.create(
+        createMenuHasChoiceDto,
+      );
+      this.menuHasChoiceRespository.save(newRelation);
+    } catch (error) {
+      throw new HttpException(
+        { message: '알 수 없는 에러가 발생했습니다.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }
