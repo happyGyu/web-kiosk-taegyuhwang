@@ -51,7 +51,7 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
   );
 }
 
-const MenuItemWrapper = styled.div`
+const MenuItemWrapper = styled.li`
   padding: 0.75rem 0;
   width: 100%;
   height: 6.5rem;
