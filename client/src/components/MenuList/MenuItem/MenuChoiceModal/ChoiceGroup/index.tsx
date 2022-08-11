@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import Container from 'components/common/Container';
 import { IChoice, IChoiceGroup } from 'types';
-import { useState } from 'react';
 import mixin from 'style/mixin';
 import { colors } from 'style/constants';
 

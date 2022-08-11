@@ -50,11 +50,6 @@ export default function QuantityController({
   );
 }
 
-QuantityController.defaultProps = {
-  min: 1,
-  max: 99,
-};
-
 const CircleButton = styled.button<{ size: TControllerSize }>`
   ${mixin.flexMixin({ justify: 'center', align: 'center' })}
   border-radius: 100%;

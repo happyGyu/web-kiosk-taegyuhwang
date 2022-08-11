@@ -114,7 +114,10 @@ export default function MenuChoiceModal({
         <h2>옵션 선택</h2>
       </CommonModalHeader>
       <ContentBody>
-        <Container flexInfo={{ direction: 'column', align: 'center' }}>
+        <Container
+          flexInfo={{ direction: 'column', align: 'center' }}
+          width="40%"
+        >
           <MenuThumbnail size="L" imgUrl={imgUrl} />
           <MenuName>{name}</MenuName>
           <TotalPrice>{formatMoneyString(caculateMenuPrice())}</TotalPrice>
