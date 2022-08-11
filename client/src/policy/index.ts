@@ -8,6 +8,7 @@ const PAYMENT_METHOD_NAMES = {
   CARD: '카드',
   CASH: '현금',
 };
+const BILL_DISPLAYING_TIME = 7;
 const policy = {
   MIN_ORDER_QUANTITY,
   MAX_ORDER_QUANTITY,
@@ -16,6 +17,7 @@ const policy = {
   SECONDARY_RANK_RANGE,
   TERTIARY_RANK_RANKGE,
   PAYMENT_METHOD_NAMES,
+  BILL_DISPLAYING_TIME,
 };
 
 export default policy;
