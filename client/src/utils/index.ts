@@ -26,8 +26,9 @@ export function calculateTotalAmountOfCart(amountInfo: TAmountInfo[]): {
   return amountInfo.reduce(
     (amounts, amountPerProduct) => {
       const newAmounts = { ...amounts };
-      newAmounts.totalQuantity += amountPerProduct.quantity;
-      newAmounts.totalPrice += amountPerProduct.price;
+      const { quantity, price } = amountPerProduct;
+      newAmounts.totalQuantity += quantity;
+      newAmounts.totalPrice += price * quantity;
       return newAmounts;
     },
     { totalQuantity: 0, totalPrice: 0 }

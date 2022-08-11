@@ -45,7 +45,7 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
             size="S"
           />
         </Container>
-        <Price>{formatMoneyString(price)}</Price>
+        <Price>{formatMoneyString(price * quantity)}</Price>
       </MenuItemInfoArea>
     </MenuItemWrapper>
   );

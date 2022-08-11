@@ -147,7 +147,9 @@ export default function MenuChoiceModal({
         >
           <MenuThumbnail size="L" imgUrl={imgUrl} />
           <MenuName>{name}</MenuName>
-          <TotalPrice>{formatMoneyString(caculateMenuPrice())}</TotalPrice>
+          <TotalPrice>
+            {formatMoneyString(caculateMenuPrice() * quantity)}
+          </TotalPrice>
           <QuantityController
             quantity={quantity}
             setQuantity={setQuantity}

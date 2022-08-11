@@ -22,12 +22,14 @@ export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
       quantity: newQuantity,
     });
   };
+
+  const { name, imgUrl, choices, quantity, price } = cartItem;
   return (
     <CheckOrderItemWrapper>
-      <MenuThumbnail size="M" imgUrl={cartItem.imgUrl} />
+      <MenuThumbnail size="M" imgUrl={imgUrl} />
       <OrderMenuInfo>
-        <MenuName>{cartItem.name}</MenuName>
-        <MenuChoices>{makeChoiceSummary(cartItem.choices)}</MenuChoices>
+        <MenuName>{name}</MenuName>
+        <MenuChoices>{makeChoiceSummary(choices)}</MenuChoices>
       </OrderMenuInfo>
       <Container
         flexInfo={{
@@ -39,9 +41,9 @@ export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
         <QuantityController
           size="S"
           setQuantity={changeQuantity}
-          quantity={cartItem.quantity}
+          quantity={quantity}
         />
-        <MenuPrice>{formatMoneyString(cartItem.price)}</MenuPrice>
+        <MenuPrice>{formatMoneyString(price * quantity)}</MenuPrice>
       </Container>
     </CheckOrderItemWrapper>
   );
