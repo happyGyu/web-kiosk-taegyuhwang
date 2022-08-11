@@ -6,10 +6,11 @@ export default function CartMenuList() {
   const cartState = useCartStateContext();
   return (
     <CartMenuListWrapper>
-      {cartState.map((cartItem) => (
+      {cartState.map((cartItem, cartItemIdx) => (
         <CartMenuItem
           key={`${cartItem.id}_${JSON.stringify(cartItem.choices)}`}
           cartItem={cartItem}
+          cartItemIdx={cartItemIdx}
         />
       ))}
     </CartMenuListWrapper>

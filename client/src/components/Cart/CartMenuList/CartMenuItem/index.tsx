@@ -10,13 +10,21 @@ import { useCartDispatchContext } from 'store/cart/cartContext';
 import Container from 'components/common/Container';
 import policy from 'policy';
 
-export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
+interface ICartItemProps {
+  cartItem: ICartItem;
+  cartItemIdx: number;
+}
+
+export default function CartMenuItem({
+  cartItem,
+  cartItemIdx,
+}: ICartItemProps) {
   const { id, name, imgUrl, price, quantity, choices } = cartItem;
   const dispatchContext = useCartDispatchContext();
   const setQuantity = (newQuantity: number) => {
     dispatchContext({
       type: 'CHANGE_QUANTITY',
-      menuId: id,
+      cartItemIdx,
       quantity: newQuantity,
     });
   };

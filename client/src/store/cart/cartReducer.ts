@@ -18,9 +18,8 @@ export default function cartReducer(
       return newState;
     }
     case 'CHANGE_QUANTITY': {
-      const targetItemIdx = findTargetItemIdx(action.menuId, state);
       const newState = [...state];
-      newState[targetItemIdx].quantity = action.quantity;
+      newState[action.cartItemIdx].quantity = action.quantity;
       return newState;
     }
     case 'UPDATE': {

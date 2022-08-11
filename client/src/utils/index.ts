@@ -1,4 +1,3 @@
-import { CartStateType } from '../store/cart/cartContext';
 import { IChoice } from '../types/index';
 
 export function formatMoneyString(money: number) {

@@ -10,15 +10,19 @@ import { formatMoneyString, makeChoiceSummary } from 'utils';
 
 interface ICheckOrderItemProps {
   cartItem: ICartItem;
+  cartItemIdx: number;
 }
 
-export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
+export default function CheckOrderItem({
+  cartItem,
+  cartItemIdx,
+}: ICheckOrderItemProps) {
   const dispatchCart = useCartDispatchContext();
 
   const changeQuantity = (newQuantity: number) => {
     dispatchCart({
       type: 'CHANGE_QUANTITY',
-      menuId: cartItem.id,
+      cartItemIdx,
       quantity: newQuantity,
     });
   };

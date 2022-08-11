@@ -16,10 +16,11 @@ export default function CheckOrderStage({
   return (
     <>
       <CheckOrderWrapper>
-        {cartState.map((cartItem) => (
+        {cartState.map((cartItem, cartItemIdx) => (
           <CheckOrderItem
             key={`${cartItem.id}_${JSON.stringify(cartItem.choices)}`}
             cartItem={cartItem}
+            cartItemIdx={cartItemIdx}
           />
         ))}
       </CheckOrderWrapper>
