@@ -6,6 +6,7 @@ import mixin from 'style/mixin';
 import { useState } from 'react';
 import { CategoryIdType } from 'types';
 import kioskStore from 'store/kiosk';
+import DragSlider from 'components/common/DragSlider';
 
 export default function MainPage() {
   const { categories } = kioskStore.data;
