@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 
 import { MenuService } from './menu.service';
+import { CreateMenuHasChoiceDto } from './dto/createMenuHasChoiceDto';
 
 @Controller('menus')
 export class MenuController {
@@ -43,5 +44,14 @@ export class MenuController {
   async create(@Res() res: Response, @Body() createMenuDto: CreateMenuDto) {
     const newMenu = await this.menuService.create(createMenuDto);
     return res.status(HttpStatus.CREATED).json({ ok: true, data: newMenu });
+  }
+
+  @Post('choice')
+  async addChoiceToMenu(
+    @Res() res: Response,
+    @Body() createMenuHasChoiceDto: CreateMenuHasChoiceDto,
+  ) {
+    await this.menuService.createMenuHasChoice(createMenuHasChoiceDto);
+    return res.status(HttpStatus.CREATED).json({ ok: true });
   }
 }

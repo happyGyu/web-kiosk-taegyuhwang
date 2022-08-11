@@ -1,3 +1,4 @@
+import { CreateMenuHasChoiceDto } from './dto/createMenuHasChoiceDto';
 import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -6,6 +7,8 @@ import { Menu } from './entities/menu.entity';
 import { MenuCategory } from './entities/menuCategory.entity';
 import { SoldMenu } from 'src/order/entities/soldMenu.entity';
 import { CreateMenuDto } from './dto/createMenuDto';
+import { MenuHasChoice } from './entities/menuHasChoice.entity';
+import { ChoiceService } from 'src/choice/choice.service';
 
 @Injectable()
 export class MenuService {
@@ -14,6 +17,10 @@ export class MenuService {
     private menuRepository: Repository<Menu>,
     @InjectRepository(MenuCategory)
     private menuCategoryRepository: Repository<MenuCategory>,
+    @InjectRepository(MenuHasChoice)
+    private menuHasChoiceRespository: Repository<MenuHasChoice>,
+
+    private choiceService: ChoiceService,
   ) {}
 
   async getAllMenusByCategory(): Promise<MenuCategory[]> {
@@ -28,7 +35,14 @@ export class MenuService {
   }
 
   async getById(id: number): Promise<Menu> {
-    return await this.menuRepository.findOneBy({ id });
+    try {
+      return await this.menuRepository.findOneBy({ id });
+    } catch (error) {
+      throw new HttpException(
+        { message: '존재하지 않응 메뉴 아이디입니다.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async getMenusWithSalesLog(categoryId: number) {
@@ -76,7 +90,26 @@ export class MenuService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const newMenu = this.menuRepository.create(createMenuDto);
-    return await this.menuRepository.save(newMenu);
+    try {
+      const newMenu = this.menuRepository.create(createMenuDto);
+      return await this.menuRepository.save(newMenu);
+    } catch (error) {
+      throw new HttpException(
+        { message: '알 수 없는 에러가 발생했습니다.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async createMenuHasChoice(createMenuHasChoiceDto: CreateMenuHasChoiceDto) {
+    const { menuToChoiceId, choiceToMenuId } = createMenuHasChoiceDto;
+    await Promise.all([
+      this.getById(menuToChoiceId),
+      this.choiceService.getChoiceById(choiceToMenuId),
+    ]);
+    const newRelation = this.menuHasChoiceRespository.create(
+      createMenuHasChoiceDto,
+    );
+    this.menuHasChoiceRespository.save(newRelation);
   }
 }
