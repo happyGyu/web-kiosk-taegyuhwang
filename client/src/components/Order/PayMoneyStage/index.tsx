@@ -4,7 +4,10 @@ import CommonModalButtons from 'components/Modal/CommonModalButtons';
 import useAxios from 'hooks/useAxios';
 import policy from 'policy';
 import { useEffect } from 'react';
-import { useCartStateContext } from 'store/cart/cartContext';
+import {
+  useCartDispatchContext,
+  useCartStateContext,
+} from 'store/cart/cartContext';
 import kioskStore from 'store/kiosk';
 import { colors } from 'style/constants';
 import styled from 'styled-components';
@@ -23,6 +26,7 @@ export default function PayMoneyStage({
   setOrderResult,
 }: IPayMoneyStageProps) {
   const cartState = useCartStateContext();
+  const dispatchCart = useCartDispatchContext();
 
   const getPaymentMethodId = (pmName: TPaymentMethod) =>
     kioskStore.data.paymentMethods.find(
@@ -45,6 +49,11 @@ export default function PayMoneyStage({
     };
   };
 
+  const handleCancleClick = () => {
+    dispatchCart({ type: 'DELETE_ALL' });
+    closeModal();
+  };
+
   const orderRequestBody = makeOrderRequestBody();
   const {
     data: paymentResult,
@@ -55,6 +64,7 @@ export default function PayMoneyStage({
   useEffect(() => {
     if (paymentResult?.status !== 'ok') return;
     setOrderResult(paymentResult);
+    dispatchCart({ type: 'DELETE_ALL' });
     moveStage('SHOW_BILL');
   }, [isLoading]);
 
@@ -76,7 +86,7 @@ export default function PayMoneyStage({
               {
                 text: '취소',
                 buttonColor: colors.darkGrey,
-                onClick: closeModal,
+                onClick: handleCancleClick,
               },
               {
                 text: '재시도',
