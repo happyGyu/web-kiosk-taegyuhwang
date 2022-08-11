@@ -28,7 +28,9 @@ export default function MenuList({ currentCategoryId }: IMenuListProps) {
     const sortedSalesData = salesData.sort(
       (a, b) => b.totalSoldQuantity - a.totalSoldQuantity
     );
-    const rankerBoard = sortedSalesData.map((menu) => menu.id);
+    const rankerBoard = sortedSalesData.map((menu) =>
+      menu.totalSoldQuantity ? menu.id : -1
+    );
     return rankerBoard.splice(0, rankRange);
   };
 

@@ -26,10 +26,11 @@ export default function CommonModalButtons({
             key={`${text}_button`}
             style={CommonModalButtonStyle}
             buttonColor={buttonColor}
-            text={text}
             onClick={onClick}
             disabled={disabled}
-          />
+          >
+            {text}
+          </CustomButton>
         );
       })}
     </ModalButtonsWrapper>

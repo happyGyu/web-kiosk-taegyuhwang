@@ -10,32 +10,44 @@ import { formatMoneyString, makeChoiceSummary } from 'utils';
 
 interface ICheckOrderItemProps {
   cartItem: ICartItem;
+  cartItemIdx: number;
 }
 
-export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
+export default function CheckOrderItem({
+  cartItem,
+  cartItemIdx,
+}: ICheckOrderItemProps) {
   const dispatchCart = useCartDispatchContext();
 
   const changeQuantity = (newQuantity: number) => {
     dispatchCart({
       type: 'CHANGE_QUANTITY',
-      menuId: cartItem.id,
+      cartItemIdx,
       quantity: newQuantity,
     });
   };
+
+  const { name, imgUrl, choices, quantity, price } = cartItem;
   return (
     <CheckOrderItemWrapper>
-      <MenuThumbnail size="M" imgUrl={cartItem.imgUrl} />
+      <MenuThumbnail size="M" imgUrl={imgUrl} />
       <OrderMenuInfo>
-        <MenuName>{cartItem.name}</MenuName>
-        <MenuChoices>{makeChoiceSummary(cartItem.choices)}</MenuChoices>
+        <MenuName>{name}</MenuName>
+        <MenuChoices>{makeChoiceSummary(choices)}</MenuChoices>
       </OrderMenuInfo>
-      <Container flexInfo={{ direction: 'column', justify: 'space-around' }}>
+      <Container
+        flexInfo={{
+          direction: 'column',
+          justify: 'space-around',
+          align: 'flex-end',
+        }}
+      >
         <QuantityController
           size="S"
           setQuantity={changeQuantity}
-          quantity={cartItem.quantity}
+          quantity={quantity}
         />
-        <MenuPrice>{formatMoneyString(cartItem.price)}</MenuPrice>
+        <MenuPrice>{formatMoneyString(price * quantity)}</MenuPrice>
       </Container>
     </CheckOrderItemWrapper>
   );
@@ -66,6 +78,6 @@ const MenuChoices = styled.span`
 `;
 
 const MenuPrice = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-weight: 600;
 `;

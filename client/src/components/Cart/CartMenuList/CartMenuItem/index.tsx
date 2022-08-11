@@ -4,19 +4,27 @@ import mixin from 'style/mixin';
 import { colors } from 'style/constants';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import Squircle from 'components/common/Squircle';
-import { formatMoneyString } from 'utils';
+import { formatMoneyString, makeChoiceSummary } from 'utils';
 import QuantityController from 'components/QuantityController';
 import { useCartDispatchContext } from 'store/cart/cartContext';
 import Container from 'components/common/Container';
 import policy from 'policy';
 
-export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
-  const { id, name, imgUrl, price, quantity } = cartItem;
+interface ICartItemProps {
+  cartItem: ICartItem;
+  cartItemIdx: number;
+}
+
+export default function CartMenuItem({
+  cartItem,
+  cartItemIdx,
+}: ICartItemProps) {
+  const { id, name, imgUrl, price, quantity, choices } = cartItem;
   const dispatchContext = useCartDispatchContext();
   const setQuantity = (newQuantity: number) => {
     dispatchContext({
       type: 'CHANGE_QUANTITY',
-      menuId: id,
+      cartItemIdx,
       quantity: newQuantity,
     });
   };
@@ -32,7 +40,10 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
     <MenuItemWrapper>
       <MenuImage imgUrl={imgUrl} />
       <MenuItemInfoArea>
-        <MenuTitle>{name}</MenuTitle>
+        <MenuInfo>
+          <MenuTitle>{name}</MenuTitle>
+          <MenuDecription>{makeChoiceSummary(choices)}</MenuDecription>
+        </MenuInfo>
         <DeleteButton onClick={deleteMenu}>
           <ClearSharpIcon fontSize="small" />
         </DeleteButton>
@@ -45,13 +56,13 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
             size="S"
           />
         </Container>
-        <Price>{formatMoneyString(price)}</Price>
+        <Price>{formatMoneyString(price * quantity)}</Price>
       </MenuItemInfoArea>
     </MenuItemWrapper>
   );
 }
 
-const MenuItemWrapper = styled.div`
+const MenuItemWrapper = styled.li`
   padding: 0.75rem 0;
   width: 100%;
   height: 6.5rem;
@@ -77,12 +88,21 @@ const MenuItemInfoArea = styled.div`
   position: relative;
 `;
 
-const MenuTitle = styled.h3`
+const MenuInfo = styled.div`
   position: absolute;
   top: 0.125rem;
   left: 0;
+`;
+
+const MenuTitle = styled.h3`
   font-size: 1.125rem;
   font-weight: 500;
+`;
+
+const MenuDecription = styled.span`
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: ${colors.darkGrey};
 `;
 
 const DeleteButton = styled.button`

@@ -49,11 +49,12 @@ export default function InputCashStage({
         {policy.AVAILABLE_CASH.map((cashType) => (
           <CustomButton
             key={cashType}
-            text={cashType.toLocaleString()}
             onClick={() => addMoney(cashType)}
             style={InputMoneyButtonStyle}
             disabled={checkIsEnough()}
-          />
+          >
+            {cashType.toLocaleString()}
+          </CustomButton>
         ))}
       </InputButtons>
       <CommonModalButtons

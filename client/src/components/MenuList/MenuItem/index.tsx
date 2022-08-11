@@ -88,4 +88,5 @@ const SoldOutMessage = styled.span`
 
 const MenuTitle = styled.span`
   font-weight: 600;
+  padding: 1rem;
 `;

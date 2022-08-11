@@ -3,7 +3,7 @@ import styled, { CSSProp } from 'styled-components';
 interface ICustomButtonProps {
   style?: CSSProp;
   buttonColor?: string;
-  text: string;
+  children: React.ReactNode | string;
   disabled?: boolean;
   onClick: () => void;
 }
@@ -11,7 +11,7 @@ interface ICustomButtonProps {
 export default function CustomButton({
   style,
   buttonColor,
-  text,
+  children,
   disabled,
   onClick,
 }: ICustomButtonProps) {
@@ -22,7 +22,7 @@ export default function CustomButton({
       buttonStyle={style}
       buttonColor={buttonColor}
     >
-      {text}
+      {children}
     </MyButton>
   );
 }

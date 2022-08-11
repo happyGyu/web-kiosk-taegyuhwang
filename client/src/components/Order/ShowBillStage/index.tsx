@@ -1,5 +1,6 @@
+import useTimer from 'hooks/useTimer';
 import policy from 'policy';
-import { useEffect, useState } from 'react';
+import { useCartDispatchContext } from 'store/cart/cartContext';
 import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import styled from 'styled-components';
@@ -16,29 +17,14 @@ export default function ShowBillStage({
   closeModal,
   orderResult,
 }: IShowBillStageProps) {
-  const [displayTime, setDisplaytime] = useState(policy.BILL_DISPLAYING_TIME);
-
-  if (!orderResult) return <div>todo: 에러페이지</div>;
-
-  const handleDisplayTime = (leftTime: number, timerId: NodeJS.Timer) => {
-    if (leftTime > 0) return;
-    clearInterval(timerId);
+  const handleDisplayTime = () => {
+    dispatchCart({ type: 'DELETE_ALL' });
     closeModal();
   };
+  const displayTime = useTimer(policy.BILL_DISPLAYING_TIME, handleDisplayTime);
+  const dispatchCart = useCartDispatchContext();
 
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setDisplaytime((prev) => {
-        const leftTime = prev - 1;
-        handleDisplayTime(leftTime, timerId);
-        return leftTime;
-      });
-    }, 1000);
-
-    return () => {
-      clearInterval(timerId);
-    };
-  }, []);
+  if (!orderResult) return <div>todo: 에러페이지</div>;
 
   const { todayOrderNum, soldMenus } = orderResult.data;
   const { totalPrice, totalQuantity } = calculateTotalAmountOfCart(soldMenus);
@@ -82,6 +68,8 @@ const SoldMenuWrapper = styled.ul`
   width: 100%;
   margin-top: 3rem;
   flex-grow: 1;
+  overflow: auto;
+  margin-bottom: 2rem;
 `;
 
 const SoldMenu = styled.li`

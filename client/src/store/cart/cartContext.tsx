@@ -3,7 +3,7 @@ import { ICartItem } from 'types';
 
 export type CartStateType = ICartItem[];
 export type CartActionType =
-  | { type: 'CHANGE_QUANTITY'; menuId: number; quantity: number }
+  | { type: 'CHANGE_QUANTITY'; cartItemIdx: number; quantity: number }
   | { type: 'DELETE'; menuId: number }
   | { type: 'UPDATE'; itemData: ICartItem }
   | { type: 'ADD'; itemData: ICartItem }
