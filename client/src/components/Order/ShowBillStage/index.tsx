@@ -33,6 +33,10 @@ export default function ShowBillStage({
         return leftTime;
       });
     }, 1000);
+
+    return () => {
+      clearInterval(timerId);
+    };
   }, []);
 
   const { todayOrderNum, soldMenus } = orderResult.data;
