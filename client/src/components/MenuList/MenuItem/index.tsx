@@ -29,13 +29,15 @@ export default function MenuItem({
   return (
     <>
       <MenuItemContainer onClick={selectMenu}>
+        <FadeInBox>
+          <MenuThumbnail size="M" imgUrl={imgUrl} />
+        </FadeInBox>
+        <MenuTitle>{name}</MenuTitle>
         {isSoldOut && (
           <SoldOutSkin>
             <SoldOutMessage>SOLD OUT</SoldOutMessage>
           </SoldOutSkin>
         )}
-        <MenuThumbnail size="M" imgUrl={imgUrl} />
-        <MenuTitle>{name}</MenuTitle>
         <RankingMarker ranking={ranking} />
       </MenuItemContainer>
       {isChoiceModalOpened && (
@@ -67,6 +69,7 @@ const MenuItemContainer = styled.li`
   background: ${colors.offWhite};
   border-radius: 0.5rem;
   box-shadow: ${shadows.default};
+  overflow: hidden;
 `;
 
 const SoldOutSkin = styled.div`
@@ -89,4 +92,19 @@ const SoldOutMessage = styled.span`
 const MenuTitle = styled.span`
   font-weight: 600;
   padding: 1rem;
+`;
+
+const FadeInBox = styled.div`
+  animation: fadeIn 1s forwards;
+
+  @keyframes fadeIn {
+    from {
+      margin-bottom: 50%;
+      opacity: 0;
+    }
+    to {
+      margin-bottom: 0%;
+      opacity: 1;
+    }
+  }
 `;
