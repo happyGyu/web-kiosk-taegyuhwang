@@ -12,6 +12,7 @@ import { useCartDispatchContext } from 'store/cart/cartContext';
 import policy from 'policy';
 import CommonModalHeader from 'components/Modal/CommonModalHeader';
 import CommonModalButtons from 'components/Modal/CommonModalButtons';
+import { formatMoneyString } from 'utils';
 import ChoiceGroup from './ChoiceGroup';
 
 interface IMenuChoiceModal extends IMenu {
@@ -51,10 +52,10 @@ export default function MenuChoiceModal({
         (selectedChoice) => selectedChoice.selectedChoice
       );
     }
-    const totalPricePerEach = caculateTotalPricePerEach();
+    const price = caculateMenuPrice();
     dispatchCart({
       type: 'ADD',
-      itemData: { id, name, totalPricePerEach, imgUrl, quantity, choices },
+      itemData: { id, name, price, imgUrl, quantity, choices },
     });
   };
 
@@ -71,20 +72,18 @@ export default function MenuChoiceModal({
     });
   };
 
-  const caculateTotalPricePerEach = () => {
+  const caculateMenuPrice = () => {
     if (!userChoices) return basePrice;
     const userChoiceResults = Object.values(userChoices);
     const totalExtraCharge = userChoiceResults.reduce(
       (extraCharge, userChoice) => {
         const currentChoiceCharge = userChoice.selectedChoice?.extraCharge || 0;
-        return extraCharge + currentChoiceCharge;
+        return (extraCharge + currentChoiceCharge) * quantity;
       },
       0
     );
     return basePrice + totalExtraCharge;
   };
-
-  const caculateTotalPrice = () => caculateTotalPricePerEach() * quantity;
 
   useEffect(() => {
     if (isLoading || !choiceGroups) return;
@@ -111,7 +110,7 @@ export default function MenuChoiceModal({
           <Container flexInfo={{ direction: 'column', align: 'center' }}>
             <MenuThumbnail size="L" imgUrl={imgUrl} />
             <MenuName>{name}</MenuName>
-            <TotalPrice>{caculateTotalPrice().toLocaleString()}원</TotalPrice>
+            <TotalPrice>{formatMoneyString(caculateMenuPrice())}</TotalPrice>
             <QuantityController
               quantity={quantity}
               setQuantity={setQuantity}

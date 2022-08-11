@@ -40,7 +40,7 @@ export interface IChoiceGroup {
 
 export interface ICartItem extends Omit<IMenu, 'isSoldOut' | 'basePrice'> {
   quantity: number;
-  totalPricePerEach: number;
+  price: number;
   choices: IChoice[];
 }
 

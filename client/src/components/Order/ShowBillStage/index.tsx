@@ -40,6 +40,7 @@ export default function ShowBillStage({
   }, []);
 
   const { todayOrderNum, soldMenus } = orderResult.data;
+
   return (
     <>
       <OrderNumber>주문번호 {todayOrderNum}번</OrderNumber>

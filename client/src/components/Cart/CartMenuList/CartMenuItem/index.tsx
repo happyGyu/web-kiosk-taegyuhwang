@@ -11,7 +11,7 @@ import Container from 'components/common/Container';
 import policy from 'policy';
 
 export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
-  const { id, name, imgUrl, totalPricePerEach, quantity } = cartItem;
+  const { id, name, imgUrl, price, quantity } = cartItem;
   const dispatchContext = useCartDispatchContext();
   const setQuantity = (newQuantity: number) => {
     dispatchContext({
@@ -45,7 +45,7 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
             size="S"
           />
         </Container>
-        <Price>{formatMoneyString(quantity * totalPricePerEach)}</Price>
+        <Price>{formatMoneyString(price)}</Price>
       </MenuItemInfoArea>
     </MenuItemWrapper>
   );

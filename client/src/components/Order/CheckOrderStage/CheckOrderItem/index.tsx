@@ -35,9 +35,7 @@ export default function CheckOrderItem({ cartItem }: ICheckOrderItemProps) {
           setQuantity={changeQuantity}
           quantity={cartItem.quantity}
         />
-        <MenuPrice>
-          {formatMoneyString(cartItem.totalPricePerEach * cartItem.quantity)}
-        </MenuPrice>
+        <MenuPrice>{formatMoneyString(cartItem.price)}</MenuPrice>
       </Container>
     </CheckOrderItemWrapper>
   );
