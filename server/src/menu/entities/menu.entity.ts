@@ -44,7 +44,7 @@ export class Menu {
   categoryId: number;
 
   @ManyToOne(() => MenuCategory, (category) => category.menus)
-  @JoinColumn({ name: 'categoryId' })
+  @JoinColumn({ name: 'category_id' })
   category: MenuCategory;
 
   @OneToMany(() => MenuHasChoice, (menuHasChoice) => menuHasChoice.menuToChoice)
