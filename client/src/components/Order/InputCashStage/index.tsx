@@ -52,6 +52,7 @@ export default function InputCashStage({
             text={cashType.toLocaleString()}
             onClick={() => addMoney(cashType)}
             style={InputMoneyButtonStyle}
+            disabled={checkIsEnough()}
           />
         ))}
       </InputButtons>
@@ -101,7 +102,11 @@ const InputMoneyButtonStyle = css`
   background-color: ${colors.tertiary};
   color: ${colors.darkGrey};
   ${shadows.default};
-  :hover {
+  :disabled {
+    background-color: ${colors.placeholder};
+  }
+
+  :hover:not([disabled]) {
     background-color: ${colors.primary};
     color: ${colors.offWhite};
   }
