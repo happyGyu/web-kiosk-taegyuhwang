@@ -3,18 +3,18 @@ import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import policy from 'policy';
 
-interface IRankingMarker {
+interface IRankingMarkerProps {
   ranking: number;
 }
 
 const markColors = {
   PRIMARY: { color: colors.primary, bgColor: colors.gold },
   SECONDARY: { color: colors.secondary, bgColor: colors.silver },
-  TERTIARY: { color: colors.tertiary, bgColor: colors.bronze },
+  TERTIARY: { color: colors.darkGrey, bgColor: colors.bronze },
   OTHER: { color: colors.offWhite, bgColor: colors.darkGrey },
 };
 
-export default function RankingMarker({ ranking }: IRankingMarker) {
+export default function RankingMarker({ ranking }: IRankingMarkerProps) {
   const decideMarkColors = (target: number) => {
     if (target <= policy.PRIMARY_RANK_RANGE) {
       return markColors.PRIMARY;
@@ -45,10 +45,9 @@ const RankingMark = styled.div<{
   position: absolute;
   top: 0;
   left: 0;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 25%;
-  font-size: 1.25rem;
   font-weight: 600;
   ${mixin.flexMixin({ justify: 'center', align: 'center' })}
   background-color: ${({ bgColor }) => bgColor};
