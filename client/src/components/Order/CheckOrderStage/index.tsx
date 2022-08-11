@@ -12,7 +12,6 @@ export default function CheckOrderStage({
   moveStage,
 }: IOrderModalProps) {
   const cartState = useCartStateContext();
-  console.log(cartState);
   const { totalQuantity, totalPrice } = calculateTotalAmountOfCart(cartState);
   return (
     <>

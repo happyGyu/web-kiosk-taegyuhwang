@@ -4,14 +4,14 @@ import mixin from 'style/mixin';
 import { colors } from 'style/constants';
 import ClearSharpIcon from '@mui/icons-material/ClearSharp';
 import Squircle from 'components/common/Squircle';
-import { formatMoneyString } from 'utils';
+import { formatMoneyString, makeChoiceSummary } from 'utils';
 import QuantityController from 'components/QuantityController';
 import { useCartDispatchContext } from 'store/cart/cartContext';
 import Container from 'components/common/Container';
 import policy from 'policy';
 
 export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
-  const { id, name, imgUrl, price, quantity } = cartItem;
+  const { id, name, imgUrl, price, quantity, choices } = cartItem;
   const dispatchContext = useCartDispatchContext();
   const setQuantity = (newQuantity: number) => {
     dispatchContext({
@@ -32,7 +32,10 @@ export default function CartMenuItem({ cartItem }: { cartItem: ICartItem }) {
     <MenuItemWrapper>
       <MenuImage imgUrl={imgUrl} />
       <MenuItemInfoArea>
-        <MenuTitle>{name}</MenuTitle>
+        <MenuInfo>
+          <MenuTitle>{name}</MenuTitle>
+          <MenuDecription>{makeChoiceSummary(choices)}</MenuDecription>
+        </MenuInfo>
         <DeleteButton onClick={deleteMenu}>
           <ClearSharpIcon fontSize="small" />
         </DeleteButton>
@@ -77,12 +80,21 @@ const MenuItemInfoArea = styled.div`
   position: relative;
 `;
 
-const MenuTitle = styled.h3`
+const MenuInfo = styled.div`
   position: absolute;
   top: 0.125rem;
   left: 0;
+`;
+
+const MenuTitle = styled.h3`
   font-size: 1.125rem;
   font-weight: 500;
+`;
+
+const MenuDecription = styled.span`
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: ${colors.darkGrey};
 `;
 
 const DeleteButton = styled.button`
