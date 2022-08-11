@@ -93,6 +93,10 @@ const MenuName = styled.span`
   margin-top: 0.5rem;
   font-size: 1.5rem;
   font-weight: 500;
+  width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const MenuChoices = styled.span`
