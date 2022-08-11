@@ -7,8 +7,8 @@ type CMouseEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
 interface IDragSliderProps {
   width?: string;
   height?: string;
-  onClick: (e: CMouseEvent) => void;
   children: React.ReactNode;
+  onClick: (e: CMouseEvent) => void;
 }
 
 type TLimitState = {
@@ -19,8 +19,8 @@ type TLimitState = {
 export default function DragSlider({
   width,
   height,
-  onClick,
   children,
+  onClick,
 }: IDragSliderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [originalPos, setOriginalPos] = useState<number | null>(null);
@@ -30,18 +30,6 @@ export default function DragSlider({
     RIGHT: 0,
   });
   const sliderRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const { sliderWidth, childrenWidth } = getSliderComponentsWidth();
-    if (!sliderWidth || !childrenWidth) return;
-    const { leftLimit, rightLimit } = calPosLimit(sliderWidth, childrenWidth);
-    setLimitState({ LEFT: leftLimit, RIGHT: rightLimit });
-  }, [sliderRef]);
-
-  useEffect(() => {
-    if (isDragging) return;
-    setSliderPos(handlePos(sliderPos, true));
-  }, [isDragging]);
 
   const getSliderComponentsWidth = () => {
     const sliderWidth = sliderRef.current?.getBoundingClientRect().width;
@@ -56,11 +44,11 @@ export default function DragSlider({
     return { leftLimit, rightLimit };
   };
 
-  const startDragging = (event: CMouseEvent) => {
+  const handleMouseDown = (event: CMouseEvent) => {
     setOriginalPos(event.clientX - sliderPos);
   };
 
-  const finishDragging = (event: CMouseEvent) => {
+  const handleMouseUp = (event: CMouseEvent) => {
     if (originalPos && !isDragging) onClick(event);
     setIsDragging(false);
     setOriginalPos(null);
@@ -97,12 +85,24 @@ export default function DragSlider({
     return 'OK';
   };
 
+  useEffect(() => {
+    const { sliderWidth, childrenWidth } = getSliderComponentsWidth();
+    if (!sliderWidth || !childrenWidth) return;
+    const { leftLimit, rightLimit } = calPosLimit(sliderWidth, childrenWidth);
+    setLimitState({ LEFT: leftLimit, RIGHT: rightLimit });
+  }, [sliderRef]);
+
+  useEffect(() => {
+    if (isDragging) return;
+    setSliderPos(handlePos(sliderPos, true));
+  }, [isDragging]);
+
   return (
     <SliderContainer
       ref={sliderRef}
-      onMouseDown={startDragging}
-      onMouseUp={finishDragging}
-      onMouseLeave={finishDragging}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
       onMouseMove={handleMouseMove}
       width={width}
       height={height}

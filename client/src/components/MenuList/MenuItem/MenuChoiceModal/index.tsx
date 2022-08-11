@@ -47,36 +47,18 @@ export default function MenuChoiceModal({
   const { data: choiceGroups, isLoading } = useAxios<GetChoicesApiResponseDto>(
     `/choices?menu-id=${id}`
   );
-  const [topGunFlightInfo, setTopGunFlightInfo] = useState<TFlightInfo>({
+
+  const [flyingImageInfo, setFlyingImageInfo] = useState<TFlightInfo>({
     isFlying: false,
     startTop: 0,
     startLeft: 0,
   });
   const [userChoices, setUserChoices] = useState<IUserChoices | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+
   const cartState = useCartStateContext();
   const dispatchCart = useCartDispatchContext();
   const menuNameRef = useRef<HTMLDivElement | null>(null);
-
-  const isSameChoices = (aChoices: IChoice[], bChoices: IChoice[]) => {
-    if (aChoices.length !== bChoices.length) return false;
-    const aChoiceIds = aChoices.map((aChoice) => aChoice.id);
-    const bChoiceIds = bChoices.map((bChoice) => bChoice.id);
-    return aChoiceIds.every((aChoiceId) => bChoiceIds.includes(aChoiceId));
-  };
-
-  const findSameMenuInCart = () => {
-    if (!userChoices) return null;
-    const sameMenus = cartState.filter((cartItem) => cartItem.id === id);
-    const useChoiceValues = Object.keys(userChoices).map(
-      (key) => userChoices[+key].selectedChoice
-    );
-    return (
-      sameMenus.find((sameMenu) =>
-        isSameChoices(sameMenu.choices, useChoiceValues)
-      ) || null
-    );
-  };
 
   const addToCart = () => {
     let choices;
@@ -98,8 +80,41 @@ export default function MenuChoiceModal({
     dispatchCart({ type: sameMenu ? 'UPDATE' : 'ADD', itemData });
   };
 
+  const caculateMenuPrice = () => {
+    if (!userChoices) return basePrice;
+    const userChoiceResults = Object.values(userChoices);
+    const totalExtraCharge = userChoiceResults.reduce(
+      (extraCharge, userChoice) => {
+        const currentChoiceCharge = userChoice.selectedChoice?.extraCharge || 0;
+        return (extraCharge + currentChoiceCharge) * quantity;
+      },
+      0
+    );
+    return basePrice + totalExtraCharge;
+  };
+
+  const findSameMenuInCart = () => {
+    if (!userChoices) return null;
+    const sameMenus = cartState.filter((cartItem) => cartItem.id === id);
+    const useChoiceValues = Object.keys(userChoices).map(
+      (key) => userChoices[+key].selectedChoice
+    );
+    return (
+      sameMenus.find((sameMenu) =>
+        isSameChoices(sameMenu.choices, useChoiceValues)
+      ) || null
+    );
+  };
+
+  const isSameChoices = (aChoices: IChoice[], bChoices: IChoice[]) => {
+    if (aChoices.length !== bChoices.length) return false;
+    const aChoiceIds = aChoices.map((aChoice) => aChoice.id);
+    const bChoiceIds = bChoices.map((bChoice) => bChoice.id);
+    return aChoiceIds.every((aChoiceId) => bChoiceIds.includes(aChoiceId));
+  };
+
   const handleAddButtonClick = () => {
-    setTopGunFlightInfo((prev) => ({ ...prev, isFlying: true }));
+    setFlyingImageInfo((prev) => ({ ...prev, isFlying: true }));
     setTimeout(() => {
       addToCart();
       closeModal();
@@ -114,19 +129,6 @@ export default function MenuChoiceModal({
     });
   };
 
-  const caculateMenuPrice = () => {
-    if (!userChoices) return basePrice;
-    const userChoiceResults = Object.values(userChoices);
-    const totalExtraCharge = userChoiceResults.reduce(
-      (extraCharge, userChoice) => {
-        const currentChoiceCharge = userChoice.selectedChoice?.extraCharge || 0;
-        return (extraCharge + currentChoiceCharge) * quantity;
-      },
-      0
-    );
-    return basePrice + totalExtraCharge;
-  };
-
   const isAllEssentialOptionSelected = () => {
     if (!userChoices) return false;
     const choiceValues = Object.values(userChoices);
@@ -134,13 +136,6 @@ export default function MenuChoiceModal({
       (choice) => choice.isOptional || choice.selectedChoice
     );
   };
-
-  useEffect(() => {
-    if (!menuNameRef.current) return;
-    const { top, left } = menuNameRef.current.getBoundingClientRect();
-    const newInfo = { ...topGunFlightInfo, startTop: top, startLeft: left };
-    setTopGunFlightInfo(newInfo);
-  }, [menuNameRef]);
 
   useEffect(() => {
     if (isLoading || !choiceGroups) return;
@@ -157,10 +152,18 @@ export default function MenuChoiceModal({
     setUserChoices(initialUserChoices);
   }, [isLoading]);
 
+  useEffect(() => {
+    if (!menuNameRef.current) return;
+    const { top, left } = menuNameRef.current.getBoundingClientRect();
+    const newInfo = { ...flyingImageInfo, startTop: top, startLeft: left };
+    setFlyingImageInfo(newInfo);
+  }, [menuNameRef]);
+
   const Portal = portalStore.makePortal();
-  return topGunFlightInfo.isFlying ? (
+
+  return flyingImageInfo.isFlying ? (
     <Portal>
-      <TopGunThumbnail src={imgUrl} topGunFlightInfo={topGunFlightInfo} />
+      <TopGunThumbnail src={imgUrl} flyingImageInfo={flyingImageInfo} />
     </Portal>
   ) : (
     <CustomModal closeModal={closeModal}>
@@ -235,7 +238,7 @@ const TotalPrice = styled.span`
   margin: 3rem 0 1.5rem 0;
 `;
 
-const TopGunThumbnail = styled.img<{ topGunFlightInfo: TFlightInfo }>`
+const TopGunThumbnail = styled.img<{ flyingImageInfo: TFlightInfo }>`
   position: fixed;
   width: 10rem;
   height: 10rem;
@@ -244,16 +247,15 @@ const TopGunThumbnail = styled.img<{ topGunFlightInfo: TFlightInfo }>`
 
   @keyframes flight {
     from {
-      top: ${({ topGunFlightInfo }) => `${topGunFlightInfo.startTop}px`};
-      left: ${({ topGunFlightInfo }) => `${topGunFlightInfo.startLeft}px`};
+      top: ${({ flyingImageInfo }) => `${flyingImageInfo.startTop}px`};
+      left: ${({ flyingImageInfo }) => `${flyingImageInfo.startLeft}px`};
       width: 10rem;
       height: 10rem;
       opacity: 1;
     }
     to {
-      top: ${({ topGunFlightInfo }) => `${topGunFlightInfo.startTop - 100}px`};
-      left: ${({ topGunFlightInfo }) =>
-        `${topGunFlightInfo.startLeft + 400}px`};
+      top: ${({ flyingImageInfo }) => `${flyingImageInfo.startTop - 180}px`};
+      left: ${({ flyingImageInfo }) => `${flyingImageInfo.startLeft + 400}px`};
       width: 3rem;
       height: 3rem;
       opacity: 0.3;
