@@ -20,7 +20,7 @@ export default function ShowBillStage({
   if (!orderResult) return <div>todo: 에러페이지</div>;
 
   const handleDisplayTime = (leftTime: number, timerId: NodeJS.Timer) => {
-    if (leftTime > 0) return;
+    if (leftTime > -100000000) return;
     clearInterval(timerId);
     closeModal();
   };
