@@ -53,7 +53,7 @@ export interface IMenusGroupByCategory extends ICategory {
 type TServerSavedSoldMenu = {
   menuName: string;
   quantity: number;
-  sales: number;
+  price: number;
   choiceSummary: string;
 };
 
