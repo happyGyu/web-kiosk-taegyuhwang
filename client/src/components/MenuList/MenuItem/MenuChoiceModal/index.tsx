@@ -110,36 +110,36 @@ export default function MenuChoiceModal({
 
   return (
     <CustomModal closeModal={closeModal}>
-      <Container width="100%">
-        <CommonModalHeader>
-          <h2>옵션 선택</h2>
-        </CommonModalHeader>
-        <ContentBody>
-          <Container flexInfo={{ direction: 'column', align: 'center' }}>
-            <MenuThumbnail size="L" imgUrl={imgUrl} />
-            <MenuName>{name}</MenuName>
-            <TotalPrice>{formatMoneyString(caculateMenuPrice())}</TotalPrice>
-            <QuantityController
-              quantity={quantity}
-              setQuantity={setQuantity}
-              min={policy.MIN_ORDER_QUANTITY}
-              max={policy.MAX_ORDER_QUANTITY}
-              size="L"
-            />
-          </Container>
-          <Container flexInfo={{ direction: 'column' }} gap={2}>
-            {userChoices &&
-              choiceGroups?.map((choiceGroup, idx) => (
-                <ChoiceGroup
-                  key={choiceGroup.id}
-                  choiceGroupData={choiceGroup}
-                  idx={idx}
-                  userChoice={userChoices[choiceGroup.id]}
-                  selectChoice={selectChoice}
-                />
-              ))}
-          </Container>
-        </ContentBody>
+      <CommonModalHeader>
+        <h2>옵션 선택</h2>
+      </CommonModalHeader>
+      <ContentBody>
+        <Container flexInfo={{ direction: 'column', align: 'center' }}>
+          <MenuThumbnail size="L" imgUrl={imgUrl} />
+          <MenuName>{name}</MenuName>
+          <TotalPrice>{formatMoneyString(caculateMenuPrice())}</TotalPrice>
+          <QuantityController
+            quantity={quantity}
+            setQuantity={setQuantity}
+            min={policy.MIN_ORDER_QUANTITY}
+            max={policy.MAX_ORDER_QUANTITY}
+            size="L"
+          />
+        </Container>
+        <Container flexInfo={{ direction: 'column' }} gap={2}>
+          {userChoices &&
+            choiceGroups?.map((choiceGroup, idx) => (
+              <ChoiceGroup
+                key={choiceGroup.id}
+                choiceGroupData={choiceGroup}
+                idx={idx}
+                userChoice={userChoices[choiceGroup.id]}
+                selectChoice={selectChoice}
+              />
+            ))}
+        </Container>
+      </ContentBody>
+      <Container padding="0 5rem 4rem 5rem">
         <CommonModalButtons
           buttonInfos={[
             { text: '이전', buttonColor: colors.darkGrey, onClick: closeModal },
