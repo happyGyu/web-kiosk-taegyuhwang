@@ -85,6 +85,14 @@ export default function MenuChoiceModal({
     return basePrice + totalExtraCharge;
   };
 
+  const isAllEssentialOptionSelected = () => {
+    if (!userChoices) return false;
+    const choiceValues = Object.values(userChoices);
+    return choiceValues.every(
+      (choice) => choice.isOptional || choice.selectedChoice
+    );
+  };
+
   useEffect(() => {
     if (isLoading || !choiceGroups) return;
     const initialUserChoices = choiceGroups.reduce(
@@ -139,6 +147,7 @@ export default function MenuChoiceModal({
               text: '담기',
               buttonColor: colors.primary,
               onClick: handleAddButtonClick,
+              disabled: !isAllEssentialOptionSelected(),
             },
           ]}
         />
