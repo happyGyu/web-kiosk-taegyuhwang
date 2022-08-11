@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosStatic, Method } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useReducer } from 'react';
 
 export interface ResponseState<T> {
@@ -58,7 +58,12 @@ export default function useAxios<T>(
     const fetchData = async () => {
       dispatch({ type: 'LOADING' });
       try {
-        const response = await axios.request({ url, data, method, ...options });
+        const response = await axios.request({
+          url,
+          data,
+          method,
+          ...options,
+        });
         dispatch({ type: 'FETCHED', payload: response.data });
       } catch (error) {
         dispatch({ type: 'ERROR', payload: error as Error });
