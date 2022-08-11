@@ -32,12 +32,9 @@ export default function DragSlider({
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const sliderWidth = sliderRef.current?.getBoundingClientRect().width;
-    const childrenWidth =
-      sliderRef.current?.firstElementChild?.getBoundingClientRect().width;
+    const { sliderWidth, childrenWidth } = getSliderComponentsWidth();
     if (!sliderWidth || !childrenWidth) return;
-    const leftLimit = policy.DRAG_LIMIT_PX;
-    const rightLimit = sliderWidth - policy.DRAG_LIMIT_PX - childrenWidth;
+    const { leftLimit, rightLimit } = calPosLimit(sliderWidth, childrenWidth);
     setLimitState({ LEFT: leftLimit, RIGHT: rightLimit });
   }, [sliderRef]);
 
@@ -45,6 +42,19 @@ export default function DragSlider({
     if (isDragging) return;
     setSliderPos(handlePos(sliderPos, true));
   }, [isDragging]);
+
+  const getSliderComponentsWidth = () => {
+    const sliderWidth = sliderRef.current?.getBoundingClientRect().width;
+    const childrenWidth =
+      sliderRef.current?.firstElementChild?.getBoundingClientRect().width;
+    return { sliderWidth, childrenWidth };
+  };
+
+  const calPosLimit = (sliderWidth: number, childrenWidth: number) => {
+    const leftLimit = policy.DRAG_LIMIT_PX;
+    const rightLimit = sliderWidth - policy.DRAG_LIMIT_PX - childrenWidth;
+    return { leftLimit, rightLimit };
+  };
 
   const startDragging = (event: CMouseEvent) => {
     setOriginalPos(event.clientX - sliderPos);
@@ -56,8 +66,14 @@ export default function DragSlider({
     setOriginalPos(null);
   };
 
+  const isIntendedDrag = (event: CMouseEvent) => {
+    if (!originalPos) return false;
+    return Math.abs(event.clientX - originalPos) > policy.DRAG_THRESHIOLD;
+  };
+
   const handleMouseMove = (event: CMouseEvent) => {
     if (!originalPos) return;
+    if (!isIntendedDrag(event)) return;
     setIsDragging(true);
     setSliderPos(handlePos(event.clientX - originalPos));
   };

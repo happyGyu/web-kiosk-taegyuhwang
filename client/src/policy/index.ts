@@ -11,6 +11,7 @@ const PAYMENT_METHOD_NAMES = {
 const BILL_DISPLAYING_TIME = 7;
 const AVAILABLE_CASH = [50000, 10000, 5000, 1000, 500, 100];
 const DRAG_LIMIT_PX = 30;
+const DRAG_THRESHIOLD = 3;
 const policy = {
   MIN_ORDER_QUANTITY,
   MAX_ORDER_QUANTITY,
@@ -22,6 +23,7 @@ const policy = {
   BILL_DISPLAYING_TIME,
   AVAILABLE_CASH,
   DRAG_LIMIT_PX,
+  DRAG_THRESHIOLD,
 };
 
 export default policy;
