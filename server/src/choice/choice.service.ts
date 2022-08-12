@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -22,7 +22,14 @@ export class ChoiceService {
   }
 
   async getChoiceById(choiceId: number) {
-    return await this.choiceRepository.findOneBy({ id: choiceId });
+    try {
+      return await this.choiceRepository.findOneBy({ id: choiceId });
+    } catch (error) {
+      throw new HttpException(
+        { message: '존재하지 않는 옵션 아이디입니다.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async getExtraChargeById(choiceId: number) {

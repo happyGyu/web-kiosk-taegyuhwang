@@ -41,22 +41,18 @@ export default function EntrancePage() {
       height="100%"
       flexInfo={{ justify: 'center', align: 'center' }}
     >
-      {isInitializing ? (
-        <LoadingIndicator>로딩중</LoadingIndicator>
-      ) : (
-        <StartButton onClick={changePageToMain}>주문하기</StartButton>
-      )}
+      <StartButton isInitializing={isInitializing} onClick={changePageToMain}>
+        {isInitializing ? '키오스크 시작 중' : '주문하기'}
+      </StartButton>
     </Container>
   );
 }
 
-const StartButton = styled.button`
+const StartButton = styled.button<{ isInitializing: boolean }>`
   width: 20rem;
-  height: 5rem;
-  background-color: ${colors.primary};
+  padding: 2rem;
+  font-size: 2rem;
+  background-color: ${({ isInitializing }) =>
+    isInitializing ? colors.placeholder : colors.primary};
   color: ${colors.offWhite};
-`;
-
-const LoadingIndicator = styled.h1`
-  font-size: 5rem;
 `;

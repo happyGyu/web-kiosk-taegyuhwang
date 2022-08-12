@@ -1,6 +1,5 @@
 import useTimer from 'hooks/useTimer';
 import policy from 'policy';
-import { useCartDispatchContext } from 'store/cart/cartContext';
 import { colors } from 'style/constants';
 import mixin from 'style/mixin';
 import styled from 'styled-components';
@@ -17,12 +16,7 @@ export default function ShowBillStage({
   closeModal,
   orderResult,
 }: IShowBillStageProps) {
-  const handleDisplayTime = () => {
-    dispatchCart({ type: 'DELETE_ALL' });
-    closeModal();
-  };
-  const displayTime = useTimer(policy.BILL_DISPLAYING_TIME, handleDisplayTime);
-  const dispatchCart = useCartDispatchContext();
+  const displayTime = useTimer(policy.BILL_DISPLAYING_TIME, closeModal);
 
   if (!orderResult) return <div>todo: 에러페이지</div>;
 
@@ -93,6 +87,10 @@ const MenuName = styled.span`
   margin-top: 0.5rem;
   font-size: 1.5rem;
   font-weight: 500;
+  width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const MenuChoices = styled.span`

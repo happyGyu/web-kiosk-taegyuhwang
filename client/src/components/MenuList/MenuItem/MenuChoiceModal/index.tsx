@@ -86,7 +86,7 @@ export default function MenuChoiceModal({
     const totalExtraCharge = userChoiceResults.reduce(
       (extraCharge, userChoice) => {
         const currentChoiceCharge = userChoice.selectedChoice?.extraCharge || 0;
-        return (extraCharge + currentChoiceCharge) * quantity;
+        return extraCharge + currentChoiceCharge;
       },
       0
     );

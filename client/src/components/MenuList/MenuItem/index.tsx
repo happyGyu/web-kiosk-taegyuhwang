@@ -31,8 +31,8 @@ export default function MenuItem({
       <MenuItemContainer onClick={selectMenu}>
         <FadeInBox>
           <MenuThumbnail size="M" imgUrl={imgUrl} />
+          <MenuTitle>{name}</MenuTitle>
         </FadeInBox>
-        <MenuTitle>{name}</MenuTitle>
         {isSoldOut && (
           <SoldOutSkin>
             <SoldOutMessage>SOLD OUT</SoldOutMessage>
@@ -90,20 +90,25 @@ const SoldOutMessage = styled.span`
 `;
 
 const MenuTitle = styled.span`
+  display: table-cell;
   font-weight: 600;
-  padding: 1rem;
+  text-align: center;
+  padding: 0 1rem 1rem 1rem;
 `;
 
 const FadeInBox = styled.div`
+  position: absolute;
+  ${mixin.flexMixin({ direction: 'column', align: 'center' })}
+  gap: 1rem;
   animation: fadeIn 1s forwards;
 
   @keyframes fadeIn {
     from {
-      margin-bottom: 50%;
+      top: 100%;
       opacity: 0;
     }
     to {
-      margin-bottom: 0%;
+      top: 10%;
       opacity: 1;
     }
   }

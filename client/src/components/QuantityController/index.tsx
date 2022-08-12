@@ -4,6 +4,8 @@ import AddSharpIcon from '@mui/icons-material/AddSharp';
 import Container from 'components/common/Container';
 import mixin from 'style/mixin';
 import { colors } from 'style/constants';
+import { useState } from 'react';
+import MessageAlert from 'components/common/MessageAlert';
 
 type TControllerSize = 'S' | 'L';
 interface IQuantityController {
@@ -21,6 +23,7 @@ export default function QuantityController({
   max = 9,
   size,
 }: IQuantityController) {
+  const [isAlert, setIsAlert] = useState(false);
   const handleDecreaseButton = () => {
     setQuantity(quantity - 1);
   };
@@ -29,24 +32,32 @@ export default function QuantityController({
     if (quantity < max) {
       setQuantity(quantity + 1);
     } else {
-      alert('많은 주문은 카운터에 문의해주세요. 감사합니다.');
+      setIsAlert(true);
     }
   };
 
   return (
-    <Container flexInfo={{ align: 'center' }} gap={1}>
-      <CircleButton
-        size={size}
-        disabled={quantity === min}
-        onClick={handleDecreaseButton}
-      >
-        <RemoveSharpIcon />
-      </CircleButton>
-      <QuantityNumber size={size}>{quantity}</QuantityNumber>
-      <CircleButton size={size} onClick={handleIncreaseButton}>
-        <AddSharpIcon />
-      </CircleButton>
-    </Container>
+    <>
+      {isAlert && (
+        <MessageAlert
+          message="많은 주문은 카운터로 문의해주세요."
+          closeAlert={() => setIsAlert(false)}
+        />
+      )}
+      <Container flexInfo={{ align: 'center' }} gap={1}>
+        <CircleButton
+          size={size}
+          disabled={quantity === min}
+          onClick={handleDecreaseButton}
+        >
+          <RemoveSharpIcon />
+        </CircleButton>
+        <QuantityNumber size={size}>{quantity}</QuantityNumber>
+        <CircleButton size={size} onClick={handleIncreaseButton}>
+          <AddSharpIcon />
+        </CircleButton>
+      </Container>
+    </>
   );
 }
 

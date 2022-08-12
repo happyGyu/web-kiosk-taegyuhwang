@@ -1,7 +1,17 @@
+import { CreateMenuDto } from './dto/createMenuDto';
 import { Response } from 'express';
-import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
 
 import { MenuService } from './menu.service';
+import { CreateMenuHasChoiceDto } from './dto/createMenuHasChoiceDto';
 
 @Controller('menus')
 export class MenuController {
@@ -28,5 +38,20 @@ export class MenuController {
       parseInt(categoryId),
     );
     return res.status(HttpStatus.OK).json(salesRanking);
+  }
+
+  @Post()
+  async create(@Res() res: Response, @Body() createMenuDto: CreateMenuDto) {
+    const newMenu = await this.menuService.create(createMenuDto);
+    return res.status(HttpStatus.CREATED).json({ ok: true, data: newMenu });
+  }
+
+  @Post('choice')
+  async addChoiceToMenu(
+    @Res() res: Response,
+    @Body() createMenuHasChoiceDto: CreateMenuHasChoiceDto,
+  ) {
+    await this.menuService.createMenuHasChoice(createMenuHasChoiceDto);
+    return res.status(HttpStatus.CREATED).json({ ok: true });
   }
 }

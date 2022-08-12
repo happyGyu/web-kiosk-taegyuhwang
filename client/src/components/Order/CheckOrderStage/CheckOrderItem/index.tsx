@@ -61,7 +61,7 @@ const CheckOrderItemWrapper = styled.div`
 `;
 
 const OrderMenuInfo = styled.div`
-  margin-left: 2rem;
+  margin-left: 1.5rem;
   flex-grow: 1;
   ${mixin.flexMixin({ direction: 'column', justify: 'space-around' })}
 `;
@@ -70,6 +70,10 @@ const MenuName = styled.span`
   margin-top: 0.5rem;
   font-size: 1.5rem;
   font-weight: 500;
+  width: 15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const MenuChoices = styled.span`

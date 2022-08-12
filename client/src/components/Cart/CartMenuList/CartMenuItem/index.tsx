@@ -95,6 +95,10 @@ const MenuInfo = styled.div`
 `;
 
 const MenuTitle = styled.h3`
+  width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 1.125rem;
   font-weight: 500;
 `;
