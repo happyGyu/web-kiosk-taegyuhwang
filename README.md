@@ -14,6 +14,7 @@
 
 - [데모 보러 가기](http://3.34.193.200/)
 - [발표 영상](https://youtu.be/WP2WCj1P970)
+- [위키](https://github.com/woowa-techcamp-2022/web-kiosk-taegyuhwang/wiki) / [노션](https://alabaster-silica-d08.notion.site/f8e887c3d1d24d0396f859b8f489a758)
 
 <br>
 
